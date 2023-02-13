@@ -1,0 +1,14 @@
+@use "button";
+@import "variable";
+header {
+  width: 100%;
+  height: 78px;
+  background-color: $white;
+  border: 0.5px $grey solid;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 7px 55px;
+}

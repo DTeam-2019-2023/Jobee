@@ -1,0 +1,29 @@
+// Required
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+//size
+$small: 16px;
+$medium: 24px;
+$lage: 32px;
+$extral-lage: 64px;
+
+//color
+$theme-colors: (
+  "primary": $primary,
+  "danger": $danger,
+);
+$primary: #86a3b8;
+$line: #e8d2a6;
+$error: #f55050;
+$background: #fff2f2;
+$text_v: #f5f5f5;
+$success: #03c988;
+$black: #000000;
+$white: #ffffff;
+$grey: #cccccc;
+$light_grey: #f4f4f4;
+$blue: #0062e6;
+$grey2: #eeeeee;
+$green: #b0e07b;
+$pink: #ff8789;
