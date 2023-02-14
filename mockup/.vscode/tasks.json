@@ -9,22 +9,24 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "isBackground": true
     },
     {
       "label": "Run LiveServer",
       "type": "shell",
-      "command": "npm install -g live-server && live-server",
+      "command": "live-server",
       "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "isBackground": true
     },
     {
       "label": "auto start script",
       "type": "shell",
-      "command": "echo \"building script!\"",
+      "command": "echo \"building script!\" ${workspaceFolder}",
       "dependsOn": ["css mapping", "Run LiveServer"],
       "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
