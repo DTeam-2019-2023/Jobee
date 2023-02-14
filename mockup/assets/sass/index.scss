@@ -1,3 +1,5 @@
+//boostrap
+@use "../node_modules/bootstrap/scss/bootstrap.scss";
 //variable
 @use "variable";
 
@@ -5,6 +7,3 @@
 @use "reset";
 
 @use "header";
-
-//boostrap
-@import "../node_modules/bootstrap/scss/bootstrap.scss";

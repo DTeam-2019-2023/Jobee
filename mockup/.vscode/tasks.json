@@ -9,9 +9,7 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "runOptions": { "runOn": "folderOpen" },
-      "isBackground": true
+      }
     },
     {
       "label": "Run LiveServer",
@@ -21,7 +19,13 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      },
+      }
+    },
+    {
+      "label": "auto start script",
+      "type": "shell",
+      "command": "echo \"building script!\"",
+      "dependsOn": ["css mapping", "Run LiveServer"],
       "runOptions": { "runOn": "folderOpen" },
       "isBackground": true
     }

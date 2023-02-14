@@ -1,21 +1,23 @@
 @import "variable";
 .btn {
   border-radius: 12px;
+  font-family: $font-family;
+  font-style: normal;
+  font-weight: 800;
   font-size: 18.2px;
   line-height: 21px;
-  font-weight: 800;
   &--simpButton {
-    filter: drop-shadow(0px 6px 20px rgba(18, 18, 18, 0.1));
-    color: $primary !important;
+    text-shadow: 0px 6px 20px 0px #1212121a;
+    color: $primary;
   }
 
   &--button {
-    background-color: #8ea7e9 !important;
-    color: $white !important;
+    background-color: #8ea7e9;
+    color: $white;
     &:hover {
-      background-color: $white !important;
-      color: #8ea7e9 !important;
-      border: 1px solid #8ea7e9 !important;
+      background-color: $white;
+      color: #8ea7e9;
+      border: 1px solid #8ea7e9;
     }
   }
 }

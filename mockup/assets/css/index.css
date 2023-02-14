@@ -1,84 +1,4 @@
 @charset "UTF-8";
-*, *:before, *:after {
-  box-sizing: border-box;
-}
-
-html, body, div, span, object, iframe, figure, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, blockquote, pre, a, code, em, img, small, .small, strike, strong, sub, sup, tt, b, u, i, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td, main, canvas, embed, footer, header, nav, section, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  text-size-adjust: none;
-}
-
-footer, header, nav, section, main {
-  display: block;
-}
-
-body {
-  line-height: 1;
-}
-
-ol, ul {
-  list-style: none;
-}
-
-blockquote, q {
-  quotes: none;
-}
-
-blockquote:before, blockquote:after, q:before, q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-input {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
-.btn {
-  border-radius: 12px;
-  font-size: 18.2px;
-  line-height: 21px;
-  font-weight: 800;
-}
-.btn--simpButton {
-  filter: drop-shadow(0px 6px 20px rgba(18, 18, 18, 0.1));
-  color: #86a3b8 !important;
-}
-.btn--button {
-  background-color: #8ea7e9 !important;
-  color: #ffffff !important;
-}
-.btn--button:hover {
-  background-color: #ffffff !important;
-  color: #8ea7e9 !important;
-  border: 1px solid #8ea7e9 !important;
-}
-
-header {
-  width: 100%;
-  height: 78px;
-  background-color: #ffffff;
-  border: 0.5px #cccccc solid;
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  padding: 7px 55px;
-}
-
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -10848,6 +10768,105 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, code, em, img, small, strike, strong, sub, sup, tt, b, u, i, ol, ul, li, fieldset, form, label, table, caption, tbody, tfoot, thead, tr, th, td, main, canvas, embed, footer, header, nav, section, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
+
+footer, header, nav, section, main {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.btn {
+  border-radius: 12px;
+  font-family: "Nunito", sans-serif;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18.2px;
+  line-height: 21px;
+}
+.btn--simpButton {
+  text-shadow: 0px 6px 20px 0px rgba(18, 18, 18, 0.1019607843);
+  color: #86a3b8;
+}
+.btn--button {
+  background-color: #8ea7e9;
+  color: #ffffff;
+}
+.btn--button:hover {
+  background-color: #ffffff;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+header {
+  width: 100%;
+  height: 78px;
+  background-color: #ffffff;
+  border: 0.5px #cccccc solid;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 7px 55px;
 }
 
 /*# sourceMappingURL=index.css.map */
