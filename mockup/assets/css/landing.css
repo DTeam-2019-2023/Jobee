@@ -1,0 +1,369 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+code,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+main,
+canvas,
+embed,
+footer,
+header,
+nav,
+section,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
+
+footer,
+header,
+nav,
+section,
+main {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.container {
+  padding: 0px 55px;
+  padding-top: 78px;
+}
+
+* {
+  font-family: "Nunito", sans-serif !important;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+code,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+main,
+canvas,
+embed,
+footer,
+header,
+nav,
+section,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
+
+footer,
+header,
+nav,
+section,
+main {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.container {
+  padding: 0px 55px;
+  padding-top: 78px;
+}
+
+* {
+  font-family: "Nunito", sans-serif !important;
+}
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
+.btn {
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18.2px;
+  line-height: 21px;
+}
+.btn--simpButton {
+  text-shadow: 0px 6px 20px 0px rgba(18, 18, 18, 0.1019607843);
+  color: #86a3b8;
+}
+.btn--button {
+  background-color: #8ea7e9;
+  color: #ffffff;
+}
+.btn--button:hover {
+  background-color: #ffffff;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
+}
+
+header {
+  width: 100%;
+  height: 78px;
+  background-color: #ffffff;
+  border: 0.5px #cccccc solid;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 7px 55px;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+.inputTextContainer {
+  position: relative;
+  width: 380px;
+  height: 40px;
+  display: none;
+}
+.inputTextContainer .input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+  margin-top: 1em;
+  transition: border-bottom-color ease 0.25s;
+  margin-bottom: 0.5em;
+}
+.inputTextContainer .input:focus {
+  outline: none;
+  border-bottom: 5px solid #03c988;
+}
+.inputTextContainer .input:focus ~ .inputSpan {
+  color: #000000;
+  top: 15%;
+  animation: movingText 0.5s ease;
+}
+.inputTextContainer .inputSpan {
+  position: absolute;
+  font-weight: 700;
+  color: #86a3b8;
+  opacity: 0.6;
+  left: 1em;
+  top: 50%;
+}
+.inputTextContainer .inputError {
+  color: #f55050;
+  margin-left: 1em;
+  font-weight: 700;
+}
+.inputTextContainer .inputErrorIcon {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+}
+
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 15%;
+  }
+}
+.inputSelectContainer {
+  width: 380px;
+  height: 40px;
+  display: none;
+}
+.inputSelectContainer select {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+}
+.inputSelectContainer select:focus {
+  outline: none;
+}
+.inputSelectContainer select option {
+  background-color: transparent;
+}
+
+/*# sourceMappingURL=landing.css.map */

@@ -1,11 +1,14 @@
-//boostrap
-@use "../../node_modules/bootstrap/scss/bootstrap.scss";
-//variable
-@use "variable";
+//reset css
+@import "reset";
 
-//css reset
-@use "reset";
+@import "variables";
+@import "layout";
 
-@use "header";
-
-@use "input";
+* {
+  font-family: $font-family !important;
+}
+html,
+body {
+  height: 100%;
+  position: relative;
+}

@@ -1,58 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <!-- import css -->
-    <link rel="stylesheet" href="assets/css/index.css" />
-  </head>
+    <link rel="stylesheet" href="assets/css/landing.css">
+</head>
 
-  <body>
+<body>
     <header>
-      <a href="/" target="_blank" rel="noopener noreferrer">
-        <img src="assets/images/Logo.svg" alt="" srcset="" />
-      </a>
-      <div class="group-btn">
-        <a
-          class="btn btn--simpButton center"
-          role="button"
-          href="/templates/Login"
-          >Login</a
-        >
-        <a class="btn btn--button" role="button" href="/templates/SignUp"
-          >Signup</a
-        >
-      </div>
+        <a href="/" target="_blank" rel="noopener noreferrer">
+            <img src="assets/images/Logo.svg" alt="" srcset="" />
+        </a>
+        <div class="group-btn">
+            <a class="btn btn--simpButton center" role="button" href="/templates/Login">Login</a>
+            <a class="btn btn--button" role="button" href="/templates/SignUp">Signup</a>
+        </div>
     </header>
     <div class="container">
-      <!-- INPUT TEXT FIELD -->
-      <div class="inputTextContainer">
-        <input type="text" name="" id="" class="input" />
-        <span class="inputSpan">Input</span>
-        <img
-          src="./assets/images/Error.svg"
-          alt="Identify/Error"
-          class="inputErrorIcon"
-        />
-        <span class="inputError">Input error message</span>
-      </div>
+        <!-- INPUT TEXT FIELD -->
+        <div class="inputTextContainer">
+            <input type="text" name="" id="" class="input" />
+            <span class="inputSpan">Input</span>
+            <img src="./assets/images/Error.svg" alt="Identify/Error" class="inputErrorIcon" />
+            <span class="inputError">Input error message</span>
+        </div>
 
-      <!-- INPUT SELECT FIELD -->
-      <div class="inputSelectContainer">
-        <select name="InputSelectList" id="">
-          <option value="NameSelect">NameSelect</option>
-          <option value="1">Value 1</option>
-          <option value="2">Value 2</option>
-        </select>
-      </div>
+        <!-- INPUT SELECT FIELD -->
+        <div class="inputSelectContainer">
+            <select name="InputSelectList" id="">
+                <option value="NameSelect">NameSelect</option>
+                <option value="1">Value 1</option>
+                <option value="2">Value 2</option>
+            </select>
+        </div>
 
-      <!-- INPUT RADIO -->
-      <div class="inputRadioContainer">
-        <input type="radio" name="RadioName" id="radioId" />
-        <label for="radioId">Value</label>
-      </div>
+        <!-- INPUT RADIO -->
+        <div class="inputRadioContainer">
+            <input type="radio" name="RadioName" id="radioId" />
+            <label for="radioId">Value</label>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>

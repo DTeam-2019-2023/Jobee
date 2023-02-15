@@ -1,26 +1,13 @@
-@import "variable";
-.btn {
-  font-family: $font-family;
+//local
+@import "index";
 
+.btn {
   border-radius: 12px;
   font-style: normal;
   font-weight: 800;
   font-size: 18.2px;
   line-height: 21px;
   &--simpButton {
-    @include button-variant(
-      $white,
-      transparent,
-      $primary,
-      transparent,
-      transparent,
-      $primary,
-      transparent,
-      transparent,
-      $primary,
-      $white,
-      transparent $gray-100
-    );
     text-shadow: 0px 6px 20px 0px #1212121a;
     color: $primary;
   }
