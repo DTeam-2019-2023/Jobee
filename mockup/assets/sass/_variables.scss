@@ -1,7 +1,5 @@
 // Required
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
+
 //font face
 @font-face {
   font-family: "Nunito";
@@ -18,11 +16,6 @@ $medium: 24px;
 $lage: 32px;
 $extral-lage: 64px;
 
-//color
-$theme-colors: (
-  "primary": $primary,
-  "danger": $danger,
-);
 $primary: #86a3b8;
 $line: #e8d2a6;
 $error: #f55050;
