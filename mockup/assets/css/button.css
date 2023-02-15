@@ -6,10 +6,11 @@
 }
 .btn {
   font-family: "Nunito", sans-serif;
-  --bs-btn-padding-y: 12px;
-  --bs-btn-padding-x: 24px;
-  --bs-btn-font-size: 1.1375rem;
-  --bs-btn-border-radius: 12px;
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18.2px;
+  line-height: 21px;
 }
 .btn--simpButton {
   --bs-btn-color: #86a3b8;

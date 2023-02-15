@@ -5,7 +5,8 @@ header {
   height: 78px;
   background-color: $white;
   border: 0.5px $grey solid;
-  position: fixed;
+  // position: fixed;
+  position: sticky;
   display: flex;
   justify-content: space-between;
   align-items: center;

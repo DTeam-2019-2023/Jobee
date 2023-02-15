@@ -1,13 +1,12 @@
 @import "variable";
 .btn {
   font-family: $font-family;
-  @include button-size(12px, 24px, 18.2px, 12px);
 
-  // border-radius: 12px;
-  // font-style: normal;
-  // font-weight: 800;
-  // font-size: 18.2px;
-  // line-height: 21px;
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18.2px;
+  line-height: 21px;
   &--simpButton {
     @include button-variant(
       $white,
