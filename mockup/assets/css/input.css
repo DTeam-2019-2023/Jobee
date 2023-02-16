@@ -152,4 +152,34 @@
   width: 1em;
 }
 
+.searchGroupContainer {
+  margin-top: 1em;
+  height: 30px;
+}
+.searchGroupContainer .searchGroup {
+  border: 1px solid #cccccc;
+  width: fit-content;
+  border-radius: 5px;
+  height: 100%;
+  overflow: hidden;
+}
+.searchGroupContainer .searchGroup .searchGroupInput {
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding: 8px;
+  outline: none;
+}
+.searchGroupContainer .searchGroup .searchButton {
+  background-color: #cccccc;
+  height: 100%;
+  padding: 6px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.searchGroupContainer .searchGroup .searchButton:hover {
+  opacity: 0.8;
+}
+
 /*# sourceMappingURL=input.css.map */

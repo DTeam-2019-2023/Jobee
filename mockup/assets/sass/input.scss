@@ -173,3 +173,38 @@
     }
   }
 }
+
+// SEARCH GROUP
+.searchGroupContainer {
+  margin-top: 1em;
+  height: 30px;
+
+  .searchGroup {
+    border: 1px solid $grey;
+    width: fit-content;
+    border-radius: 5px;
+    height: 100%;
+    overflow: hidden;
+    
+    .searchGroupInput {
+      border-radius: 5px;
+      height: 100%;
+      border: none;
+      padding: 8px;
+      outline: none;
+    }
+
+    .searchButton {
+      background-color: $grey;
+      height: 100%;
+      padding: 6px;
+      font-size: .8em;
+      cursor: pointer;
+      transition: .25s;
+
+      &:hover {
+        opacity: .8;
+      }
+    }
+  }
+}
