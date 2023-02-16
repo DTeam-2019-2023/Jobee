@@ -80,3 +80,49 @@
     }
   }
 }
+
+//TEXT AREA
+.inputTextareaContainer {
+  width: 380px;
+  height: 40px;
+  position: relative;
+  margin-top: 1em;
+
+  .inputTxt {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
+    border-bottom: 5px solid $primary;
+    resize: none;
+    transition: .25s;
+
+    &:focus {
+      outline: none;
+
+      ~ .areaSpan {
+        top: -30%;
+        color: $black;
+        animation: movingArea ease .25s;
+      }
+    }
+  }
+
+  .areaSpan {
+    position: absolute;
+    font-weight: 700;
+    color: $primary;
+    opacity: 0.6;
+    left: .5em;
+    top: 20%;
+    font-size: 1em;
+  }
+}
+
+@keyframes movingArea {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: -30%;
+  }
+}
