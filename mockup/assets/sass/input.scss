@@ -87,6 +87,7 @@
   height: 40px;
   position: relative;
   margin-top: 1em;
+  display: none;
 
   .inputTxt {
     width: 100%;
@@ -124,5 +125,51 @@
   }
   100% {
     top: -30%;
+  }
+}
+
+// URL FIELD
+
+.urlFieldContainer {
+  margin-top: 1em;
+  height: 30px;
+
+  .urlField {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid $grey;
+    width: fit-content;
+    border-radius: 5px;
+    
+    .urlFieldInput {
+      border-radius: 5px;
+      border: none;
+      padding: 4px;
+      outline: none;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    .extendIconContainer {
+      display: flex;
+      background-color: $grey;
+      height: 100%;
+      width: 2em;
+      padding: 2px;
+      cursor: pointer;
+      transition: .25s;
+      justify-content: center;
+
+      &:hover {
+        opacity: .8;
+      }
+
+      #extendIcon {
+        width: 1em;
+      }
+    }
   }
 }
