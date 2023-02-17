@@ -475,4 +475,89 @@ header {
   opacity: 0.8;
 }
 
+.contentNavContainer {
+  margin-top: 1em;
+  padding: 8px;
+  background-color: #f4f4f4;
+}
+.contentNavContainer .contenNavHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #86a3b8;
+}
+.contentNavContainer .contenNavHeader .navHeaderTitle {
+  font-size: 1em;
+}
+.contentNavContainer .contenNavHeader .navHeaderButton {
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.contentNavContainer .contenNavHeader .navHeaderButton:hover {
+  transform: translateX(-10px);
+}
+.contentNavContainer .contenNavHeader .navHeaderButton img {
+  margin-right: 4px;
+  width: 16px;
+  height: 16px;
+}
+.contentNavContainer .contentNavBody {
+  border: 1px solid #cccccc;
+  padding: 4px;
+  margin-top: 1em;
+}
+.contentNavContainer .contentNavBody .contentItem {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  justify-content: space-between;
+}
+.contentNavContainer .contentNavBody .contentItem .itemFirst {
+  display: flex;
+  align-items: center;
+}
+.contentNavContainer .contentNavBody .contentItem .itemFirst .titleIcon {
+  width: 60px;
+}
+.contentNavContainer .contentNavBody .contentItem .itemFirst .titleName {
+  color: #0062e6;
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+.contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon {
+  font-size: 16px;
+  height: 16px;
+}
+.contentNavContainer .contentNavBody .contentItem .itemSubContent {
+  color: #03c988;
+  font-weight: 700;
+}
+.contentNavContainer .contentNavBody .contentItem .itemThird {
+  display: flex;
+  justify-content: space-between;
+  width: 5em;
+}
+.contentNavContainer .contentNavBody .contentItem .itemThird .actionIcon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  position: relative;
+  transition: transform ease 0.25s;
+}
+.contentNavContainer .contentNavBody .contentItem .itemThird .actionIcon:hover {
+  transform: translateY(-20px);
+}
+
+@keyframes actionIcon {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -1em;
+  }
+}
+
 /*# sourceMappingURL=landing.css.map */
