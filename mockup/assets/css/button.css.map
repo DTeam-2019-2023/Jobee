@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+{"version":3,"sourceRoot":"","sources":["../sass/variable.scss","../sass/button.scss","../../node_modules/bootstrap/scss/mixins/_buttons.scss"],"names":[],"mappings":"AAKA;EACE;EACA;EACA;EACA;;ACRF;EACE,aDWY;ECTZ;EACA;EACA;EACA;EACA;;AACA;ECWA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EDVE;EACA,ODKM;;ACFR;EACE;EACA,ODOI;;ACNJ;EACE,kBDKE;ECJF;EACA","file":"button.css"}
+=======
 {"version":3,"sourceRoot":"","sources":["../sass/variable.scss","../sass/button.scss","../../node_modules/bootstrap/scss/mixins/_buttons.scss"],"names":[],"mappings":"AAKA;EACE;EACA;EACA;EACA;;ACRF;EACE;EACA;EACA;EACA;EACA;;AACA;ECaA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EACA;EDZE;EACA,ODGM;;ACAR;EACE;EACA,ODKI;;ACJJ;EACE,kBDGE;ECFF;EACA","file":"button.css"}
+>>>>>>> main

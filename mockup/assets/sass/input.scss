@@ -1,0 +1,176 @@
+@import "variables";
+@import "button";
+
+// INPUT TEXT FIELD
+.inputTextContainer {
+  position: relative;
+  width: 380px;
+  height: 40px;
+  display: none;
+  .input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
+    border-bottom: 5px solid $primary; //$error
+    //del
+    margin-top: 1em;
+    transition: border-bottom-color ease 0.25s;
+    margin-bottom: 0.5em;
+
+    &:focus {
+      outline: none;
+      border-bottom: 5px solid $success;
+
+      ~ .inputSpan {
+        color: $black;
+        top: 15%;
+        animation: movingText 0.5s ease;
+      }
+    }
+  }
+
+  .inputSpan {
+    position: absolute;
+    font-weight: 700;
+    color: $primary;
+    opacity: 0.6;
+    left: 1em;
+    top: 50%;
+  }
+
+  .inputError {
+    color: $error;
+    margin-left: 1em;
+    font-weight: $fw700;
+  }
+
+  .inputErrorIcon {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+  }
+}
+
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 15%;
+  }
+}
+
+// SELECT FIELD
+.inputSelectContainer {
+  width: 380px;
+  height: 40px;
+  display: none;
+
+  select {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
+    border-bottom: 5px solid $primary;
+
+    &:focus {
+      outline: none;
+    }
+
+    option {
+      background-color: transparent;
+    }
+  }
+}
+
+//TEXT AREA
+.inputTextareaContainer {
+  width: 380px;
+  height: 40px;
+  position: relative;
+  margin-top: 1em;
+  display: none;
+
+  .inputTxt {
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
+    border-bottom: 5px solid $primary;
+    resize: none;
+    transition: .25s;
+
+    &:focus {
+      outline: none;
+
+      ~ .areaSpan {
+        top: -30%;
+        color: $black;
+        animation: movingArea ease .25s;
+      }
+    }
+  }
+
+  .areaSpan {
+    position: absolute;
+    font-weight: 700;
+    color: $primary;
+    opacity: 0.6;
+    left: .5em;
+    top: 20%;
+    font-size: 1em;
+  }
+}
+
+@keyframes movingArea {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: -30%;
+  }
+}
+
+// URL FIELD
+
+.urlFieldContainer {
+  margin-top: 1em;
+  height: 30px;
+
+  .urlField {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid $grey;
+    width: fit-content;
+    border-radius: 5px;
+    
+    .urlFieldInput {
+      border-radius: 5px;
+      border: none;
+      padding: 4px;
+      outline: none;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+
+    .extendIconContainer {
+      display: flex;
+      background-color: $grey;
+      height: 100%;
+      width: 2em;
+      padding: 2px;
+      cursor: pointer;
+      transition: .25s;
+      justify-content: center;
+
+      &:hover {
+        opacity: .8;
+      }
+
+      #extendIcon {
+        width: 1em;
+      }
+    }
+  }
+}

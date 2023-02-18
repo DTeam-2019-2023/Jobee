@@ -13,8 +13,12 @@ $font-family: "Nunito", sans-serif !default;
 //size
 $small: 16px;
 $medium: 24px;
-$lage: 32px;
+$large: 32px;
 $extral-lage: 64px;
+
+//weight
+$fw700: 700;
+$fw500: 500;
 
 $primary: #86a3b8;
 $line: #e8d2a6;
@@ -30,3 +34,5 @@ $blue: #0062e6;
 $grey2: #eeeeee;
 $green: #b0e07b;
 $pink: #ff8789;
+$overlay: rgba(0,0,0,0.6);
+$light_primary: #8EA7E9;
