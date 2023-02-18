@@ -6,7 +6,7 @@
   font-style: normal;
   font-weight: 800;
   font-size: 18.2px;
-  line-height: 21px;
+  line-height: 30px; //fixed 21 -> 30
   &--simpButton {
     text-shadow: 0px 6px 20px 0px #1212121a;
     color: $primary;
@@ -20,5 +20,25 @@
       color: #8ea7e9;
       border: 1px solid #8ea7e9;
     }
+  }
+
+  &--Edit {
+    background-color: $light_primary;
+    border: 1px solid $light_primary;
+    color: $white;
+    width: 5em;
+    border-radius: 8px;
+    font-weight: $fw500;
+    cursor: pointer;
+  }
+
+  &--Delete {
+    background-color: $error;
+    border: 1px solid $error;
+    color: $white;
+    width: 5em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: $fw500;
   }
 }

@@ -1,130 +1,18 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
+/* Error: This file is already being loaded.
+ *   ,
+ * 1 | @import "index";
+ *   |         ^^^^^^^
+ *   '
+ *   assets\sass\components.scss 1:9  @import
+ *   assets\sass\index.scss 7:9       root stylesheet */
 
-html,
-body,
-div,
-span,
-object,
-iframe,
-figure,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-code,
-em,
-img,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-b,
-u,
-i,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-main,
-canvas,
-embed,
-footer,
-header,
-nav,
-section,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  text-size-adjust: none;
-}
-
-footer,
-header,
-nav,
-section,
-main {
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
   display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: 'Error: This file is already being loaded.\a   \2577 \a 1 \2502  @import "index";\d\a   \2502          ^^^^^^^\a   \2575 \a   assets\\sass\\components.scss 1:9  @import\a   assets\\sass\\index.scss 7:9       root stylesheet';
 }
-
-body {
-  line-height: 1;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-blockquote,
-q {
-  quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-input {
-  -webkit-appearance: none;
-  border-radius: 0;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-.container {
-  padding: 0px 55px;
-  padding-top: 78px;
-}
-
-* {
-  font-family: "Nunito", sans-serif !important;
-}
-
-html,
-body {
-  height: 100%;
-  position: relative;
-}
-
-/*# sourceMappingURL=index.css.map */
