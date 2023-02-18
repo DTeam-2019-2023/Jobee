@@ -1,195 +1,192 @@
-@import "index";
 @import "button";
 
 // SEARCH GROUP
 .searchGroupContainer {
-    margin-top: 1em;
-    height: 30px;
-  
-    .searchGroup {
-      border: 1px solid $grey;
-      width: fit-content;
+  margin-top: 1em;
+  height: 30px;
+
+  .searchGroup {
+    border: 1px solid $grey;
+    width: fit-content;
+    border-radius: 5px;
+    height: 100%;
+    overflow: hidden;
+
+    .searchGroupInput {
       border-radius: 5px;
       height: 100%;
-      overflow: hidden;
-      
-      .searchGroupInput {
-        border-radius: 5px;
-        height: 100%;
-        border: none;
-        padding: 8px;
-        outline: none;
+      border: none;
+      padding: 8px;
+      outline: none;
+    }
+
+    .searchButton {
+      background-color: $grey;
+      height: 100%;
+      padding: 6px;
+      font-size: 0.8em;
+      cursor: pointer;
+      transition: 0.25s;
+
+      &:hover {
+        opacity: 0.8;
       }
-  
-      .searchButton {
-        background-color: $grey;
-        height: 100%;
-        padding: 6px;
-        font-size: .8em;
-        cursor: pointer;
-        transition: .25s;
-  
-        &:hover {
-          opacity: .8;
+    }
+  }
+}
+
+// CONTENT NAVIGATION
+.contentNavContainer {
+  margin-top: 1em;
+  padding: 8px;
+  background-color: $light_grey;
+
+  .contenNavHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: $primary;
+
+    .navHeaderTitle {
+      font-size: 1em;
+    }
+
+    .navHeaderButton {
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.25s;
+
+      &:hover {
+        transform: translateX(-10px);
+      }
+
+      img {
+        margin-right: 4px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .contentNavBody {
+    border: 1px solid $grey;
+    padding: 4px;
+    margin-top: 1em;
+
+    .contentItem {
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      justify-content: space-between;
+
+      .itemFirst {
+        display: flex;
+        align-items: center;
+
+        .titleIcon {
+          width: 60px;
+        }
+
+        .titleName {
+          color: $blue;
+          font-weight: $fw700;
+          margin-right: 0.5em;
+        }
+
+        .verifyIcon {
+          font-size: 16px;
+          height: 16px;
+          // display: none; //show or hide the icon
+        }
+      }
+
+      .itemSubContent {
+        color: $success;
+        font-weight: $fw700;
+      }
+
+      .itemThird {
+        display: flex;
+        justify-content: space-between;
+        width: 5em;
+        .actionIcon {
+          width: 16px;
+          height: 16px;
+          cursor: pointer;
+          position: relative;
+          transition: transform ease 0.25s;
+
+          &:hover {
+            transform: translateY(-20px);
+          }
         }
       }
     }
   }
-  
-  // CONTENT NAVIGATION
-  .contentNavContainer {
-    margin-top: 1em;
-    padding: 8px;
-    background-color: $light_grey;
-  
-    .contenNavHeader {    
+}
+
+//CONTENT POPUP
+.overlayContentPopup {
+  background-color: $overlay;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+
+  .contentPopupContainer {
+    width: 700px;
+    height: 450px;
+    background-color: $white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    border-radius: 10px;
+
+    .contentLeft {
+      border-radius: 10px 0 0 10px;
+      width: 40%;
+      background-color: $line;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      color: $primary;
-  
-      .navHeaderTitle {
-        font-size: 1em;
-      }
-      
-      .navHeaderButton {
-        font-size: 1em;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        transition: .25s;
-  
-        &:hover {
-          transform: translateX(-10px);
-        }
-  
-        img {
-          margin-right: 4px;
-          width: 16px;
-          height: 16px;
-        }
+      padding: 8px;
+      .contentTitle {
+        font-weight: $fw700;
+        font-size: $large;
       }
     }
-  
-    .contentNavBody {
-      border: 1px solid $grey;
-      padding: 4px;
-      margin-top: 1em;
-  
-      .contentItem {
+
+    .contentRight {
+      width: 60%;
+
+      .rowContentItem {
+        background-color: $light_grey;
         display: flex;
         align-items: center;
-        padding: 0 8px;
-        justify-content: space-between;
-  
-        .itemFirst {
-          display: flex;
-          align-items: center;
-  
-          .titleIcon {
-            width: 60px;
-          }
-  
-          .titleName {
-            color: $blue;
-            font-weight: $fw700;
-            margin-right: 0.5em;
-          }
-  
-          .verifyIcon {
-            font-size: 16px;
-            height: 16px;
-            // display: none; //show or hide the icon
-          }
+        height: 5rem;
+        margin: 0.5em;
+        padding: 8px;
+
+        .rowContentItemText {
+          font-size: $small;
+          margin-left: 0.5em;
+          font-weight: $fw700;
         }
-  
-          .itemSubContent {
-            color: $success;
-            font-weight: $fw700;
-          }
-  
-          .itemThird {
-            display: flex;
-            justify-content: space-between;
-            width: 5em;
-            .actionIcon {
-  
-              width: 16px;
-              height: 16px;
-              cursor: pointer;
-              position: relative;
-              transition: transform ease .25s;
-  
-              &:hover {
-                transform: translateY(-20px);
-              }
-           }
-          }
+
+        .linkIcon {
+          width: 3.5em;
         }
       }
-    } 
-  
-    //CONTENT POPUP
-    .overlayContentPopup {
-      background-color: $overlay;
-      position: fixed;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-   
-      .contentPopupContainer {
-        width: 700px;
-        height: 450px;
-        background-color: $white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        border-radius: 10px;
-        
-        .contentLeft {
-          border-radius: 10px 0 0 10px;
-          width: 40%;
-          background-color: $line;
-          display: flex;
-          align-items: center;
-          padding: 8px;
-          .contentTitle {
-              font-weight: $fw700;
-              font-size: $large;
-          }
-        }
-  
-        .contentRight {
-          width: 60%;
-  
-          .rowContentItem {
-            background-color: $light_grey;
-            display: flex;
-            align-items: center;
-            height: 5rem;
-            margin: .5em;
-            padding: 8px;
-  
-            .rowContentItemText {
-              font-size: $small;
-              margin-left: 0.5em;
-              font-weight: $fw700;
-            }
-  
-            .linkIcon {
-              width: 3.5em;
-            }
-          }
-  
-          //BUTTON
-          .contentPopupButton {
-            margin: 1em 1em 0 0;
-            float: right;
-          }
-        }
+
+      //BUTTON
+      .contentPopupButton {
+        margin: 1em 1em 0 0;
+        float: right;
       }
     }
-  
+  }
+}
