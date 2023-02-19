@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 *,
 *:before,
 *:after {
@@ -106,12 +112,16 @@ input {
   border-radius: 0;
 }
 
-@font-face {
-  font-family: "Nunito";
-  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+* {
+  font-family: "Nunito", sans-serif !important;
 }
+
+html,
+body {
+  height: 100%;
+  position: relative;
+}
+
 .container {
   padding: 0px 55px;
   padding-top: 78px;
@@ -156,34 +166,205 @@ input {
   font-weight: 500;
 }
 
-.searchGroupContainer {
+.inputTextContainer {
+  position: relative;
+  width: 380px;
+  height: 40px;
+  display: none;
+}
+.inputTextContainer .input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+  margin-top: 1em;
+  transition: border-bottom-color ease 0.25s;
+  margin-bottom: 0.5em;
+}
+.inputTextContainer .input:focus {
+  outline: none;
+  border-bottom: 5px solid #03c988;
+}
+.inputTextContainer .input:focus ~ .inputSpan {
+  color: #000000;
+  top: 15%;
+  animation: movingText 0.5s ease;
+}
+.inputTextContainer .inputSpan {
+  position: absolute;
+  font-weight: 700;
+  color: #86a3b8;
+  opacity: 0.6;
+  left: 1em;
+  top: 50%;
+}
+.inputTextContainer .inputError {
+  color: #f55050;
+  margin-left: 1em;
+  font-weight: 700;
+}
+.inputTextContainer .inputErrorIcon {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+}
+
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 15%;
+  }
+}
+.inputSelectContainer {
+  width: 380px;
+  height: 40px;
+  display: none;
+}
+.inputSelectContainer select {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+}
+.inputSelectContainer select:focus {
+  outline: none;
+}
+.inputSelectContainer select option {
+  background-color: transparent;
+}
+
+.inputTextareaContainer {
+  width: 380px;
+  height: 40px;
+  position: relative;
+  margin-top: 1em;
+  display: none;
+}
+.inputTextareaContainer .inputTxt {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+  resize: none;
+  transition: 0.25s;
+}
+.inputTextareaContainer .inputTxt:focus {
+  outline: none;
+}
+.inputTextareaContainer .inputTxt:focus ~ .areaSpan {
+  top: -30%;
+  color: #000000;
+  animation: movingArea ease 0.25s;
+}
+.inputTextareaContainer .areaSpan {
+  position: absolute;
+  font-weight: 700;
+  color: #86a3b8;
+  opacity: 0.6;
+  left: 0.5em;
+  top: 20%;
+  font-size: 1em;
+}
+
+@keyframes movingArea {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: -30%;
+  }
+}
+.urlFieldContainer {
   margin-top: 1em;
   height: 30px;
 }
-.searchGroupContainer .searchGroup {
+.urlFieldContainer .urlField {
+  height: 100%;
+  display: flex;
+  align-items: center;
   border: 1px solid #cccccc;
   width: fit-content;
   border-radius: 5px;
-  height: 100%;
-  overflow: hidden;
 }
-.searchGroupContainer .searchGroup .searchGroupInput {
+.urlFieldContainer .urlField .urlFieldInput {
   border-radius: 5px;
-  height: 100%;
   border: none;
-  padding: 8px;
+  padding: 4px;
   outline: none;
 }
-.searchGroupContainer .searchGroup .searchButton {
+.urlFieldContainer .urlField .urlFieldInput::placeholder {
+  color: #cccccc;
+}
+.urlFieldContainer .urlField .extendIconContainer {
+  display: flex;
   background-color: #cccccc;
   height: 100%;
-  padding: 6px;
-  font-size: 0.8em;
+  width: 2em;
+  padding: 2px;
   cursor: pointer;
   transition: 0.25s;
+  justify-content: center;
 }
-.searchGroupContainer .searchGroup .searchButton:hover {
+.urlFieldContainer .urlField .extendIconContainer:hover {
   opacity: 0.8;
+}
+.urlFieldContainer .urlField .extendIconContainer #extendIcon {
+  width: 1em;
+}
+
+.btn {
+  border-radius: 12px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 18.2px;
+  line-height: 30px;
+}
+.btn--simpButton {
+  text-shadow: 0px 6px 20px 0px rgba(18, 18, 18, 0.1019607843);
+  color: #86a3b8;
+}
+.btn--button {
+  background-color: #8ea7e9;
+  color: #ffffff;
+}
+.btn--button:hover {
+  background-color: #ffffff;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
+}
+.btn--Edit {
+  background-color: #8EA7E9;
+  border: 1px solid #8EA7E9;
+  color: #ffffff;
+  width: 5em;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.btn--Delete {
+  background-color: #f55050;
+  border: 1px solid #f55050;
+  color: #ffffff;
+  width: 5em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+header {
+  width: 100%;
+  height: 78px;
+  background-color: #ffffff;
+  border: 0.5px #cccccc solid;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding: 7px 55px;
 }
 
 .contentNavContainer {
@@ -317,14 +498,34 @@ input {
   float: right;
 }
 
-* {
-  font-family: "Nunito", sans-serif !important;
+.searchGroupContainer {
+  margin-top: 1em;
+  height: 30px;
 }
-
-html,
-body {
+.searchGroupContainer .searchGroup {
+  border: 1px solid #cccccc;
+  width: fit-content;
+  border-radius: 5px;
   height: 100%;
-  position: relative;
+  overflow: hidden;
+}
+.searchGroupContainer .searchGroup .searchGroupInput {
+  border-radius: 5px;
+  height: 100%;
+  border: none;
+  padding: 8px;
+  outline: none;
+}
+.searchGroupContainer .searchGroup .searchButton {
+  background-color: #cccccc;
+  height: 100%;
+  padding: 6px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.searchGroupContainer .searchGroup .searchButton:hover {
+  opacity: 0.8;
 }
 
 /*# sourceMappingURL=index.css.map */

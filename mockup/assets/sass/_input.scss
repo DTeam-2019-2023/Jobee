@@ -1,6 +1,3 @@
-@import "variables";
-@import "button";
-
 // INPUT TEXT FIELD
 .inputTextContainer {
   position: relative;
@@ -96,7 +93,7 @@
     border: 1px solid $white;
     border-bottom: 5px solid $primary;
     resize: none;
-    transition: .25s;
+    transition: 0.25s;
 
     &:focus {
       outline: none;
@@ -104,7 +101,7 @@
       ~ .areaSpan {
         top: -30%;
         color: $black;
-        animation: movingArea ease .25s;
+        animation: movingArea ease 0.25s;
       }
     }
   }
@@ -114,7 +111,7 @@
     font-weight: 700;
     color: $primary;
     opacity: 0.6;
-    left: .5em;
+    left: 0.5em;
     top: 20%;
     font-size: 1em;
   }
@@ -142,7 +139,7 @@
     border: 1px solid $grey;
     width: fit-content;
     border-radius: 5px;
-    
+
     .urlFieldInput {
       border-radius: 5px;
       border: none;
@@ -161,11 +158,11 @@
       width: 2em;
       padding: 2px;
       cursor: pointer;
-      transition: .25s;
+      transition: 0.25s;
       justify-content: center;
 
       &:hover {
-        opacity: .8;
+        opacity: 0.8;
       }
 
       #extendIcon {
