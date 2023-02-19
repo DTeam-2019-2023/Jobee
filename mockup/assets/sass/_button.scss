@@ -1,6 +1,4 @@
 //local
-@import "index";
-
 .btn {
   font-family: $font-family;
   font-style: normal;
@@ -17,7 +15,7 @@
 
   &--simpButton {
     text-shadow: 0px 6px 20px 0px #1212121a;
-    color: $primary;
+    color: $light_primary;
     border: none;
     box-shadow: none;
     &:hover {
@@ -26,37 +24,32 @@
   }
 
   &--button {
-    background-color: $primary;
+    background-color: $light_primary;
     color: $white;
     &:hover {
       background-color: $white;
       color: $primary;
-      border: 1px solid $primary ;
+      border: 1px solid $primary;
     }
   }
+
+  &--Edit {
+    background-color: $light_primary;
+    border: 1px solid $light_primary;
+    color: $white;
+    width: 5em;
+    border-radius: 8px;
+    font-weight: $fw500;
+    cursor: pointer;
+  }
+
+  &--Delete {
+    background-color: $error;
+    border: 1px solid $error;
+    color: $white;
+    width: 5em;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: $fw500;
+  }
 }
-// .btn {
-//   font-family: $font-family;
-//   font-style: normal;
-//   font-weight: 700;
-//   font-size: 18.2px;
-//   line-height: 21px;
-//   width: 123px;
-//   height: 52.2px;
-//   text-decoration: none;
-//   padding: 15px 19.6719px 15.2031px 19.1875px;
-//   box-shadow: 0px 6px 20px rgba(18, 18, 18, 0.1);
-//   border-radius: 12px;
-//   border: 1px solid $primary;
-// }
-// @mixin btn--simpButton($width: 123px, $height: 52.2px) {
-//   width: $width;
-//   height: $height;
-//   text-shadow: 0px 6px 20px 0px #1212121a;
-//   color: $primary;
-//   border: none;
-//   box-shadow: none;
-//   &:hover {
-//     text-decoration: underline;
-//   }
-// }

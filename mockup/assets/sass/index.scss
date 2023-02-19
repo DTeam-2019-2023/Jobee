@@ -1,13 +1,13 @@
+@import "variables";
+
 //reset css
 @import "reset";
-
-@import "variables";
+//layout
 @import "layout";
-* {
-  font-family: $font-family !important;
-}
-html,
-body {
-  height: 100%;
-  position: relative;
-}
+//components
+@import "button";
+@import "input";
+@import "header";
+@import "contentNavigation";
+@import "contentPopup";
+@import "searchGroup";

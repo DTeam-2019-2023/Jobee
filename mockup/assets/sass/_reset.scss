@@ -105,3 +105,12 @@ input {
   -webkit-appearance: none;
   border-radius: 0;
 }
+
+* {
+  font-family: $font-family !important;
+}
+html,
+body {
+  height: 100%;
+  position: relative;
+}
