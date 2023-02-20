@@ -412,8 +412,7 @@ header {
   width: 1em;
 }
 
-.signupForm {
-  background-color: #f4f4f4;
+.verifyForm {
   width: fit-content;
   position: absolute;
   top: 50%;
@@ -423,10 +422,16 @@ header {
   border-radius: 8px;
 }
 
-.formHeader h2 {
-  font-size: 32px;
+.verifyForm h3 {
+  font-size: 24px;
   font-weight: 700;
-  text-align: center;
+  padding: 8px;
 }
 
-/*# sourceMappingURL=signup.css.map */
+.verifyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=verifyconfirm.css.map */

@@ -156,6 +156,8 @@ body {
 .btn--button {
   background-color: #8ea7e9;
   color: #ffffff;
+  text-align: center;
+  transition: 0.25s;
 }
 .btn--button:hover {
   background-color: #ffffff;
@@ -364,6 +366,8 @@ body {
 .btn--button {
   background-color: #8ea7e9;
   color: #ffffff;
+  text-align: center;
+  transition: 0.25s;
 }
 .btn--button:hover {
   background-color: #ffffff;

@@ -9,8 +9,7 @@
 
 @import "input";
 
-.signupForm {
-    background-color: $light_grey;
+.verifyForm {
     width: fit-content;
     position: absolute;
     top: 50%;
@@ -20,8 +19,14 @@
     border-radius: 8px;
 }
 
-.formHeader h2 {
-    font-size: $large;
+.verifyForm h3 {
+    font-size: $medium;
     font-weight: $fw700;
-    text-align: center;
+    padding: 8px;
+}
+
+.verifyButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

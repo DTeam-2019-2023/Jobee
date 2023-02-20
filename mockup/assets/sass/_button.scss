@@ -27,6 +27,8 @@
   &--button {
     background-color: $light_primary;
     color: $white;
+    text-align: center;
+    transition: .25s;
     &:hover {
       background-color: $white;
       color: $primary;
