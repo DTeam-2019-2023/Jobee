@@ -19,18 +19,20 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    &:has(li:hover) {
+    &:has(li:not(.active):hover) {
       li:hover {
         @extend %active;
+        animation: smoothZoom 0.2s linear;
       }
       .active {
-        font-size: 24px;
+        font-size: $medium;
+        animation: smoothZoom 0.2s reverse;
       }
     }
     li {
       position: relative;
       color: $light_grey;
-      font-size: 24px;
+      font-size: $medium;
       &::before {
         content: "";
         position: absolute;
@@ -43,6 +45,7 @@
 
       &.active {
         @extend %active;
+        animation: smoothZoom 0.2s linear;
       }
 
       a {
@@ -55,10 +58,8 @@
 .container {
   margin-top: 0px;
   gap: 10px;
-  overflow-y: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  animation: forwards 1s linear;
+  height: 100%;
 }
 div.panel {
   width: 100%;
@@ -69,10 +70,15 @@ div.panel {
   align-items: center;
   padding-left: 391px;
   scroll-snap-align: start;
-
-  &::-webkit-scrollbar {
-    display: none;
+  & > div > h1 {
+    font-size: $extra-large;
+    font-weight: bold;
+    line-height: 21px;
+    margin: 20px 0;
   }
+  // &::-webkit-scrollbar {
+  //   display: none;
+  // }
 
   & > div {
     flex-grow: 1;
@@ -96,9 +102,47 @@ div.panel {
     width: 221px;
   }
 }
-h1 {
-  font-size: $extral-lage;
-  font-weight: bold;
-  line-height: 21px;
-  margin: 20px 0;
+
+@keyframes smoothZoom {
+  0% {
+    font-size: $medium;
+  }
+  100% {
+    font-size: $large;
+  }
+}
+.member-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    font-size: $extra-large;
+    word-wrap: break-word;
+    width: 500px;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: (130px + 30px) * 3;
+    justify-content: center;
+    gap: 30px;
+    li {
+      display: inherit;
+      flex-direction: column;
+      gap: 10px;
+      list-style: none;
+      height: fit-content;
+      img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+      }
+      text-align: center;
+    }
+  }
 }
