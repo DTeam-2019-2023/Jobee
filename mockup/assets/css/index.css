@@ -198,6 +198,9 @@ body {
   border-bottom: 5px solid #86a3b8;
   transition: border-bottom-color ease 0.25s;
 }
+.inputTextContainer .input--error {
+  border-bottom: 5px solid #f55050;
+}
 .inputTextContainer .input:focus {
   outline: none;
   border-bottom: 5px solid #03c988;
