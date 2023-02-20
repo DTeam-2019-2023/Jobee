@@ -10,7 +10,9 @@
     border: 1px solid $white;
     border-bottom: 5px solid $primary; //$error
     transition: border-bottom-color ease 0.25s;
-
+    &--error{
+      border-bottom: 5px solid $error; 
+    }
     &:focus {
       outline: none;
       border-bottom: 5px solid $success;
