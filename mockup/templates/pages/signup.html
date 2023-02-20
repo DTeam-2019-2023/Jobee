@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="../../assets/css/login.css" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="../../assets/css/signup.css" />
   </head>
   <body>
     <header>
@@ -16,15 +16,15 @@
         <a
           class="btn btn--simpButton center"
           role="button"
-          href="/templates/pages/signup.html"
-          >Sign Up</a
+          href="/templates/pages/login.html"
+          >Login</a
         >
       </div>
     </header>
     <div class="container">
-      <div class="loginForm">
+      <div class="signupForm">
         <div class="loginHeader">
-          <h2>Login</h2>
+          <h2>Signup</h2>
         </div>
         <div class="inputContent">
           <div class="inputTextContainer">
@@ -47,12 +47,28 @@
             />
             <span class="inputError error">Password is invalid</span>
           </div>
+          <div class="inputTextContainer">
+            <input type="password" class="input" />
+            <span class="inputSpan">Confirm Password</span>
+            <img
+              src="../../assets/images/Error.svg"
+              alt="error icon"
+              class="inputErrorIcon error"
+            />
+            <span class="inputError error">Re-Password is not match</span>
+          </div>
+          <div class="inputTextContainer">
+            <input type="email" class="input" />
+            <span class="inputSpan">Email</span>
+            <img
+              src="../../assets/images/Error.svg"
+              alt="error icon"
+              class="inputErrorIcon error"
+            />
+            <span class="inputError error">Email is invalid</span>
+          </div>
+          <button class="btn btn--Submit">Signup</button>
         </div>
-        <div class="loginOptional">
-          <a href="#" class="optional">forget password?</a>
-          <a href="../pages/signup.html" class="optional">join with us</a>
-        </div>
-        <button class="btn btn--Submit">Login</button>
       </div>
     </div>
   </body>
