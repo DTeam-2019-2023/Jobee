@@ -123,8 +123,10 @@ body {
 }
 
 .container {
+  position: relative;
   padding: 0px 55px;
-  padding-top: 78px;
+  margin-top: 78px;
+  height: 100%;
 }
 
 .btn {
@@ -389,6 +391,7 @@ header {
   align-items: center;
   flex-direction: row;
   padding: 7px 55px;
+  z-index: 1000;
 }
 
 .contentNavContainer {

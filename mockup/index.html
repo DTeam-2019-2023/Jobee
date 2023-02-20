@@ -9,11 +9,12 @@
   <!-- import css -->
   <link rel="stylesheet" href="assets/css/landing.css" />
   <script src="assets/js/input.js"></script>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
 </head>
 
 <body>
   <header>
-    <a href="/" target="_blank" rel="noopener noreferrer">
+    <a href="/" rel="noopener noreferrer">
       <img src="assets/images/Logo.svg" alt="" srcset="">
     </a>
     <div class="group-btn">
@@ -22,111 +23,53 @@
     </div>
   </header>
   <div class="container">
-    <!-- INPUT TEXT FIELD -->
-    <div class="inputTextContainer">
-      <input type="text" name="" id="" class="input" />
-      <span class="inputSpan">Input</span>
-      <img src="./assets/images/Error.svg" alt="Identify/Error" class="inputErrorIcon" />
-      <span class="inputError">Input error message</span>
+    <div class="slider">
+      <ul>
+        <li class="active"><a href="#Introduction">Introduction</a></li>
+        <li><a href="#Feature">Feature</a></li>
+        <li><a href="#Technology">Technology</a></li>
+        <li><a href="#About">About</a></li>
+      </ul>
     </div>
-
-    <!-- INPUT SELECT FIELD -->
-    <div class="inputSelectContainer">
-      <select name="InputSelectList" id="">
-        <option value="NameSelect">NameSelect</option>
-        <option value="1">Value 1</option>
-        <option value="2">Value 2</option>
-      </select>
-    </div>
-
-    <!-- TEXTAREA -->
-    <div class="inputTextareaContainer">
-      <textarea name="inputTxt" class="inputTxt"></textarea>
-      <span class="areaSpan">Description...</span>
-    </div>
-
-    <!-- URL FIELD -->
-    <div class="urlFieldContainer">
-      <div class="urlField">
-        <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
-        <span class="extendIconContainer">
-          <img src="./assets/images/Extend.svg" alt="extend icon" id="extendIcon" />
-        </span>
+    <div class="panel " id="Introduction">
+      <div>
+        <h1>Introduction</h1>
+        <p>Jobee provides you with a convenient and easy online cv extractor full of content to help you create
+          the most complete and effective cv with your goals.</p>
       </div>
+      <img src="assets/images/logo_singel.svg" alt="" srcset="">
     </div>
-
-    <!-- SEARCH GROUP -->
-    <div class="searchGroupContainer">
-      <div class="searchGroup">
-        <input type="text" class="searchGroupInput" placeholder="Searching ..." />
-        <span class="searchButton">Search</span>
-      </div>
-    </div>
-
-    <!-- CONTENT NAVIGATION -->
-    <div class="contentNavContainer">
-      <div class="contenNavHeader">
-        <span class="navHeaderTitle">Title</span>
-        <div class="navHeaderButton">
-          <img src="./assets/images/Add.svg" alt="Add navHeaderButton" />
-          <span>Add</span>
-        </div>
-      </div>
-      <div class="contentNavBody">
-        <ul class="contentItemList">
-          <li class="contentItem">
-            <div class="itemFirst">
-              <img src="./assets/images/Runing.svg" alt="running icon" class="titleIcon" />
-              <span class="titleName">Title Name</span>
-              <img src="./assets/images/Grey Verify Icon.svg" alt="verify check icon" class="verifyIcon" />
-            </div>
-            <div class="itemSecond">
-              <span class="itemSubContent">Sub Content</span>
-            </div>
-            <div class="itemThird">
-              <img src="./assets/images/Pen.svg" alt="pen icon" class="actionIcon" />
-              <img src="./assets/images/icons8_trash 1.svg" alt="bin icon" class="actionIcon" />
-              <img src="./assets/images/Expand.svg" alt="expand icon" class="actionIcon" />
-            </div>
-          </li>
-          <!-- <li class="contentItem"></li> -->
+    <div class="panel" id="Feature">
+      <div>
+        <h1>Feature</h1>
+        <ul>
+          <li>Import online and export to file any where</li>
+          <li>Share with any one</li>
+          <li>Can use to replace your profile page online</li>
+          <li>It free!</li>
         </ul>
       </div>
+      <img src="assets/images/logo_singel.svg" alt="" srcset="">
     </div>
-
-    <!-- CONTENT POPUP -->
-    <div class="overlayContentPopup">
-      <div class="contentPopupContainer">
-        <div class="contentLeft">
-          <span class="contentTitle">Title Name</span>
-        </div>
-        <div class="contentRight">
-          <ul class="rowContentList">
-            <li class="rowContentItem">
-              <img src="./assets/images/Link.svg" alt="link icon" class="linkIcon" />
-              <span class="rowContentItemText">Row Content</span>
-            </li>
-            <li class="rowContentItem">
-              <img src="./assets/images/Link.svg" alt="link icon" class="linkIcon" />
-              <span class="rowContentItemText">Row Content</span>
-            </li>
-            <li class="rowContentItem">
-              <img src="./assets/images/Link.svg" alt="link icon" class="linkIcon" />
-              <span class="rowContentItemText">Row Content</span>
-            </li>
-            <li class="rowContentItem">
-              <img src="./assets/images/Link.svg" alt="link icon" class="linkIcon" />
-              <span class="rowContentItemText">Row Content</span>
-            </li>
-          </ul>
-          <div class="contentPopupButton">
-            <button class="btn btn--Edit">Edit</button>
-            <button class="btn btn--Delete">Delete</button>
-          </div>
-        </div>
+    <div class="panel" id="Technology">
+      <div>
+        <h1>Technology</h1>
+        <p>Jobee provides you with a convenient and easy online cv extractor full of content to help you create
+          the most complete and effective cv with your goals.</p>
       </div>
+      <img src="assets/images/logo_singel.svg" alt="" srcset="">
+    </div>
+    <div class="panel" id="About">
+      <div>
+        <h1>About</h1>
+        <p>Jobee provides you with a convenient and easy online cv extractor full of content to help you create
+          the most complete and effective cv with your goals.</p>
+      </div>
+      <img src="assets/images/logo_singel.svg" alt="" srcset="">
     </div>
   </div>
+  <script src="assets/js/index.js"></script>
+
 </body>
 
 </html>
