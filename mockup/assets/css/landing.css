@@ -186,6 +186,16 @@ body {
   width: 100%;
   color: #ffffff;
 }
+.btn--Create {
+  width: 6em;
+  padding: 4px;
+  font-size: 12px;
+  height: fit-content;
+  border-radius: 0;
+  background-color: #0062e6;
+  color: #ffffff;
+  margin-left: 1em;
+}
 
 .btn {
   font-family: "Nunito", sans-serif;
@@ -243,6 +253,16 @@ body {
   border-radius: 8px;
   width: 100%;
   color: #ffffff;
+}
+.btn--Create {
+  width: 6em;
+  padding: 4px;
+  font-size: 12px;
+  height: fit-content;
+  border-radius: 0;
+  background-color: #0062e6;
+  color: #ffffff;
+  margin-left: 1em;
 }
 
 header {

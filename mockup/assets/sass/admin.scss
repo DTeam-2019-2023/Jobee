@@ -1,0 +1,125 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "header";
+
+@import "searchGroup";
+
+.adminContainer {
+    display: flex;
+    padding: 0;
+}
+
+.leftContainer {
+    border: 1px solid $light_grey;
+    width: 15%;
+    overflow: hidden;
+}
+
+.active {
+    transform: translateX(20px);
+}
+
+.manageItem {
+    display: flex;
+    align-items: center;
+    font-size: $small;
+    padding: 8px;
+    cursor: pointer;
+    // color: $primary;
+    font-weight: $fw700;
+    transition: .25s;
+
+    &:hover {
+        transform: translateX(20px);
+    }
+    .manageIcon {
+        margin-right: 1em;
+    }
+}
+
+.rightContainer {
+    width: 85%;
+
+    .listTitle h3 {
+        font-weight: $fw700;
+        font-size: $medium;
+        margin: 1em;
+        color: $primary;
+    }
+
+    .listAction {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 3em;
+        align-items: center;
+    }
+}
+
+table {
+    margin-top: 1em;
+
+    tr {
+        border-collapse: collapse;
+        height: 2em;
+        
+        th {
+            font-weight: $fw700;
+            text-align: center;
+        }
+        
+        td {
+            text-align: center;
+            // border-bottom: 1px solid $grey;
+            padding: 5px;
+        }
+
+        .iconList {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .actionIcon {
+            width: $small;
+            height: $small;
+        }
+    }
+}
+.typeAccount {
+    background-color: $light_grey;
+    font-weight: $fw700;
+}
+
+.paging {
+    .pagingList {
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+
+        li {
+            width: 4em;
+            height: 1.5em;
+            border: 1px solid $grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: .25s;
+
+            &:hover {
+                transform: translateY(20px);
+            }
+        }
+    }
+}
+
+.pagingActive {
+    background-color: $primary;
+    border: 1px solid $primary;
+    color: $white;
+}

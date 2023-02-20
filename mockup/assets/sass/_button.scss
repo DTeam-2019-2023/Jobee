@@ -60,4 +60,15 @@
     width: 100%;
     color: $white;
   }
+
+  &--Create {
+    width: 6em;
+    padding: 4px;
+    font-size: 12px;
+    height: fit-content;
+    border-radius: 0;
+    background-color: $blue;
+    color: $white;
+    margin-left: 1em;
+  }
 }
