@@ -126,7 +126,7 @@ body {
   position: relative;
   padding: 0px 55px;
   margin-top: 78px;
-  height: 100%;
+  height: calc(100% - 78px);
 }
 
 .btn {
@@ -246,7 +246,7 @@ header {
   z-index: 1000;
 }
 
-.slider ul li.active, .slider ul:has(li:hover) li:hover {
+.slider ul li.active, .slider ul:has(li:not(.active):hover) li:hover {
   font-weight: 700;
   font-size: 36px;
   color: #000000;
@@ -262,8 +262,12 @@ header {
   flex-direction: column;
   gap: 5px;
 }
-.slider ul:has(li:hover) .active {
+.slider ul:has(li:not(.active):hover) li:hover {
+  animation: smoothZoom 0.2s linear;
+}
+.slider ul:has(li:not(.active):hover) .active {
   font-size: 24px;
+  animation: smoothZoom 0.2s reverse;
 }
 .slider ul li {
   position: relative;
@@ -279,6 +283,9 @@ header {
   height: 100%;
   background-color: #b0e07b;
 }
+.slider ul li.active {
+  animation: smoothZoom 0.2s linear;
+}
 .slider ul li a {
   color: #000000;
   text-decoration: none;
@@ -287,10 +294,8 @@ header {
 .container {
   margin-top: 0px;
   gap: 10px;
-  overflow-y: scroll;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory;
-  animation: forwards 1s linear;
+  height: 100%;
 }
 
 div.panel {
@@ -303,8 +308,11 @@ div.panel {
   padding-left: 391px;
   scroll-snap-align: start;
 }
-div.panel::-webkit-scrollbar {
-  display: none;
+div.panel > div > h1 {
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 21px;
+  margin: 20px 0;
 }
 div.panel > div {
   flex-grow: 1;
@@ -328,11 +336,48 @@ div.panel img {
   width: 221px;
 }
 
-h1 {
+@keyframes smoothZoom {
+  0% {
+    font-size: 24px;
+  }
+  100% {
+    font-size: 32px;
+  }
+}
+.member-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.member-group h1 {
   font-size: 64px;
+  word-wrap: break-word;
+  width: 500px;
+  text-align: center;
   font-weight: bold;
-  line-height: 21px;
   margin: 20px 0;
+}
+.member-group ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 480px;
+  justify-content: center;
+  gap: 30px;
+}
+.member-group ul li {
+  display: inherit;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  height: fit-content;
+  text-align: center;
+}
+.member-group ul li img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=landing.css.map */
