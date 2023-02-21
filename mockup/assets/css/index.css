@@ -591,8 +591,5 @@ header {
   cursor: pointer;
   transition: 0.25s;
 }
-.searchGroupContainer .searchGroup .searchButton:hover {
-  opacity: 0.8;
-}
 
 /*# sourceMappingURL=index.css.map */

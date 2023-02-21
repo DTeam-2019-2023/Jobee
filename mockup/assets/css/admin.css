@@ -305,9 +305,6 @@ header {
   cursor: pointer;
   transition: 0.25s;
 }
-.searchGroupContainer .searchGroup .searchButton:hover {
-  opacity: 0.8;
-}
 
 .adminContainer {
   display: flex;
@@ -315,23 +312,23 @@ header {
 }
 
 .leftContainer {
-  border: 1px solid #f4f4f4;
-  width: 15%;
+  border-right: 5px solid #86a3b8;
+  width: 20%;
   overflow: hidden;
-}
-
-.active {
-  transform: translateX(20px);
+  padding: 0 1em;
 }
 
 .manageItem {
   display: flex;
   align-items: center;
   font-size: 16px;
-  padding: 8px;
+  padding: 1em;
   cursor: pointer;
   font-weight: 700;
   transition: 0.25s;
+  margin: 1em 0;
+  color: #86a3b8;
+  border: 1px solid #86a3b8;
 }
 .manageItem:hover {
   transform: translateX(20px);
@@ -340,8 +337,20 @@ header {
   margin-right: 1em;
 }
 
+.active {
+  background-color: #86a3b8 !important;
+  color: #ffffff;
+  border: 1px solid #86a3b8;
+}
+
 .rightContainer {
-  width: 85%;
+  width: 80%;
+  background-color: #ffffff;
+  max-height: 100%;
+  overflow: auto;
+}
+.rightContainer::-webkit-scrollbar {
+  display: none;
 }
 .rightContainer .listTitle h3 {
   font-weight: 700;
@@ -354,10 +363,12 @@ header {
   justify-content: flex-end;
   margin-right: 3em;
   align-items: center;
+  margin-bottom: 1em;
 }
 
 table {
-  margin-top: 1em;
+  width: 100%;
+  background-color: #ffffff;
 }
 table tr {
   border-collapse: collapse;
@@ -366,6 +377,7 @@ table tr {
 table tr th {
   font-weight: 700;
   text-align: center;
+  padding: 8px;
 }
 table tr td {
   text-align: center;
@@ -375,15 +387,29 @@ table tr .iconList {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 1em;
 }
 table tr .actionIcon {
   width: 16px;
   height: 16px;
+  cursor: pointer;
 }
 
 .typeAccount {
-  background-color: #f4f4f4;
   font-weight: 700;
+}
+.typeAccount .typeName {
+  width: 50%;
+  padding: 4px 1em;
+  margin: 0 auto;
+}
+.typeAccount .typeAd {
+  background-color: #03c988;
+  color: #ffffff;
+}
+.typeAccount .typeUs {
+  background-color: #f55050;
+  color: #ffffff;
 }
 
 .paging .pagingList {
@@ -394,21 +420,42 @@ table tr .actionIcon {
 .paging .pagingList li {
   width: 4em;
   height: 1.5em;
-  border: 1px solid #cccccc;
+  border: 1px solid #86a3b8;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: 0.25s;
+  background-color: #ffffff;
+  transition: 0.25 transform ease-in-out;
+  will-change: transform;
+  overflow: hidden;
+  z-index: 0;
+}
+.paging .pagingList li:not(:last-child) {
+  border-right: none;
+}
+.paging .pagingList li::after {
+  background-color: #86a3b8;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: translate(-200%, 0) rotate(10deg);
+  transition: 0.25s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+  display: block;
+}
+.paging .pagingList li:hover::after {
+  transform: translate(0, 0);
 }
 .paging .pagingList li:hover {
-  transform: translateY(20px);
-}
-
-.pagingActive {
-  background-color: #86a3b8;
   border: 1px solid #86a3b8;
   color: #ffffff;
+  transform: scale(1.05);
+  will-change: transform;
 }
 
 /*# sourceMappingURL=admin.css.map */
