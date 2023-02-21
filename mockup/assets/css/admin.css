@@ -306,6 +306,158 @@ header {
   transition: 0.25s;
 }
 
+.inputTextContainer {
+  position: relative;
+  width: 380px;
+  height: 40px;
+  margin: 1em 0 1.5em;
+}
+.inputTextContainer .input {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+  transition: border-bottom-color ease 0.25s;
+}
+.inputTextContainer .input--error {
+  border-bottom: 5px solid #f55050;
+}
+.inputTextContainer .input:focus {
+  outline: none;
+  border-bottom: 5px solid #03c988;
+}
+.inputTextContainer .input:focus ~ .inputSpan {
+  color: #000000;
+  top: 15%;
+  animation: movingText 0.5s ease;
+}
+.inputTextContainer .inputSpan {
+  position: absolute;
+  font-weight: 700;
+  color: #86a3b8;
+  opacity: 0.6;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.inputTextContainer .inputError {
+  color: #f55050;
+  margin-left: 1em;
+  font-weight: 700;
+  font-size: 12px;
+}
+.inputTextContainer .inputErrorIcon {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
+
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 15%;
+  }
+}
+.inputSelectContainer {
+  width: 380px;
+  height: 40px;
+  display: none;
+}
+.inputSelectContainer select {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+}
+.inputSelectContainer select:focus {
+  outline: none;
+}
+.inputSelectContainer select option {
+  background-color: transparent;
+}
+
+.inputTextareaContainer {
+  width: 380px;
+  height: 40px;
+  position: relative;
+  margin-top: 1em;
+  display: none;
+}
+.inputTextareaContainer .inputTxt {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #ffffff;
+  border-bottom: 5px solid #86a3b8;
+  resize: none;
+  transition: 0.25s;
+}
+.inputTextareaContainer .inputTxt:focus {
+  outline: none;
+}
+.inputTextareaContainer .inputTxt:focus ~ .areaSpan {
+  top: -30%;
+  color: #000000;
+  animation: movingArea ease 0.25s;
+}
+.inputTextareaContainer .areaSpan {
+  position: absolute;
+  font-weight: 700;
+  color: #86a3b8;
+  opacity: 0.6;
+  left: 0.5em;
+  top: 20%;
+  font-size: 1em;
+}
+
+@keyframes movingArea {
+  0% {
+    top: 20%;
+  }
+  100% {
+    top: -30%;
+  }
+}
+.urlFieldContainer {
+  height: 30px;
+}
+.urlFieldContainer .urlField {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cccccc;
+  width: 100%;
+  border-radius: 5px;
+}
+.urlFieldContainer .urlField .urlFieldInput {
+  border-radius: 5px;
+  border: none;
+  padding: 4px;
+  outline: none;
+  flex-grow: 1;
+}
+.urlFieldContainer .urlField .urlFieldInput::placeholder {
+  color: #cccccc;
+}
+.urlFieldContainer .urlField .extendIconContainer {
+  display: flex;
+  background-color: #cccccc;
+  height: 100%;
+  width: 2em;
+  padding: 2px;
+  cursor: pointer;
+  transition: 0.25s;
+  justify-content: center;
+}
+.urlFieldContainer .urlField .extendIconContainer:hover {
+  opacity: 0.8;
+}
+.urlFieldContainer .urlField .extendIconContainer #extendIcon {
+  width: 1em;
+}
+
 .adminContainer {
   display: flex;
   padding: 0;
@@ -329,6 +481,7 @@ header {
   margin: 1em 0;
   color: #86a3b8;
   border: 1px solid #86a3b8;
+  text-decoration: none;
 }
 .manageItem:hover {
   transform: translateX(20px);
@@ -348,6 +501,14 @@ header {
   background-color: #ffffff;
   max-height: 100%;
   overflow: auto;
+}
+.rightContainer .manageUserContainer {
+  width: 100%;
+  display: none;
+}
+.rightContainer .verifyRequestContainer {
+  width: 100%;
+  display: none;
 }
 .rightContainer::-webkit-scrollbar {
   display: none;
@@ -404,12 +565,8 @@ table tr .actionIcon {
   margin: 0 auto;
 }
 .typeAccount .typeAd {
-  background-color: #03c988;
-  color: #ffffff;
-}
-.typeAccount .typeUs {
-  background-color: #f55050;
-  color: #ffffff;
+  background-color: #f4f4f4;
+  border: 1px solid #cccccc;
 }
 
 .paging .pagingList {
@@ -434,6 +591,12 @@ table tr .actionIcon {
 .paging .pagingList li:not(:last-child) {
   border-right: none;
 }
+.paging .pagingList li:last-child {
+  border-radius: 0 3px 3px 0;
+}
+.paging .pagingList li:first-child {
+  border-radius: 3px 0 0 3px;
+}
 .paging .pagingList li::after {
   background-color: #86a3b8;
   content: "";
@@ -456,6 +619,10 @@ table tr .actionIcon {
   color: #ffffff;
   transform: scale(1.05);
   will-change: transform;
+}
+
+.show {
+  display: block !important;
 }
 
 /*# sourceMappingURL=admin.css.map */
