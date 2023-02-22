@@ -1,0 +1,50 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "header";
+
+.errorContainer {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
+    .errorCode {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: $error;
+
+        .errorNum {
+            font-size: 100px;
+            font-weight: $fw700;
+            text-align: center;
+        }
+
+        .notfoundicon {
+            width: 150px;
+        }
+    }
+
+    .errorMessage {
+        text-align: center;
+        margin-bottom: 1.5em;
+
+        .errorTitle {
+            font-size: $large;
+            font-weight: $fw700;
+            margin-bottom: 12px;
+        }
+    }
+
+    .errorFooter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
