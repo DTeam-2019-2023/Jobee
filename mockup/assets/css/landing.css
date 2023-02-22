@@ -414,4 +414,19 @@ div.panel img {
   border-radius: 50%;
 }
 
+.techIcon {
+  display: flex;
+  width: fit-content;
+  padding-top: 1em;
+}
+.techIcon .group1 {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-right: 4em;
+}
+.techIcon .techLogo {
+  width: 8em;
+}
+
 /*# sourceMappingURL=landing.css.map */
