@@ -1,0 +1,147 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "input";
+@import "contentNavigation";
+@import "header";
+
+.cv-container {
+  padding-top: $small;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  strong {
+    font-weight: $fw700;
+  }
+  .panel {
+    width: 100%;
+    height: fit-content;
+    &#profile {
+      background-color: $light_grey;
+
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      .header {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 40px;
+        position: relative;
+        &::before {
+          content: "";
+          position: absolute;
+          height: 2px;
+          width: 100%;
+          border: 1px solid $grey;
+          bottom: 0;
+          left: 0;
+        }
+        span {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: $light_primary;
+          svg {
+            width: 40px;
+            height: 40px;
+            fill: $line;
+          }
+          font-size: $medium;
+          font-weight: $fw700;
+          a {
+            color: $success;
+            text-decoration: none;
+          }
+        }
+      }
+      .content {
+        padding: $medium 40px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+        font-size: $medium;
+        img {
+          &::before {
+            content: "";
+            filter: invert(1);
+            width: 126px;
+            height: 126px;
+            overflow: hidden;
+            background-color: red;
+          }
+          object-position: top;
+          object-fit: cover;
+          height: 126px;
+          width: 126px;
+          border-radius: 50%;
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+      h1 {
+        font-size: $medium;
+        word-wrap: break-word;
+        font-weight: bold;
+        margin: 20px 0;
+      }
+    }
+    &#General {
+      .header {
+        display: flex;
+        padding: 15px 40px;
+        position: relative;
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: $light_primary;
+          svg {
+            width: 40px;
+            height: 40px;
+            fill: $line;
+          }
+          font-size: $medium;
+          font-weight: $fw700;
+          a {
+            color: $success;
+            text-decoration: none;
+          }
+        }
+        h1 {
+          font-size: $medium;
+          word-wrap: break-word;
+          font-weight: bold;
+          margin: 20px 0;
+        }
+      }
+      .content {
+        background-color: $light_grey;
+        padding: 23px 57px;
+        display: flex;
+        gap: 29px;
+        flex-direction: column;
+        .row {
+          display: flex;
+          gap: 76px;
+          align-items: center;
+          .col {
+            flex-grow: 1;
+            .inputTextContainer,
+            .inputSelectContainer,
+            .inputTextareaContainer {
+              width: 100% !important;
+              height: 63px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

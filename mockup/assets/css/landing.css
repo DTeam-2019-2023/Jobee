@@ -143,6 +143,7 @@ body {
   border-radius: 12px;
   border: 1px solid #86a3b8;
   cursor: pointer;
+  text-align: center;
 }
 .btn--simpButton {
   text-shadow: 0px 6px 20px 0px rgba(18, 18, 18, 0.1019607843);
@@ -159,8 +160,13 @@ body {
 }
 .btn--button:hover {
   background-color: #ffffff;
-  color: #86a3b8;
-  border: 1px solid #86a3b8;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
+}
+.btn--hover {
+  background-color: #ffffff;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
 }
 .btn--Edit {
   background-color: #8ea7e9;
@@ -199,6 +205,7 @@ body {
   border-radius: 12px;
   border: 1px solid #86a3b8;
   cursor: pointer;
+  text-align: center;
 }
 .btn--simpButton {
   text-shadow: 0px 6px 20px 0px rgba(18, 18, 18, 0.1019607843);
@@ -215,8 +222,13 @@ body {
 }
 .btn--button:hover {
   background-color: #ffffff;
-  color: #86a3b8;
-  border: 1px solid #86a3b8;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
+}
+.btn--hover {
+  background-color: #ffffff;
+  color: #8ea7e9;
+  border: 1px solid #8ea7e9;
 }
 .btn--Edit {
   background-color: #8ea7e9;
@@ -254,6 +266,134 @@ header {
   flex-direction: row;
   padding: 7px 55px;
   z-index: 1000;
+}
+header .group-btn {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+header .group-btn .bell {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  z-index: 100;
+}
+header .group-btn .bell.active::before {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f55050;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+}
+header .group-btn .bell .notification .notify {
+  position: absolute;
+  top: 110%;
+  right: 50%;
+  width: 248px;
+  animation: smoothShow 0.3s;
+  border-radius: 5px;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  z-index: inherit;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: none;
+}
+header .group-btn .bell .notification .notify li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+  padding: 5px 20px;
+  text-align: left;
+}
+header .group-btn .bell .notification .notify li a {
+  flex-grow: 1;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+}
+header .group-btn .bell::after {
+  content: "";
+  width: 100%;
+  height: 20%;
+  position: absolute;
+  bottom: -10px;
+}
+header .group-btn .bell:hover .notification > ul.notify {
+  display: block !important;
+}
+header .dropdownSetting {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 248px;
+  height: 149px;
+  top: 110%;
+  right: -10px;
+  animation: smoothShow 0.3s;
+  border-radius: 30px;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid rgba(221, 221, 221, 0.5);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+header .dropdownSetting ul {
+  width: 100%;
+}
+header .dropdownSetting ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 100%;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.5);
+  text-align: center;
+}
+header .dropdownSetting ul li a {
+  flex-grow: 1;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+}
+@keyframes smoothShow {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+header .popupSetting {
+  position: relative;
+  padding: 15px 0px;
+  height: 100%;
+}
+header .popupSetting::after {
+  content: " ";
+  width: 100%;
+  height: 20%;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+}
+header .popupSetting:hover > .dropdownSetting {
+  display: flex;
 }
 
 .slider ul li.active, .slider ul:has(li:not(.active):hover) li:hover {
