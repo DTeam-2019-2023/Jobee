@@ -1,5 +1,16 @@
-$(function () {
-  $(".inputTxt").autogrow();
+$("input").on("blur", function () {
+  if ($(this).val() != "") {
+    $(this).next(".inputSpan").addClass("focus");
+  } else {
+    $(this).next(".inputSpan").removeClass("focus");
+  }
+});
 
-  // $(".inputTxt").css("overflow", "hidden").autogrow();
+$("input").on("focus", function () {
+  if ($(this).val() != "") {
+    $(this).next(".inputSpan").addClass("no-animation");
+  } else {
+    $(this).next(".inputSpan").removeClass("no-animation");
+    $(this).next(".inputSpan").addClass("focus");
+  }
 });

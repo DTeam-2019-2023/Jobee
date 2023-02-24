@@ -8,7 +8,9 @@
 @import "input";
 @import "contentNavigation";
 @import "header";
-
+.container {
+  overflow: scroll;
+}
 .cv-container {
   padding-top: $small;
   display: flex;
@@ -132,7 +134,8 @@
           gap: 76px;
           align-items: center;
           .col {
-            flex-grow: 1;
+            flex-grow: 2;
+            flex-basis: content;
             .inputTextContainer,
             .inputSelectContainer,
             .inputTextareaContainer {
