@@ -1,0 +1,221 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "header";
+
+@import "searchGroup";
+
+@import "input";
+
+.adminContainer {
+  display: flex;
+  padding: 0;
+}
+
+.leftContainer {
+  border-right: 5px solid $primary;
+  width: 20%;
+  overflow: hidden;
+  padding: 0 1em;
+  position: fixed;
+  z-index: 1000;
+  height: 100%;
+  // background-color: $light_grey;
+}
+
+.manageItem {
+  display: flex;
+  align-items: center;
+  font-size: $small;
+  padding: 1em;
+  cursor: pointer;
+  // color: $primary;
+  font-weight: $fw700;
+  transition: 0.25s;
+  margin: 1em 0;
+  color: $primary;
+  border: 1px solid $primary;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateX(20px);
+  }
+  .manageIcon {
+    margin-right: 1em;
+  }
+}
+
+.active {
+  background-color: $primary !important;
+  color: $white;
+  border: 1px solid $primary;
+}
+
+.selected {
+  background-color: $blue !important;
+  color: $white;
+  border: 1px solid $primary;
+}
+.rightContainer {
+  width: 80%;
+  height: 100%;
+  background-color: $white;
+  overflow: auto;
+  margin-left: 20%;
+
+  .manageUserContainer {
+    width: 100%;
+    display: none;
+  }
+
+  .verifyRequestContainer {
+    width: 100%;
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .listTitle h3 {
+    font-weight: $fw700;
+    font-size: $medium;
+    margin: 1em;
+    color: $primary;
+  }
+
+  .listAction {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 3em;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+}
+
+table {
+  width: 100%;
+  background-color: $white;
+  tr {
+    border-collapse: collapse;
+    height: 2em;
+
+    th {
+      font-weight: $fw700;
+      text-align: center;
+      padding: 8px;
+    }
+
+    td {
+      text-align: center;
+      // border-bottom: 1px solid $grey;
+      padding: 5px;
+      span {
+        &.text--ellipsis {
+          display: inline-block;
+          width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .iconList {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1em;
+    }
+
+    .actionIcon {
+      width: $small;
+      height: $small;
+      cursor: pointer;
+    }
+  }
+}
+.typeAccount {
+  font-weight: $fw700;
+
+  .typeName {
+    width: 50%;
+    padding: 4px 1em;
+    // display: block;
+    margin: 0 auto;
+  }
+
+  .typeAd {
+    background-color: $light_grey;
+    border: 1px solid $grey;
+  }
+}
+
+.paging {
+  .pagingList {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+
+    li {
+      width: 4em;
+      height: 1.5em;
+      border: 1px solid $primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      background-color: $white;
+      transition: 0.25 transform ease-in-out;
+      will-change: transform;
+      overflow: hidden;
+      z-index: 0;
+
+      &:not(:last-child) {
+        border-right: none;
+      }
+
+      &:last-child {
+        border-radius: 0 3px 3px 0;
+      }
+
+      &:first-child {
+        border-radius: 3px 0 0 3px;
+      }
+
+      &::after {
+        background-color: $primary;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform: translate(-200%, 0) rotate(10deg);
+        transition: 0.25s transform ease-out;
+        will-change: transform;
+        z-index: -1;
+        display: block;
+      }
+
+      &:hover::after {
+        transform: translate(0, 0);
+      }
+
+      &:hover {
+        border: 1px solid $primary;
+        color: $white;
+        transform: scale(1.05);
+        will-change: transform;
+      }
+    }
+  }
+}
+
+.show {
+  display: block !important;
+}

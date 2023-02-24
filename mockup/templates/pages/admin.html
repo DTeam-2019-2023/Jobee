@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin</title>
+  <link rel="stylesheet" href="../../assets/css/admin.css" />
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+</head>
+
+<body>
+  <header>
+    <a href="/" rel="noopener noreferrer">
+      <img src="../../assets/images/Logo.svg" alt="" srcset="" />
+    </a>
+    <div class="group-btn">
+      <a class="btn btn--simpButton center" role="button" href="/templates/pages/login.html">Login</a>
+    </div>
+  </header>
+  <div class="container adminContainer">
+    <div class="leftContainer">
+      <div class="manageList">
+        <a href="#manageUser" class="manageItem active">
+          <!-- <img
+              src="../../assets/images/User Group.svg"
+              alt="icon user group"
+              class="manageIcon"
+            /> -->
+          <span class="managerName">Manager User</span>
+        </a>
+        <a href="#verifyRequest" class="manageItem">
+          <!-- <img
+              src="../../assets/images/verify check.svg"
+              alt="icon verify"
+              class="manageIcon"
+            /> -->
+          <span class="managerName">Verify Request</span>
+        </a>
+      </div>
+    </div>
+    <div class="rightContainer">
+      <!-- MANAGER USER -->
+      <div class="manageUserContainer show" id="manageUser">
+        <div class="listTitle">
+          <h3>Manager User</h3>
+        </div>
+        <div class="listAction">
+          <!-- INPUT SEARCH -->
+          <div class="searchGroupContainer">
+            <div class="searchGroup">
+              <input type="text" class="searchGroupInput" placeholder="Searching ..." />
+              <span class="searchButton">Search</span>
+            </div>
+          </div>
+          <button class="btn btn--Create">Create</button>
+        </div>
+        <table width="100%">
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 20%" />
+          <col style="width: 10%" />
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Type Account</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">ad001</span></td>
+            <td>Admin</td>
+            <td class="typeAccount">
+              <div class="typeAd typeName">Admin</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="text--ellipsis">user001</span></td>
+            <td>Username1</td>
+            <td class="typeAccount">
+              <div class="typeUs typeName">User</div>
+            </td>
+            <td class="iconList">
+              <abbr title="View">
+                <img src="../../assets/images/View.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Delete">
+                <img src="../../assets/images/icons8_trash 1.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+        </table>
+        <div class="paging">
+          <ul class="pagingList">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>...</li>
+            <li>100</li>
+            <li>101</li>
+            <li>next</li>
+          </ul>
+        </div>
+      </div>
+      <!-- VERIFY REQUEST -->
+      <div class="verifyRequestContainer" id="verifyRequest">
+        <div class="listTitle">
+          <h3>Verify Request</h3>
+        </div>
+        <table width="100%">
+          <!-- <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 20%" />
+            <col style="width: 10%" /> -->
+          <tr>
+            <th>Full Name</th>
+            <th>Certificate</th>
+            <th>Expired Date</th>
+            <th>Description</th>
+            <th>URL</th>
+            <th>Action</th>
+          </tr>
+          <tr>
+            <td>Nguyen Van A</td>
+            <td>UX - UI Design</td>
+            <td>
+              <span class="startDate">[StartDate]</span> -
+              <span class="endDate">[EndDate]</span>
+            </td>
+            <td>Text to description</td>
+            <td>
+              <div class="urlFieldContainer">
+                <div class="urlField">
+                  <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
+                  <span class="extendIconContainer">
+                    <img src="../../assets/images/Extend.svg" alt="extend icon" id="extendIcon" />
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td class="iconList">
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Accept">
+                <img src="../../assets/images/verify check.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Reject">
+                <img src="../../assets/images/iconClose.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+          <tr>
+            <td>Nguyen Van A</td>
+            <td>UX - UI Design</td>
+            <td>
+              <span class="startDate">[StartDate]</span> -
+              <span class="endDate">[EndDate]</span>
+            </td>
+            <td>Text to description</td>
+            <td>
+              <div class="urlFieldContainer">
+                <div class="urlField">
+                  <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
+                  <span class="extendIconContainer">
+                    <img src="../../assets/images/Extend.svg" alt="extend icon" id="extendIcon" />
+                  </span>
+                </div>
+              </div>
+            </td>
+            <td class="iconList">
+              <abbr title="Information">
+                <img src="../../assets/images/Info.svg" alt="view icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Accept">
+                <img src="../../assets/images/verify check.svg" alt="trash icon" class="actionIcon" />
+              </abbr>
+              <abbr title="Reject">
+                <img src="../../assets/images/iconClose.svg" alt="info icon" class="actionIcon" />
+              </abbr>
+            </td>
+          </tr>
+        </table>
+        <div class="paging">
+          <ul class="pagingList">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>...</li>
+            <li>100</li>
+            <li>101</li>
+            <li>next</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../../assets/js/admin.js"></script>
+
+</html>

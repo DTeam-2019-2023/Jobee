@@ -1,0 +1,27 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "header";
+
+@import "input";
+
+.signupForm {
+    background-color: $light_grey;
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 1em;
+    border-radius: 8px;
+}
+
+.formHeader h2 {
+    font-size: $large;
+    font-weight: $fw700;
+    text-align: center;
+}

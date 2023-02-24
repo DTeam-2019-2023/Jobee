@@ -154,7 +154,6 @@
 
 // URL FIELD
 .urlFieldContainer {
-  margin-top: 1em;
   height: 30px;
 
   .urlField {
@@ -162,7 +161,7 @@
     display: flex;
     align-items: center;
     border: 1px solid $grey;
-    width: fit-content;
+    width: 100%;
     border-radius: 5px;
 
     .urlFieldInput {
@@ -170,6 +169,7 @@
       border: none;
       padding: 4px;
       outline: none;
+      flex-grow: 1;
 
       &::placeholder {
         color: $grey;

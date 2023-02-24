@@ -1,6 +1,5 @@
 // SEARCH GROUP
 .searchGroupContainer {
-  margin-top: 1em;
   height: 30px;
 
   .searchGroup {
@@ -26,9 +25,6 @@
       cursor: pointer;
       transition: 0.25s;
 
-      &:hover {
-        opacity: 0.8;
-      }
     }
   }
 }

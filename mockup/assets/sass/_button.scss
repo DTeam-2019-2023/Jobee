@@ -32,6 +32,8 @@
   &--button {
     background-color: $light_primary;
     color: $white;
+    text-align: center;
+    transition: 0.25s;
     &:hover {
       background-color: $white;
       color: $light_primary;
@@ -62,10 +64,21 @@
     font-weight: $fw500;
   }
 
-  &--Login {
+  &--Submit {
     background-color: $primary;
     border-radius: 8px;
     width: 100%;
     color: $white;
+  }
+
+  &--Create {
+    width: 6em;
+    padding: 4px;
+    font-size: 12px;
+    height: fit-content;
+    border-radius: 0;
+    background-color: $blue;
+    color: $white;
+    margin-left: 1em;
   }
 }

@@ -82,6 +82,7 @@ main {
 
 body {
   line-height: 1;
+  padding-top: 78px;
 }
 
 ol,
@@ -125,8 +126,7 @@ body {
 .container {
   position: relative;
   padding: 0px 55px;
-  margin-top: 78px;
-  height: calc(100% - 78px);
+  height: 100%;
 }
 
 .btn {
@@ -157,6 +157,8 @@ body {
 .btn--button {
   background-color: #8ea7e9;
   color: #ffffff;
+  text-align: center;
+  transition: 0.25s;
 }
 .btn--button:hover {
   background-color: #ffffff;
@@ -184,11 +186,21 @@ body {
   border-radius: 8px;
   font-weight: 500;
 }
-.btn--Login {
+.btn--Submit {
   background-color: #86a3b8;
   border-radius: 8px;
   width: 100%;
   color: #ffffff;
+}
+.btn--Create {
+  width: 6em;
+  padding: 4px;
+  font-size: 12px;
+  height: fit-content;
+  border-radius: 0;
+  background-color: #0062e6;
+  color: #ffffff;
+  margin-left: 1em;
 }
 
 .btn {
@@ -219,6 +231,8 @@ body {
 .btn--button {
   background-color: #8ea7e9;
   color: #ffffff;
+  text-align: center;
+  transition: 0.25s;
 }
 .btn--button:hover {
   background-color: #ffffff;
@@ -246,11 +260,21 @@ body {
   border-radius: 8px;
   font-weight: 500;
 }
-.btn--Login {
+.btn--Submit {
   background-color: #86a3b8;
   border-radius: 8px;
   width: 100%;
   color: #ffffff;
+}
+.btn--Create {
+  width: 6em;
+  padding: 4px;
+  font-size: 12px;
+  height: fit-content;
+  border-radius: 0;
+  background-color: #0062e6;
+  color: #ffffff;
+  margin-left: 1em;
 }
 
 header {
@@ -524,7 +548,6 @@ header .popupSetting:hover > .dropdownSetting {
   }
 }
 .urlFieldContainer {
-  margin-top: 1em;
   height: 30px;
 }
 .urlFieldContainer .urlField {
@@ -532,7 +555,7 @@ header .popupSetting:hover > .dropdownSetting {
   display: flex;
   align-items: center;
   border: 1px solid #cccccc;
-  width: fit-content;
+  width: 100%;
   border-radius: 5px;
 }
 .urlFieldContainer .urlField .urlFieldInput {
@@ -540,6 +563,7 @@ header .popupSetting:hover > .dropdownSetting {
   border: none;
   padding: 4px;
   outline: none;
+  flex-grow: 1;
 }
 .urlFieldContainer .urlField .urlFieldInput::placeholder {
   color: #cccccc;
