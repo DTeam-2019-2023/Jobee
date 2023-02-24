@@ -56,9 +56,10 @@
 }
 
 .selected {
-  background-color: $blue !important;
+  background-color: $line !important;
   color: $white;
-  border: 1px solid $primary;
+  // border: 1px solid $primary;
+  transition: .25s;
 }
 .rightContainer {
   width: 80%;
@@ -112,8 +113,8 @@ table {
 
     td {
       text-align: center;
-      // border-bottom: 1px solid $grey;
       padding: 5px;
+      vertical-align: middle;
       span {
         &.text--ellipsis {
           display: inline-block;
@@ -125,14 +126,12 @@ table {
       }
     }
 
-    .iconList {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 1em;
+    .iconList > abbr[title] {
+      text-decoration: none !important;
     }
-
+    
     .actionIcon {
+      margin: 0 8px;
       width: $small;
       height: $small;
       cursor: pointer;
@@ -159,7 +158,7 @@ table {
   .pagingList {
     display: flex;
     justify-content: center;
-    margin-top: 1em;
+    margin: 2em 0;
 
     li {
       width: 4em;
@@ -218,4 +217,9 @@ table {
 
 .show {
   display: block !important;
+}
+
+.moreInfo {
+  word-wrap: break-word;
+  white-space: inherit;
 }

@@ -500,9 +500,9 @@ header {
 }
 
 .selected {
-  background-color: #0062e6 !important;
+  background-color: #e8d2a6 !important;
   color: #ffffff;
-  border: 1px solid #86a3b8;
+  transition: 0.25s;
 }
 
 .rightContainer {
@@ -553,6 +553,7 @@ table tr th {
 table tr td {
   text-align: center;
   padding: 5px;
+  vertical-align: middle;
 }
 table tr td span.text--ellipsis {
   display: inline-block;
@@ -561,13 +562,11 @@ table tr td span.text--ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-table tr .iconList {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 1em;
+table tr .iconList > abbr[title] {
+  text-decoration: none !important;
 }
 table tr .actionIcon {
+  margin: 0 8px;
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -589,7 +588,7 @@ table tr .actionIcon {
 .paging .pagingList {
   display: flex;
   justify-content: center;
-  margin-top: 1em;
+  margin: 2em 0;
 }
 .paging .pagingList li {
   width: 4em;
@@ -640,6 +639,11 @@ table tr .actionIcon {
 
 .show {
   display: block !important;
+}
+
+.moreInfo {
+  word-wrap: break-word;
+  white-space: inherit;
 }
 
 /*# sourceMappingURL=admin.css.map */
