@@ -82,6 +82,7 @@ main {
 
 body {
   line-height: 1;
+  padding-top: 78px;
 }
 
 ol,
@@ -125,8 +126,6 @@ body {
 .container {
   position: relative;
   padding: 0px 55px;
-  margin-top: 78px;
-  height: calc(100% - 78px);
 }
 
 .btn {

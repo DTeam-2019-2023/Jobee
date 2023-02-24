@@ -82,6 +82,7 @@ main {
 
 body {
   line-height: 1;
+  padding-top: 78px;
 }
 
 ol,
@@ -125,8 +126,6 @@ body {
 .container {
   position: relative;
   padding: 0px 55px;
-  margin-top: 78px;
-  height: calc(100% - 78px);
 }
 
 .btn {
@@ -468,6 +467,9 @@ header {
   width: 20%;
   overflow: hidden;
   padding: 0 1em;
+  position: fixed;
+  z-index: 1000;
+  height: 100%;
 }
 
 .manageItem {
@@ -498,9 +500,10 @@ header {
 
 .rightContainer {
   width: 80%;
+  height: 100%;
   background-color: #ffffff;
-  max-height: 100%;
   overflow: auto;
+  margin-left: 20%;
 }
 .rightContainer .manageUserContainer {
   width: 100%;
@@ -543,6 +546,13 @@ table tr th {
 table tr td {
   text-align: center;
   padding: 5px;
+}
+table tr td span.text--ellipsis {
+  display: inline-block;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 table tr .iconList {
   display: flex;
