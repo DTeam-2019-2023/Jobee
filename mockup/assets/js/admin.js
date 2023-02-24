@@ -5,3 +5,8 @@ $(".manageItem").on("click", function (e) {
   $(this).addClass("active");
   $(this.hash).addClass("show");
 });
+
+$("#verifyRequest tr").on("click", function (e) {
+  $("tr.selected").removeClass("selected");
+  $(this).addClass("selected");
+});

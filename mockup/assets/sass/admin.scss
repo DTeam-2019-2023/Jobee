@@ -55,6 +55,11 @@
   border: 1px solid $primary;
 }
 
+.selected {
+  background-color: $blue !important;
+  color: $white;
+  border: 1px solid $primary;
+}
 .rightContainer {
   width: 80%;
   height: 100%;

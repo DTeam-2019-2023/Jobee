@@ -126,6 +126,7 @@ body {
 .container {
   position: relative;
   padding: 0px 55px;
+  height: 100%;
 }
 
 .btn {
@@ -494,6 +495,12 @@ header {
 
 .active {
   background-color: #86a3b8 !important;
+  color: #ffffff;
+  border: 1px solid #86a3b8;
+}
+
+.selected {
+  background-color: #0062e6 !important;
   color: #ffffff;
   border: 1px solid #86a3b8;
 }
