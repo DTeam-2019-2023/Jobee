@@ -148,3 +148,66 @@
     }
   }
 }
+
+// POPUP
+.overlayEducationAdd {
+  position: fixed;
+  background-color: $overlay;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+
+  .educationAddContainer {
+    background-color: $white;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    padding: 1em;
+  }
+
+  // HEADER
+  .formHeader {
+    margin: 1em 0;
+    .headerTitle {
+      text-align: center;
+      font-weight: $fw700;
+      color: $primary;
+      font-size: $medium;
+    }
+  }
+
+  //BODY
+  .formBody {
+    .row {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+      justify-content: space-around;
+
+         svg {
+          width: $large;
+          fill: $primary;
+        }
+
+        .popupInput {
+          font-size: $small;
+        }
+
+        .dateRow {
+          width: 90%;
+        }
+      }
+  }
+  //FOOTER
+  .formFooter {
+    margin: 1em 0;
+    float: right;
+
+  }
+  }

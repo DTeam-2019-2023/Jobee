@@ -801,4 +801,54 @@ header .popupSetting:hover > .dropdownSetting {
   height: 63px;
 }
 
+.overlayEducationAdd {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+}
+.overlayEducationAdd .educationAddContainer {
+  background-color: #ffffff;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  padding: 1em;
+}
+.overlayEducationAdd .formHeader {
+  margin: 1em 0;
+}
+.overlayEducationAdd .formHeader .headerTitle {
+  text-align: center;
+  font-weight: 700;
+  color: #86a3b8;
+  font-size: 24px;
+}
+.overlayEducationAdd .formBody .row {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  justify-content: space-around;
+}
+.overlayEducationAdd .formBody .row svg {
+  width: 32px;
+  fill: #86a3b8;
+}
+.overlayEducationAdd .formBody .row .popupInput {
+  font-size: 16px;
+}
+.overlayEducationAdd .formBody .row .dateRow {
+  width: 90%;
+}
+.overlayEducationAdd .formFooter {
+  margin: 1em 0;
+  float: right;
+}
+
 /*# sourceMappingURL=userPage.css.map */
