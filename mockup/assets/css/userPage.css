@@ -789,10 +789,10 @@ header .popupSetting:hover > .dropdownSetting {
   display: flex;
   gap: 76px;
   align-items: center;
+  flex-wrap: nowrap;
 }
 .cv-container .panel#General .content .row .col {
-  flex-grow: 2;
-  flex-basis: content;
+  flex: 1;
 }
 .cv-container .panel#General .content .row .col .inputTextContainer,
 .cv-container .panel#General .content .row .col .inputSelectContainer,

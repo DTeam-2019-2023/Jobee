@@ -133,9 +133,9 @@
           display: flex;
           gap: 76px;
           align-items: center;
+          flex-wrap: nowrap;
           .col {
-            flex-grow: 2;
-            flex-basis: content;
+            flex: 1;
             .inputTextContainer,
             .inputSelectContainer,
             .inputTextareaContainer {
