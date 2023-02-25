@@ -832,19 +832,25 @@ header .popupSetting:hover > .dropdownSetting {
 }
 .overlayEducationAdd .formBody .row {
   display: flex;
-  gap: 1em;
+  gap: 16px;
   align-items: center;
-  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+.overlayEducationAdd .formBody .row .col {
+  flex: 1;
+}
+.overlayEducationAdd .formBody .row .col > * {
+  width: 100%;
 }
 .overlayEducationAdd .formBody .row svg {
   width: 32px;
-  fill: #86a3b8;
+  flex-basis: auto;
 }
 .overlayEducationAdd .formBody .row .popupInput {
   font-size: 16px;
 }
 .overlayEducationAdd .formBody .row .dateRow {
-  width: 90%;
+  width: 100%;
 }
 .overlayEducationAdd .formFooter {
   margin: 1em 0;

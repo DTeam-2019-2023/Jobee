@@ -186,28 +186,32 @@
   .formBody {
     .row {
       display: flex;
-      gap: 1em;
+      gap: $small;
       align-items: center;
-      justify-content: space-around;
-
-         svg {
-          width: $large;
-          fill: $primary;
-        }
-
-        .popupInput {
-          font-size: $small;
-        }
-
-        .dateRow {
-          width: 90%;
+      flex-wrap: nowrap;
+      .col {
+        flex: 1;
+        & > * {
+          width: 100%;
         }
       }
+      svg {
+        width: $large;
+        flex-basis: auto;
+      }
+
+      .popupInput {
+        font-size: $small;
+      }
+
+      .dateRow {
+        width: 100%;
+      }
+    }
   }
   //FOOTER
   .formFooter {
     margin: 1em 0;
     float: right;
-
   }
-  }
+}
