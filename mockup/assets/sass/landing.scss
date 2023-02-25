@@ -79,7 +79,6 @@ div.panel {
   // &::-webkit-scrollbar {
   //   display: none;
   // }
-
   & > div {
     flex-grow: 1;
     p {
@@ -98,8 +97,9 @@ div.panel {
       }
     }
   }
-  img {
-    width: 221px;
+  & > img {
+    width: 100% !important;
+    max-width: 200px;
   }
 }
 
@@ -154,11 +154,11 @@ div.panel {
 
   .group1 {
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     width: fit-content;
     margin-right: 4em;
   }
-  
+
   .techLogo {
     width: 8em;
   }

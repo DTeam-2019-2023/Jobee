@@ -506,8 +506,9 @@ div.panel > div ul li {
   font-size: 18.2px;
   line-height: 21px;
 }
-div.panel img {
-  width: 221px;
+div.panel > img {
+  width: 100% !important;
+  max-width: 200px;
 }
 
 @keyframes smoothZoom {
