@@ -37,6 +37,157 @@ $green: #b0e07b;
 $pink: #ff8789;
 $overlay: rgba(0, 0, 0, 0.6);
 $light_primary: #8ea7e9;
+@mixin fill-img($color) {
+  @if ($color == $primary) {
+    filter: invert(68%)
+      sepia(18%)
+      saturate(473%)
+      hue-rotate(162deg)
+      brightness(91%)
+      contrast(87%);
+  }
+  @if ($color == $line) {
+    filter: invert(92%)
+      sepia(18%)
+      saturate(683%)
+      hue-rotate(334deg)
+      brightness(96%)
+      contrast(90%);
+  }
+  @if ($color == $error) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(50%)
+      sepia(52%)
+      saturate(2696%)
+      hue-rotate(326deg)
+      brightness(90%)
+      contrast(116%);
+  }
+  @if ($color == $background) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(92%)
+      sepia(9%)
+      saturate(1954%)
+      hue-rotate(300deg)
+      brightness(117%)
+      contrast(103%);
+  }
+  @if ($color == $text_v) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(98%)
+      sepia(1%)
+      saturate(4513%)
+      hue-rotate(172deg)
+      brightness(126%)
+      contrast(92%);
+  }
+  @if ($color == $success) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(67%)
+      sepia(38%)
+      saturate(6875%)
+      hue-rotate(123deg)
+      brightness(101%)
+      contrast(98%);
+  }
+  @if ($color == $black) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(0%)
+      sepia(1%)
+      saturate(7493%)
+      hue-rotate(336deg)
+      brightness(109%)
+      contrast(93%);
+  }
+  @if ($color == $white) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(100%)
+      sepia(0%)
+      saturate(7492%)
+      hue-rotate(80deg)
+      brightness(99%)
+      contrast(105%);
+  }
+  @if ($color == $grey) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(74%)
+      sepia(3%)
+      saturate(12%)
+      hue-rotate(10deg)
+      brightness(111%)
+      contrast(92%);
+  }
+  @if ($color == $light_grey) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(99%)
+      sepia(1%)
+      saturate(230%)
+      hue-rotate(107deg)
+      brightness(115%)
+      contrast(91%);
+  }
+  @if ($color == $blue) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(23%)
+      sepia(95%)
+      saturate(3828%)
+      hue-rotate(208deg)
+      brightness(95%)
+      contrast(101%);
+  }
+  @if ($color == $grey2) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(100%)
+      sepia(4%)
+      saturate(399%)
+      hue-rotate(59deg)
+      brightness(117%)
+      contrast(87%);
+  }
+  @if ($color == $green) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(97%)
+      sepia(4%)
+      saturate(3710%)
+      hue-rotate(20deg)
+      brightness(89%)
+      contrast(90%);
+  }
+  @if ($color == $pink) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(83%)
+      sepia(34%)
+      saturate(5342%)
+      hue-rotate(303deg)
+      brightness(98%)
+      contrast(107%);
+  }
+  @if ($color == $overlay) {
+    filter: none;
+  }
+  @if ($color == $light_primary) {
+    filter: brightness(0)
+      saturate(100%)
+      invert(72%)
+      sepia(10%)
+      saturate(3757%)
+      hue-rotate(190deg)
+      brightness(100%)
+      contrast(83%);
+  }
+}
 
 //box shadow
 $box_shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
