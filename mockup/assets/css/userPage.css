@@ -801,7 +801,7 @@ header .popupSetting:hover > .dropdownSetting {
   height: 63px;
 }
 
-.overlayEducationAdd {
+.overlayAdd {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
@@ -809,52 +809,62 @@ header .popupSetting:hover > .dropdownSetting {
   right: 0;
   bottom: 0;
   z-index: 10000;
+  display: none;
 }
-.overlayEducationAdd .educationAddContainer {
+.overlayAdd .addContainer {
   background-color: #ffffff;
   width: fit-content;
   height: fit-content;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: -50%;
+  left: -50%;
   transform: translate(-50%, -50%);
   border-radius: 8px;
   padding: 1em;
+  animation: popupShow 0.25s ease;
 }
-.overlayEducationAdd .formHeader {
+.overlayAdd .formHeader {
   margin: 1em 0;
 }
-.overlayEducationAdd .formHeader .headerTitle {
+.overlayAdd .formHeader .headerTitle {
   text-align: center;
   font-weight: 700;
   color: #86a3b8;
   font-size: 24px;
 }
-.overlayEducationAdd .formBody .row {
+.overlayAdd .formBody .row {
   display: flex;
   gap: 16px;
   align-items: center;
   flex-wrap: nowrap;
 }
-.overlayEducationAdd .formBody .row .col {
+.overlayAdd .formBody .row .col {
   flex: 1;
 }
-.overlayEducationAdd .formBody .row .col > * {
+.overlayAdd .formBody .row .col > * {
   width: 100%;
 }
-.overlayEducationAdd .formBody .row svg {
+.overlayAdd .formBody .row svg {
   width: 32px;
   flex-basis: auto;
 }
-.overlayEducationAdd .formBody .row .popupInput {
+.overlayAdd .formBody .row .popupInput {
   font-size: 16px;
 }
-.overlayEducationAdd .formBody .row .dateRow {
+.overlayAdd .formBody .row .dateRow {
   width: 100%;
 }
-.overlayEducationAdd .formFooter {
-  margin: 1em 0;
+.overlayAdd .formFooter {
   float: right;
+}
+
+@keyframes popupShow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 50%;
+  }
 }
 
 /*# sourceMappingURL=userPage.css.map */

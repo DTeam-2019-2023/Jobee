@@ -150,7 +150,7 @@
 }
 
 // POPUP
-.overlayEducationAdd {
+.overlayAdd {
   position: fixed;
   background-color: $overlay;
   top: 0;
@@ -158,17 +158,19 @@
   right: 0;
   bottom: 0;
   z-index: 10000;
+  display: none;
 
-  .educationAddContainer {
+  .addContainer {
     background-color: $white;
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: -50%;
+    left: -50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
     padding: 1em;
+    animation: popupShow .25s ease;
   }
 
   // HEADER
@@ -211,7 +213,15 @@
   }
   //FOOTER
   .formFooter {
-    margin: 1em 0;
     float: right;
+  }
+}
+
+@keyframes popupShow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 50%;
   }
 }
