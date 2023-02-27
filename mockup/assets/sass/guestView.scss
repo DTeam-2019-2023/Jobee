@@ -1,0 +1,39 @@
+@import "variables";
+
+//reset css
+@import "reset";
+//layout
+@import "layout";
+@import "button";
+@import "contentNavigation";
+@import "header";
+
+@import "contentPopup";
+@import "popupNotify";
+$font-size: $small;
+$label-size: $medium;
+$label-top: 0;
+.data {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0.5em 0 1em 0;
+  background-color: $white;
+  font-size: $medium;
+  padding: 0 1em;
+  border-bottom: 5px solid $primary;
+  box-sizing: border-box;
+  cursor: not-allowed;
+  user-select: none;
+  width: 100% !important;
+  height: $extra-large;
+}
+.lable {
+  position: absolute;
+  top: -0.5em;
+  font-size: $label-size;
+  font-weight: 700;
+  color: $primary;
+  opacity: 0.6;
+  left: 1em;
+}
