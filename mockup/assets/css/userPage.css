@@ -202,6 +202,28 @@ body {
   color: #ffffff;
   margin-left: 1em;
 }
+.btn--Yes {
+  background-color: #f55050;
+  color: #ffffff;
+  border: none;
+  transition: 0.25s ease-in;
+}
+.btn--Yes:hover {
+  background-color: transparent;
+  color: #f55050;
+  border: 1px solid #f55050;
+}
+.btn--Success {
+  background-color: #03c988;
+  color: #ffffff;
+  border: none;
+  transition: 0.25s ease-in;
+}
+.btn--Success:hover {
+  background-color: transparent;
+  color: #03c988;
+  border: 1px solid #03c988;
+}
 
 .inputTextareaContainer, .inputSelectContainer, .inputTextContainer {
   position: relative;
@@ -443,9 +465,6 @@ body {
   position: relative;
   transition: transform ease 0.25s;
 }
-.contentNavContainer .contentNavBody .contentItem .itemThird .actionIcon:hover {
-  transform: translateY(-20px);
-}
 
 .btn {
   font-family: "Nunito", sans-serif;
@@ -519,6 +538,28 @@ body {
   background-color: #0062e6;
   color: #ffffff;
   margin-left: 1em;
+}
+.btn--Yes {
+  background-color: #f55050;
+  color: #ffffff;
+  border: none;
+  transition: 0.25s ease-in;
+}
+.btn--Yes:hover {
+  background-color: transparent;
+  color: #f55050;
+  border: 1px solid #f55050;
+}
+.btn--Success {
+  background-color: #03c988;
+  color: #ffffff;
+  border: none;
+  transition: 0.25s ease-in;
+}
+.btn--Success:hover {
+  background-color: transparent;
+  color: #03c988;
+  border: 1px solid #03c988;
 }
 
 header {
@@ -664,6 +705,149 @@ header .popupSetting:hover > .dropdownSetting {
   display: flex;
 }
 
+.overlayContentPopup {
+  background-color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+}
+.overlayContentPopup .contentPopupContainer {
+  width: 700px;
+  height: 500px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  border-radius: 10px;
+  animation: popupShow 0.25s ease;
+}
+.overlayContentPopup .contentPopupContainer .contentLeft {
+  border-radius: 10px 0 0 10px;
+  width: 40%;
+  background-color: #e8d2a6;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+}
+.overlayContentPopup .contentPopupContainer .contentLeft .contentTitle {
+  font-weight: 700;
+  font-size: 32px;
+  text-align: center;
+}
+.overlayContentPopup .contentPopupContainer .contentRight {
+  width: 60%;
+  display: flex;
+  align-items: center;
+}
+.overlayContentPopup .contentPopupContainer .contentRight .rowContentList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.overlayContentPopup .contentPopupContainer .contentRight .rowContentList .rowContentItem {
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  margin: 0.5em;
+  padding: 8px;
+  flex-grow: 1;
+}
+.overlayContentPopup .contentPopupContainer .contentRight .rowContentList .rowContentItem .rowContentItemText {
+  font-size: 16px;
+  margin-left: 0.5em;
+  font-weight: 700;
+}
+
+.SvgSize {
+  width: 50px;
+  height: 50px;
+}
+
+.SvgLine {
+  fill: #e8d2a6;
+}
+
+.overlayNotifyContainer {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  display: none;
+}
+.overlayNotifyContainer .notifyContainer {
+  background-color: #ffffff;
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  animation: delShow 0.25s ease;
+}
+.overlayNotifyContainer .notifyContainer .header {
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.overlayNotifyContainer .notifyContainer .header .headerClose {
+  justify-content: flex-end;
+  display: flex;
+}
+.overlayNotifyContainer .notifyContainer .header .headerClose .closeIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent .contentTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent .contentDescription {
+  padding: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+.overlayNotifyContainer .notifyContainer .buttonContent {
+  padding: 1em;
+  display: flex;
+  justify-content: space-around;
+}
+
+@keyframes delShow {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+#deleteHeader, #failHeader {
+  background-color: #f55050;
+}
+
+#successHeader {
+  background-color: #03c988;
+}
+
 .container {
   overflow: scroll;
 }
@@ -801,7 +985,7 @@ header .popupSetting:hover > .dropdownSetting {
   height: 63px;
 }
 
-.overlayAdd {
+.overlayPopup {
   position: fixed;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
@@ -811,50 +995,50 @@ header .popupSetting:hover > .dropdownSetting {
   z-index: 10000;
   display: none;
 }
-.overlayAdd .addContainer {
+.overlayPopup .popupContainer {
   background-color: #ffffff;
   width: fit-content;
   height: fit-content;
   position: absolute;
-  top: -50%;
-  left: -50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 8px;
   padding: 1em;
   animation: popupShow 0.25s ease;
 }
-.overlayAdd .formHeader {
+.overlayPopup .formHeader {
   margin: 1em 0;
 }
-.overlayAdd .formHeader .headerTitle {
+.overlayPopup .formHeader .headerTitle {
   text-align: center;
   font-weight: 700;
   color: #86a3b8;
   font-size: 24px;
 }
-.overlayAdd .formBody .row {
+.overlayPopup .formBody .row {
   display: flex;
   gap: 16px;
   align-items: center;
   flex-wrap: nowrap;
 }
-.overlayAdd .formBody .row .col {
+.overlayPopup .formBody .row .col {
   flex: 1;
 }
-.overlayAdd .formBody .row .col > * {
+.overlayPopup .formBody .row .col > * {
   width: 100%;
 }
-.overlayAdd .formBody .row svg {
+.overlayPopup .formBody .row svg {
   width: 32px;
   flex-basis: auto;
 }
-.overlayAdd .formBody .row .popupInput {
+.overlayPopup .formBody .row .popupInput {
   font-size: 16px;
 }
-.overlayAdd .formBody .row .dateRow {
+.overlayPopup .formBody .row .dateRow {
   width: 100%;
 }
-.overlayAdd .formFooter {
+.overlayPopup .formFooter {
   float: right;
 }
 

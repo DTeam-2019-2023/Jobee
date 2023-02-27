@@ -8,6 +8,10 @@
 @import "input";
 @import "contentNavigation";
 @import "header";
+
+@import "contentPopup";
+@import "popupNotify";
+
 .container {
   overflow: scroll;
 }
@@ -150,7 +154,7 @@
 }
 
 // POPUP
-.overlayAdd {
+.overlayPopup {
   position: fixed;
   background-color: $overlay;
   top: 0;
@@ -160,13 +164,13 @@
   z-index: 10000;
   display: none;
 
-  .addContainer {
+  .popupContainer {
     background-color: $white;
     width: fit-content;
     height: fit-content;
     position: absolute;
-    top: -50%;
-    left: -50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 8px;
     padding: 1em;

@@ -84,10 +84,6 @@
           cursor: pointer;
           position: relative;
           transition: transform ease 0.25s;
-
-          &:hover {
-            transform: translateY(-20px);
-          }
         }
       }
     }

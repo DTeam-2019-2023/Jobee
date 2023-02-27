@@ -81,4 +81,30 @@
     color: $white;
     margin-left: 1em;
   }
+
+  &--Yes {
+    background-color: $error;
+    color: $white;
+    border: none;
+    transition: .25s ease-in;
+
+    &:hover {
+      background-color: transparent;
+      color: $error;
+      border: 1px solid $error;
+    }
+  }
+
+  &--Success {
+    background-color: $success;
+    color: $white;
+    border: none;
+    transition: .25s ease-in;
+
+    &:hover {
+      background-color: transparent;
+      color: $success;
+      border: 1px solid $success;
+    }
+  }
 }

@@ -1,11 +1,11 @@
 //COMMON JS
-$(".overlayAdd").on("click", function () {
+$(".overlayPopup").on("click", function () {
   $(this).hide();
 });
 
 $(".btnCancel").on("click", function (e) {
   e.preventDefault();
-  //   $(".overlayAdd").hide();
+  //   $(".overlayPopup").hide();
   $(this).parent().parent().parent().hide();
 });
 
@@ -14,33 +14,97 @@ $(".btnCancel").on("click", function (e) {
 // JS EDU
 $("#eduBtn").on("click", function () {
   $("#overlayEdu").show();
-  $("#eduContainer").css("top", "50%");
-  $("#eduContainer").css("left", "50%");
 });
 
 //JS PROJECT
 $("#projectBtn").on("click", function () {
   $("#overlayProject").show();
-  $("#projContainer").css("top", "50%");
-  $("#projContainer").css("left", "50%");
 });
 
 //JS CERTIFICATE
 $("#certBtn").on("click", function () {
   $("#overlayCert").show();
-  $("#certContainer").css("top", "50%");
-  $("#certContainer").css("left", "50%");
 });
 //JS ACTIVITY
 $("#activityBtn").on("click", function () {
   $("#overlayActivity").show();
-  $("#activityContainer").css("top", "50%");
-  $("#activityContainer").css("left", "50%");
 });
 
 //JS AWARD
 $("#awardBtn").on("click", function () {
   $("#overlayAward").show();
-  $("#awardContainer").css("top", "50%");
-  $("#awardContainer").css("left", "50%");
+});
+
+//=================================//
+//COMMON VIEW POPUP CLOSE
+$(".overlayContentPopup").on("click", function () {
+  $(this).hide();
+});
+
+//VIEW EDU
+$("#expandEdu").on("click", function () {
+  $("#overlayViewEducation").show();
+});
+
+//VIEW PROJECT
+$("#expandProject").on("click", function () {
+  $("#overlayViewProject").show();
+});
+//VIEW CERTIFICATE
+$("#expandCertificate").on("click", function () {
+  $("#overlayViewCertificate").show();
+});
+//VIEW ACTIVITY
+$("#expandActivity").on("click", function () {
+  $("#overlayViewActivity").show();
+});
+
+//VIEW AWARD
+$("#expandAward").on("click", function () {
+  $("#overlayViewAward").show();
+});
+
+//COMMON EDIT POPUP
+$("#editEdu").on("click", function () {
+  $("#overlayEditEdu").show();
+});
+
+$("#editProject").on("click", function () {
+  $("#overlayEditProject").show();
+});
+
+$("#editCertificate").on("click", function () {
+  $("#overlayEditCert").show();
+});
+
+$("#editActivity").on("click", function () {
+  $("#overlayEditActivity").show();
+});
+
+$("#editAward").on("click", function () {
+  $("#overlayEditAward").show();
+});
+
+//=============POPUP DELETE=============
+$(".overlayNotifyContainer").on("click", function () {
+  $(this).hide();
+});
+
+$(".btn--No").on("click", function () {
+  $(".overlayNotifyContainer").hide();
+});
+
+$(".delContent").on("click", function () {
+  $("#deleteNotify").show();
+});
+
+$(".btnUpdate").on("click", function (e) {
+  e.preventDefault();
+  $("#successNotify").show(); //=> THIS IS OPTIONAL
+  // $("#failNotify").show(); // OPTIONAL TOO
+  // $(this).parent().parent().parent().show();
+});
+
+$(".btnTryagain").on("click", function (e) {
+  e.preventDefault();
 });
