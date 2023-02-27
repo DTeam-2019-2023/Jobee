@@ -8,6 +8,10 @@
 @import "input";
 @import "contentNavigation";
 @import "header";
+
+@import "contentPopup";
+@import "popupNotify";
+
 .container {
   overflow: scroll;
 }
@@ -155,7 +159,7 @@
 }
 
 // POPUP
-.overlayEducationAdd {
+.overlayPopup {
   position: fixed;
   background-color: $overlay;
   top: 0;
@@ -163,8 +167,9 @@
   right: 0;
   bottom: 0;
   z-index: 10000;
+  display: none;
 
-  .educationAddContainer {
+  .popupContainer {
     background-color: $white;
     width: fit-content;
     height: fit-content;
@@ -174,6 +179,7 @@
     transform: translate(-50%, -50%);
     border-radius: 8px;
     padding: 1em;
+    animation: popupShow .25s ease;
   }
 
   // HEADER
@@ -216,7 +222,15 @@
   }
   //FOOTER
   .formFooter {
-    margin: 1em 0;
     float: right;
+  }
+}
+
+@keyframes popupShow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 50%;
   }
 }
