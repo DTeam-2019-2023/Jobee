@@ -117,7 +117,8 @@ $label-top: 0;
   @extend %inputContainer;
   height: auto !important;
   width: 100% !important;
-  padding: 0 !important;
+  padding: $extra-small 0 0 0 !important;
+
   &:has(textarea:focus) {
     border-bottom: 5px solid $success;
   }
@@ -140,7 +141,6 @@ $label-top: 0;
   .inputTxt {
     width: 100%;
     height: 100%;
-    padding-top: $extra-small;
     border: 1px solid $white;
     resize: vertical;
     transition: 0.25s;
