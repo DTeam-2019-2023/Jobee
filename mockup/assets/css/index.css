@@ -213,17 +213,27 @@ body {
   padding: 0 1em;
   border-bottom: 5px solid #86a3b8;
   box-sizing: border-box;
+  cursor: text;
+}
+.inputTextareaContainer .no-animation, .inputSelectContainer .no-animation, .inputTextContainer .no-animation {
+  animation: none !important;
 }
 .inputTextareaContainer input, .inputSelectContainer input, .inputTextContainer input,
 .inputTextareaContainer select,
 .inputSelectContainer select,
-.inputTextContainer select {
-  border: 1px solid #ffffff;
+.inputTextContainer select,
+.inputTextareaContainer textarea,
+.inputSelectContainer textarea,
+.inputTextContainer textarea {
+  border: none;
+  font-size: 16px;
 }
 .inputTextareaContainer .inputError, .inputSelectContainer .inputError, .inputTextContainer .inputError {
   position: absolute;
   bottom: -24px;
   color: #f55050;
+  background-color: white;
+  border-radius: 50%;
   font-weight: 700;
   font-size: 12px;
   display: none;
@@ -258,9 +268,6 @@ body {
 .inputTextContainer .input:focus {
   outline: none;
 }
-.inputTextContainer .no-animation {
-  animation: none !important;
-}
 .inputTextContainer .inputSpan {
   position: absolute;
   font-weight: 700;
@@ -274,17 +281,9 @@ body {
   color: #000000;
   top: 0;
   animation: movingText 0.5s ease;
-  font-size: small;
+  font-size: 24px;
 }
 
-@keyframes movingText {
-  0% {
-    top: 50%;
-  }
-  100% {
-    top: 15%;
-  }
-}
 .inputSelectContainer select {
   width: 100%;
   height: 100%;
@@ -297,39 +296,56 @@ body {
   background-color: #ffffff;
 }
 
+.inputTextareaContainer {
+  height: auto !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+.inputTextareaContainer:has(textarea:focus) {
+  border-bottom: 5px solid #03c988;
+}
+.inputTextareaContainer.error {
+  padding-right: 1em;
+  border-bottom: 5px solid #f55050;
+}
+.inputTextareaContainer.error::before {
+  content: url("/assets/images/Error.svg");
+  border-radius: 50%;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  bottom: 0;
+  right: 0;
+  transform: translateY(-25%);
+  z-index: 100;
+}
 .inputTextareaContainer .inputTxt {
   width: 100%;
   height: 100%;
+  padding-top: 12px;
   border: 1px solid #ffffff;
-  resize: none;
+  resize: vertical;
   transition: 0.25s;
 }
 .inputTextareaContainer .inputTxt:focus {
   outline: none;
-}
-.inputTextareaContainer .inputTxt:focus ~ .areaSpan {
-  top: -30%;
-  color: #000000;
-  animation: movingArea ease 0.25s;
 }
 .inputTextareaContainer .areaSpan {
   position: absolute;
   font-weight: 700;
   color: #86a3b8;
   opacity: 0.6;
-  left: 0.5em;
-  top: 20%;
-  font-size: 1em;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.inputTextareaContainer .areaSpan.focus {
+  color: #000000;
+  top: 0;
+  animation: movingText 0.5s ease;
+  font-size: 24px;
 }
 
-@keyframes movingArea {
-  0% {
-    top: 20%;
-  }
-  100% {
-    top: -30%;
-  }
-}
 .urlFieldContainer {
   height: 30px;
 }
@@ -368,6 +384,14 @@ body {
   width: 1em;
 }
 
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 0;
+  }
+}
 .btn {
   font-family: "Nunito", sans-serif;
   font-style: normal;

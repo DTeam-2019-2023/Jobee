@@ -1,3 +1,7 @@
+$font-size: $small;
+$label-size: $medium;
+$label-top: 0;
+
 %inputContainer {
   position: relative;
   width: 380px;
@@ -8,15 +12,23 @@
   padding: 0 1em;
   border-bottom: 5px solid $primary;
   box-sizing: border-box;
+  cursor: text;
+  .no-animation {
+    animation: none !important;
+  }
 
   input,
-  select {
-    border: 1px solid $white;
+  select,
+  textarea {
+    border: none;
+    font-size: $font-size;
   }
   .inputError {
     position: absolute;
     bottom: -$extra-small * 2;
     color: $error;
+    background-color: white;
+    border-radius: 50%;
     font-weight: $fw700;
     font-size: $extra-small;
     display: none;
@@ -63,15 +75,13 @@
       // }
     }
   }
-  .no-animation {
-    animation: none !important;
-  }
+
   .inputSpan {
     &.focus {
       color: $black;
-      top: 0;
+      top: $label-top;
       animation: movingText 0.5s ease;
-      font-size: small;
+      font-size: $label-size;
     }
     position: absolute;
     font-weight: 700;
@@ -80,15 +90,6 @@
     left: 1em;
     top: 50%;
     transform: translateY(-50%);
-  }
-}
-
-@keyframes movingText {
-  0% {
-    top: 50%;
-  }
-  100% {
-    top: 15%;
   }
 }
 
@@ -114,21 +115,38 @@
 //TEXT AREA
 .inputTextareaContainer {
   @extend %inputContainer;
+  height: auto !important;
+  width: 100% !important;
+  padding: 0 !important;
+  &:has(textarea:focus) {
+    border-bottom: 5px solid $success;
+  }
+  &.error {
+    padding-right: 1em;
+    border-bottom: 5px solid $error;
+    &::before {
+      content: url("/assets/images/Error.svg");
+      border-radius: 50%;
+      position: absolute;
+      width: $medium;
+      height: $medium;
+      bottom: 0;
+      right: 0;
+      transform: translateY(-25%);
+      z-index: 100;
+    }
+  }
+
   .inputTxt {
     width: 100%;
     height: 100%;
+    padding-top: $extra-small;
     border: 1px solid $white;
-    resize: none;
+    resize: vertical;
     transition: 0.25s;
 
     &:focus {
       outline: none;
-
-      ~ .areaSpan {
-        top: -30%;
-        color: $black;
-        animation: movingArea ease 0.25s;
-      }
     }
   }
 
@@ -137,20 +155,27 @@
     font-weight: 700;
     color: $primary;
     opacity: 0.6;
-    left: 0.5em;
-    top: 20%;
-    font-size: 1em;
+    left: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    //
+    &.focus {
+      color: $black;
+      top: $label-top;
+      animation: movingText 0.5s ease;
+      font-size: $label-size;
+    }
   }
 }
 
-@keyframes movingArea {
-  0% {
-    top: 20%;
-  }
-  100% {
-    top: -30%;
-  }
-}
+// @keyframes movingArea {
+//   0% {
+//     top: 0;
+//   }
+//   100% {
+//     top: -1em;
+//   }
+// }
 
 // URL FIELD
 .urlFieldContainer {
@@ -194,5 +219,14 @@
         width: 1em;
       }
     }
+  }
+}
+
+@keyframes movingText {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: $label-top;
   }
 }

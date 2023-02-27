@@ -132,15 +132,20 @@
         .row {
           display: flex;
           gap: 76px;
-          align-items: center;
+          align-items: flex-start;
           flex-wrap: nowrap;
           .col {
             flex: 1;
             .inputTextContainer,
-            .inputSelectContainer,
-            .inputTextareaContainer {
+            .inputSelectContainer {
               width: 100% !important;
-              height: 63px;
+              height: $extra-large;
+            }
+            .inputTextareaContainer {
+              textarea {
+                min-height: $extra-large !important;
+                max-height: 3 * $extra-large;
+              }
             }
           }
         }
