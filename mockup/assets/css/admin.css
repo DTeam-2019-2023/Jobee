@@ -887,4 +887,73 @@ header .popupSetting:hover > .dropdownSetting {
   white-space: inherit;
 }
 
+.overlayPopup {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+}
+.overlayPopup .popupContainer {
+  background-color: #ffffff;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  padding: 1em;
+  animation: popupShow 0.25s ease;
+}
+.overlayPopup .formHeader {
+  margin: 1em 0;
+}
+.overlayPopup .formHeader .headerTitle {
+  text-align: center;
+  font-weight: 700;
+  color: #86a3b8;
+  font-size: 24px;
+}
+.overlayPopup .formBody .row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.overlayPopup .formBody .row .col {
+  flex: 1;
+}
+.overlayPopup .formBody .row .col > * {
+  width: 100%;
+}
+.overlayPopup .formBody .row svg {
+  width: 32px;
+  flex-basis: auto;
+}
+.overlayPopup .formBody .row .popupInput {
+  font-size: 16px;
+}
+.overlayPopup .formBody .row .dateRow {
+  width: 100%;
+}
+.overlayPopup .formFooter {
+  float: right;
+}
+
+@keyframes popupShow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 50%;
+  }
+}
+#updateProfileContainer {
+  width: 80%;
+}
+
 /*# sourceMappingURL=admin.css.map */

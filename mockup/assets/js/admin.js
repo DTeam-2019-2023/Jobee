@@ -15,3 +15,15 @@ $("tr td:first-child span").on("click", function () {
   $(this).css("white-space", "inherit");
   $(this).toggleClass("moreInfo");
 });
+//popup
+
+$("#btnCreate").on("click", function (e) {
+  e.preventDefault();
+  $("#overlayCreateAdmin").show();
+});
+
+$(".btnCancel").on("click", function (e) {
+  e.preventDefault();
+  //   $(".overlayPopup").hide();
+  $(this).parent().parent().parent().hide();
+});

@@ -223,3 +223,84 @@
     white-space: inherit;
   }
 }
+
+// POPUP
+.overlayPopup {
+  position: fixed;
+  background-color: $overlay;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  display: none;
+
+  .popupContainer {
+    background-color: $white;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+    padding: 1em;
+    animation: popupShow 0.25s ease;
+  }
+
+  // HEADER
+  .formHeader {
+    margin: 1em 0;
+    .headerTitle {
+      text-align: center;
+      font-weight: $fw700;
+      color: $primary;
+      font-size: $medium;
+    }
+  }
+
+  //BODY
+  .formBody {
+    .row {
+      display: flex;
+      gap: $small;
+      align-items: center;
+      flex-wrap: nowrap;
+      .col {
+        flex: 1;
+        & > * {
+          width: 100%;
+        }
+      }
+      svg {
+        width: $large;
+        flex-basis: auto;
+      }
+
+      .popupInput {
+        font-size: $small;
+      }
+
+      .dateRow {
+        width: 100%;
+      }
+    }
+  }
+  //FOOTER
+  .formFooter {
+    float: right;
+  }
+}
+
+@keyframes popupShow {
+  0% {
+    left: -50%;
+  }
+  100% {
+    left: 50%;
+  }
+}
+
+#updateProfileContainer {
+  width: 80%;
+}
