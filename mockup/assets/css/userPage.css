@@ -224,6 +224,17 @@ body {
   color: #03c988;
   border: 1px solid #03c988;
 }
+.btn--verifyBtn {
+  background-color: #537FE7;
+  color: #ffffff;
+  border: none;
+  transform: 0.25s ease-in;
+}
+.btn--verifyBtn:hover {
+  background-color: transparent;
+  color: #537FE7;
+  border: 1px solid #537FE7;
+}
 
 .inputTextareaContainer, .inputSelectContainer, .inputTextContainer {
   position: relative;
@@ -422,6 +433,12 @@ body {
   font-size: 16px;
 }
 
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 .contentNavContainer {
   margin-top: 1em;
   padding: 8px;
@@ -477,9 +494,11 @@ body {
 .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon, .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified {
   font-size: 16px;
   height: 16px;
+  cursor: pointer;
+  transition: 0.25s ease-in;
 }
 .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon:hover, .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified:hover {
-  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+  filter: brightness(0) saturate(100%) invert(67%) sepia(38%) saturate(6875%) hue-rotate(123deg) brightness(101%) contrast(98%);
 }
 .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified {
   filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
@@ -595,6 +614,17 @@ body {
   background-color: transparent;
   color: #03c988;
   border: 1px solid #03c988;
+}
+.btn--verifyBtn {
+  background-color: #537FE7;
+  color: #ffffff;
+  border: none;
+  transform: 0.25s ease-in;
+}
+.btn--verifyBtn:hover {
+  background-color: transparent;
+  color: #537FE7;
+  border: 1px solid #537FE7;
 }
 
 header {
@@ -881,6 +911,10 @@ header .popupSetting:hover > .dropdownSetting {
 
 #successHeader {
   background-color: #03c988;
+}
+
+#verifyHeader {
+  background-color: #537FE7;
 }
 
 .container {

@@ -224,6 +224,17 @@ body {
   color: #03c988;
   border: 1px solid #03c988;
 }
+.btn--verifyBtn {
+  background-color: #537FE7;
+  color: #ffffff;
+  border: none;
+  transform: 0.25s ease-in;
+}
+.btn--verifyBtn:hover {
+  background-color: transparent;
+  color: #537FE7;
+  border: 1px solid #537FE7;
+}
 
 .btn {
   font-family: "Nunito", sans-serif;
@@ -319,6 +330,17 @@ body {
   background-color: transparent;
   color: #03c988;
   border: 1px solid #03c988;
+}
+.btn--verifyBtn {
+  background-color: #537FE7;
+  color: #ffffff;
+  border: none;
+  transform: 0.25s ease-in;
+}
+.btn--verifyBtn:hover {
+  background-color: transparent;
+  color: #537FE7;
+  border: 1px solid #537FE7;
 }
 
 header {
