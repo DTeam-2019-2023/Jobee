@@ -108,3 +108,8 @@ $(".btnUpdate").on("click", function (e) {
 $(".btnTryagain").on("click", function (e) {
   e.preventDefault();
 });
+
+$("#updateProfile").on("click", function (e) {
+  e.preventDefault();
+  $("#overlayUpdateProfile").show();
+});

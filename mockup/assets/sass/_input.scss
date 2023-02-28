@@ -102,6 +102,7 @@ $label-top: 0;
     height: 100%;
     font-size: inherit;
 
+    
     &:focus {
       outline: none;
     }
@@ -229,4 +230,14 @@ $label-top: 0;
   100% {
     top: $label-top;
   }
+}
+
+#websiteField::after {
+  content: "Optional";
+  color: $grey;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: $small;
+
 }

@@ -413,6 +413,15 @@ body {
     top: 0;
   }
 }
+#websiteField::after {
+  content: "Optional";
+  color: #cccccc;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 16px;
+}
+
 .contentNavContainer {
   margin-top: 1em;
   padding: 8px;
@@ -1078,6 +1087,9 @@ header .popupSetting:hover > .dropdownSetting {
   100% {
     left: 50%;
   }
+}
+#updateProfileContainer {
+  width: 80%;
 }
 
 /*# sourceMappingURL=userPage.css.map */
