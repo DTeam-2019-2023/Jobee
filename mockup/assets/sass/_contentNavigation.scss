@@ -1,3 +1,4 @@
+@import "variables";
 // CONTENT NAVIGATION
 .contentNavContainer {
   margin-top: 1em;
@@ -61,10 +62,12 @@
         .verifyIcon {
           font-size: 16px;
           height: 16px;
+          cursor: pointer;
+          transition: .25s ease-in;
+          // @include fill-img($success); // if this certificate already verified
           // display: none; //show or hide the icon
           &:hover {
-            filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
-              brightness(118%) contrast(119%);
+            @include fill-img($success);
           }
           &--verified {
             @extend .verifyIcon;

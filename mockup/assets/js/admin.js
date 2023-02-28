@@ -6,8 +6,8 @@ $(".manageItem").on("click", function (e) {
   $(this.hash).addClass("show");
 });
 
-$("#verifyRequest tr").on("click", function (e) {
-  $("tr.selected").removeClass("selected");
+$("#verifyRequest tr:not(:first-child)").on("click", function (e) {
+  $("tr:not(:first-child).selected").removeClass("selected");
   $(this).addClass("selected");
 });
 

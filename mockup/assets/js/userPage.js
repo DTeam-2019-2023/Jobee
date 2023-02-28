@@ -105,11 +105,21 @@ $(".delContent").on("click", function () {
 
 $(".btnUpdate").on("click", function (e) {
   e.preventDefault();
-  // $("#successNotify").show(); //=> THIS IS OPTIONAL
-  $("#failNotify").show(); // OPTIONAL TOO
+  $("#successNotify").show(); //=> THIS IS OPTIONAL
+  // $("#failNotify").show(); // OPTIONAL TOO
   // $(this).parent().parent().parent().show();
 });
 
 $(".btnTryagain").on("click", function (e) {
   e.preventDefault();
+});
+
+$("#updateProfile").on("click", function (e) {
+  e.preventDefault();
+  $("#overlayUpdateProfile").show();
+});
+
+// SEND VERIFY REQUEST
+$(".verifyIcon").on("click", function () {
+  $("#verifyNotify").show();
 });
