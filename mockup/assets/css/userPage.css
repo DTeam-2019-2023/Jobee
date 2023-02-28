@@ -1141,8 +1141,26 @@ header .popupSetting:hover > .dropdownSetting {
     left: 50%;
   }
 }
-#updateProfileContainer {
+#updateProfile {
   width: 80%;
+}
+
+#AccountSettingContainer {
+  width: 40%;
+}
+#AccountSettingContainer .inputTextContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#AccountSettingContainer .inputSpan.focus {
+  top: -0.25em;
+}
+#AccountSettingContainer .inputTextContainer:first-child(span) {
+  font-size: 16px;
+}
+#AccountSettingContainer .btnaction {
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=userPage.css.map */

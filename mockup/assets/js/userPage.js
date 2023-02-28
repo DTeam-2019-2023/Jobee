@@ -113,7 +113,7 @@ $(".btnUpdate").on("click", function (e) {
 $(".btnTryagain").on("click", function (e) {
   e.preventDefault();
 });
-
+// Update Profile popup
 $("#updateProfile").on("click", function (e) {
   e.preventDefault();
   $("#overlayUpdateProfile").show();
@@ -122,4 +122,11 @@ $("#updateProfile").on("click", function (e) {
 // SEND VERIFY REQUEST
 $(".verifyIcon").on("click", function () {
   $("#verifyNotify").show();
+});
+
+//Account setting
+$(".dropdownSetting>ul>li>a").on("click", function (e) {
+  e.preventDefault();
+  console.log(this.hash);
+  $(this.hash).show();
 });

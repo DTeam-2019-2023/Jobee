@@ -29,8 +29,8 @@
                 <a class="btn btn--hover" role="button" href="/templates/pages/signup.html">Option</a>
                 <div class="dropdownSetting">
                     <ul>
-                        <li><a href="#">Setting</a></li>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="#overlayAccoutSetting">Setting</a></li>
+                        <li><a href="/logout">Logout</a></li>
                     </ul>
                 </div>
             </div>
@@ -1881,6 +1881,51 @@
                     <button class="btn btn--button">Update</button>
                 </div>
             </form>
+        </div>
+        <!-- Account setting -->
+        <div class="overlayPopup" id="overlayAccoutSetting">
+            <div class="popupContainer" id="AccountSettingContainer">
+                <div class="formHeader">
+                    <h3 class="headerTitle">Account setting</h3>
+                </div>
+                <div class="formBody">
+                    <div class="row">
+                        <div class="col">
+                            <div class="inputTextContainer">
+                                <span>[Username]</span>
+                                <span class="inputSpan focus">Username</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="inputTextContainer">
+                                <span>[Password]</span>
+                                <span class="inputSpan focus">Password</span>
+                                <a class="btnaction" href="/templates/pages/changepassword.html">
+                                    <abbr title="Edit"><img src="/assets/images/Pen.svg" alt="pen icon"
+                                            class="actionIcon" /></abbr>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="inputTextContainer">
+                                <span>[Email]</span>
+                                <span class="inputSpan focus">Email</span>
+                                <a class="btnaction" href="/templates/pages/entrynewemail.html">
+                                    <abbr title="Edit"><img src="/assets/images/Pen.svg" alt="pen icon"
+                                            class="actionIcon" /></abbr>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="formFooter">
+                    <button class="btn btn--hover btnCancel">Cancel</button>
+                </div>
+            </div>
         </div>
 
         <!-- POPUP VERIFY CERTIFICATE -->

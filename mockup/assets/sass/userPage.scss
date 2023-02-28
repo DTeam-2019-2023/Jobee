@@ -254,6 +254,25 @@
   }
 }
 
-#updateProfileContainer {
+#updateProfile {
   width: 80%;
+}
+
+#AccountSettingContainer {
+  width: 40%;
+  .inputTextContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .inputSpan.focus {
+    top: -0.25em;
+  }
+  & .inputTextContainer:first-child(span) {
+    font-size: $small;
+  }
+  .btnaction {
+    cursor: pointer;
+  }
 }
