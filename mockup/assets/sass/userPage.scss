@@ -64,20 +64,39 @@
         }
       }
       .content {
+        #avt-update {
+          display: none;
+        }
         padding: $medium 40px;
         display: flex;
         align-items: center;
         gap: 40px;
         font-size: $medium;
-        img {
-          &::before {
-            content: "";
-            filter: invert(1);
+        .avartar {
+          border-radius: 50%;
+          position: relative;
+          overflow: hidden;
+          height: 126px;
+          width: 126px;
+          & > span {
+            padding-top: 5%;
+            text-align: center;
+            position: absolute;
             width: 126px;
             height: 126px;
+            top: 75%;
+            left: 0;
             overflow: hidden;
-            background-color: red;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            cursor: pointer;
+            img {
+              width: $medium;
+              height: $medium;
+            }
           }
+        }
+        img {
           object-position: top;
           object-fit: cover;
           height: 126px;
@@ -179,7 +198,7 @@
     transform: translate(-50%, -50%);
     border-radius: 8px;
     padding: 1em;
-    animation: popupShow .25s ease;
+    animation: popupShow 0.25s ease;
   }
 
   // HEADER

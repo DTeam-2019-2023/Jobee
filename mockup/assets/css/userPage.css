@@ -934,20 +934,39 @@ header .popupSetting:hover > .dropdownSetting {
   gap: 40px;
   font-size: 24px;
 }
+.cv-container .panel#profile .content #avt-update {
+  display: none;
+}
+.cv-container .panel#profile .content .avartar {
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  height: 126px;
+  width: 126px;
+}
+.cv-container .panel#profile .content .avartar > span {
+  padding-top: 5%;
+  text-align: center;
+  position: absolute;
+  width: 126px;
+  height: 126px;
+  top: 75%;
+  left: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  cursor: pointer;
+}
+.cv-container .panel#profile .content .avartar > span img {
+  width: 24px;
+  height: 24px;
+}
 .cv-container .panel#profile .content img {
   object-position: top;
   object-fit: cover;
   height: 126px;
   width: 126px;
   border-radius: 50%;
-}
-.cv-container .panel#profile .content img::before {
-  content: "";
-  filter: invert(1);
-  width: 126px;
-  height: 126px;
-  overflow: hidden;
-  background-color: red;
 }
 .cv-container .panel#profile .content .info {
   display: flex;

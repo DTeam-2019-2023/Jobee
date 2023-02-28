@@ -3,6 +3,11 @@ $(".overlayPopup").on("click", function () {
   // $(this).hide();
 });
 
+//update avatar
+$(".avartar > span").on("click", function () {
+  $("#avt-update").trigger("click");
+});
+
 $(".btnCancel").on("click", function (e) {
   e.preventDefault();
   //   $(".overlayPopup").hide();
