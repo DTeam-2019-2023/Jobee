@@ -682,8 +682,7 @@ header .popupSetting:hover > .dropdownSetting {
   display: flex;
   padding: 0;
 }
-
-.leftContainer {
+.adminContainer .leftContainer {
   border-right: 5px solid #86a3b8;
   width: 20%;
   overflow: hidden;
@@ -692,8 +691,7 @@ header .popupSetting:hover > .dropdownSetting {
   z-index: 1000;
   height: 100%;
 }
-
-.manageItem {
+.adminContainer .manageItem {
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -706,111 +704,105 @@ header .popupSetting:hover > .dropdownSetting {
   border: 1px solid #86a3b8;
   text-decoration: none;
 }
-.manageItem:hover {
+.adminContainer .manageItem:hover {
   transform: translateX(20px);
 }
-.manageItem .manageIcon {
+.adminContainer .manageItem .manageIcon {
   margin-right: 1em;
 }
-
-.active {
+.adminContainer .active {
   background-color: #86a3b8 !important;
   color: #ffffff;
   border: 1px solid #86a3b8;
 }
-
-.selected {
+.adminContainer .selected {
   background-color: #e8d2a6 !important;
   color: #ffffff;
   transition: 0.25s;
 }
-
-.rightContainer {
+.adminContainer .rightContainer {
   width: 80%;
   height: 100%;
   background-color: #ffffff;
   overflow: auto;
   margin-left: 20%;
 }
-.rightContainer .manageUserContainer {
+.adminContainer .rightContainer .manageUserContainer {
   width: 100%;
   display: none;
 }
-.rightContainer .verifyRequestContainer {
+.adminContainer .rightContainer .verifyRequestContainer {
   width: 100%;
   display: none;
 }
-.rightContainer::-webkit-scrollbar {
+.adminContainer .rightContainer::-webkit-scrollbar {
   display: none;
 }
-.rightContainer .listTitle h3 {
+.adminContainer .rightContainer .listTitle h3 {
   font-weight: 700;
   font-size: 24px;
   margin: 1em;
   color: #86a3b8;
 }
-.rightContainer .listAction {
+.adminContainer .rightContainer .listAction {
   display: flex;
   justify-content: flex-end;
   margin-right: 3em;
   align-items: center;
   margin-bottom: 1em;
 }
-
-table {
+.adminContainer table {
   width: 100%;
   background-color: #ffffff;
 }
-table tr {
+.adminContainer table tr {
   border-collapse: collapse;
   height: 2em;
 }
-table tr th {
+.adminContainer table tr th {
   font-weight: 700;
   text-align: center;
   padding: 8px;
 }
-table tr td {
+.adminContainer table tr td {
   text-align: center;
   padding: 5px;
   vertical-align: middle;
 }
-table tr td span.text--ellipsis {
+.adminContainer table tr td span.text--ellipsis {
   display: inline-block;
   width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-table tr .iconList > abbr[title] {
+.adminContainer table tr .iconList > abbr[title] {
   text-decoration: none !important;
 }
-table tr .actionIcon {
+.adminContainer table tr .actionIcon {
   margin: 0 8px;
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
-
-.typeAccount {
+.adminContainer .typeAccount {
   font-weight: 700;
 }
-.typeAccount .typeName {
+.adminContainer .typeAccount .typeName {
   width: 50%;
   padding: 4px 1em;
   margin: 0 auto;
 }
-.typeAccount .typeAd {
+.adminContainer .typeAccount .typeAd {
   background-color: #f4f4f4;
   border: 1px solid #cccccc;
 }
-
-.paging .pagingList {
+.adminContainer .paging .pagingList {
   display: flex;
   justify-content: center;
   margin: 2em 0;
 }
-.paging .pagingList li {
+.adminContainer .paging .pagingList li {
   width: 4em;
   height: 1.5em;
   border: 1px solid #86a3b8;
@@ -824,16 +816,16 @@ table tr .actionIcon {
   overflow: hidden;
   z-index: 0;
 }
-.paging .pagingList li:not(:last-child) {
+.adminContainer .paging .pagingList li:not(:last-child) {
   border-right: none;
 }
-.paging .pagingList li:last-child {
+.adminContainer .paging .pagingList li:last-child {
   border-radius: 0 3px 3px 0;
 }
-.paging .pagingList li:first-child {
+.adminContainer .paging .pagingList li:first-child {
   border-radius: 3px 0 0 3px;
 }
-.paging .pagingList li::after {
+.adminContainer .paging .pagingList li::after {
   background-color: #86a3b8;
   content: "";
   position: absolute;
@@ -847,21 +839,19 @@ table tr .actionIcon {
   z-index: -1;
   display: block;
 }
-.paging .pagingList li:hover::after {
+.adminContainer .paging .pagingList li:hover::after {
   transform: translate(0, 0);
 }
-.paging .pagingList li:hover {
+.adminContainer .paging .pagingList li:hover {
   border: 1px solid #86a3b8;
   color: #ffffff;
   transform: scale(1.05);
   will-change: transform;
 }
-
-.show {
+.adminContainer .show {
   display: block !important;
 }
-
-.moreInfo {
+.adminContainer .moreInfo {
   word-wrap: break-word;
   white-space: inherit;
 }
