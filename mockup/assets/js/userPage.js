@@ -1,6 +1,6 @@
 //COMMON JS
 $(".overlayPopup").on("click", function () {
-  $(this).hide();
+  // $(this).hide();
 });
 
 $(".btnCancel").on("click", function (e) {
@@ -100,8 +100,8 @@ $(".delContent").on("click", function () {
 
 $(".btnUpdate").on("click", function (e) {
   e.preventDefault();
-  $("#successNotify").show(); //=> THIS IS OPTIONAL
-  // $("#failNotify").show(); // OPTIONAL TOO
+  // $("#successNotify").show(); //=> THIS IS OPTIONAL
+  $("#failNotify").show(); // OPTIONAL TOO
   // $(this).parent().parent().parent().show();
 });
 
