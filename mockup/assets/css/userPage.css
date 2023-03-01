@@ -228,7 +228,7 @@ body {
   background-color: #537FE7;
   color: #ffffff;
   border: none;
-  transform: 0.25s ease-in;
+  transition: 0.25s ease-in;
 }
 .btn--verifyBtn:hover {
   background-color: transparent;
@@ -619,7 +619,7 @@ body {
   background-color: #537FE7;
   color: #ffffff;
   border: none;
-  transform: 0.25s ease-in;
+  transition: 0.25s ease-in;
 }
 .btn--verifyBtn:hover {
   background-color: transparent;

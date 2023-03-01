@@ -228,7 +228,7 @@ body {
   background-color: #537FE7;
   color: #ffffff;
   border: none;
-  transform: 0.25s ease-in;
+  transition: 0.25s ease-in;
 }
 .btn--verifyBtn:hover {
   background-color: transparent;
@@ -335,7 +335,7 @@ body {
   background-color: #537FE7;
   color: #ffffff;
   border: none;
-  transform: 0.25s ease-in;
+  transition: 0.25s ease-in;
 }
 .btn--verifyBtn:hover {
   background-color: transparent;
@@ -510,6 +510,8 @@ header .popupSetting:hover > .dropdownSetting {
   font-size: 0.8em;
   cursor: pointer;
   transition: 0.25s;
+  border: none;
+  outline: none;
 }
 
 .inputTextareaContainer, .inputSelectContainer, .inputTextContainer {
@@ -707,6 +709,84 @@ header .popupSetting:hover > .dropdownSetting {
   right: 0;
   bottom: 0;
   font-size: 16px;
+}
+
+.overlayNotifyContainer {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  display: none;
+}
+.overlayNotifyContainer .notifyContainer {
+  background-color: #ffffff;
+  width: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  animation: delShow 0.25s ease;
+}
+.overlayNotifyContainer .notifyContainer .header {
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  flex-direction: column;
+}
+.overlayNotifyContainer .notifyContainer .header .headerClose {
+  justify-content: flex-end;
+  display: flex;
+}
+.overlayNotifyContainer .notifyContainer .header .headerClose .closeIcon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent .contentTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+.overlayNotifyContainer .notifyContainer .header .headerContent .contentDescription {
+  padding: 8px;
+  color: #ffffff;
+  font-size: 14px;
+}
+.overlayNotifyContainer .notifyContainer .buttonContent {
+  padding: 1em;
+  display: flex;
+  justify-content: space-around;
+}
+
+@keyframes delShow {
+  0% {
+    top: -50%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+#deleteHeader, #failHeader {
+  background-color: #f55050;
+}
+
+#successHeader {
+  background-color: #03c988;
+}
+
+#verifyHeader {
+  background-color: #537FE7;
 }
 
 .adminContainer {

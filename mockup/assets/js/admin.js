@@ -27,3 +27,21 @@ $(".btnCancel").on("click", function (e) {
   //   $(".overlayPopup").hide();
   $(this).parent().parent().parent().hide();
 });
+
+//show popup confirm delete
+$(".rejectAction").on("click", function () {
+  $("#deleteNotify").show();
+});
+
+$(".btn--No").on("click", function () {
+  $(".overlayNotifyContainer").hide();
+});
+
+$(".acceptAction").on("click", function () {
+  $("#verifyNotify").show();
+});
+
+$("tr td:nth-child(4) span").on("click", function () {
+  $(this).css("white-space", "inherit");
+  $(this).toggleClass("moreInfo");
+});

@@ -112,7 +112,7 @@
     background-color: $light_blue;
     color: $white;
     border: none;
-    transform: .25s ease-in;
+    transition: .25s ease-in;
 
     &:hover {
       background-color: transparent;
