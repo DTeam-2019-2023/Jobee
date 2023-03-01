@@ -603,7 +603,7 @@ div.panel > img {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 480px;
+  width: 585px;
   justify-content: center;
   gap: 30px;
 }
@@ -613,11 +613,14 @@ div.panel > img {
   gap: 10px;
   list-style: none;
   height: fit-content;
+  align-items: center;
   text-align: center;
 }
 .member-group ul li img {
-  width: 130px;
-  height: 130px;
+  object-position: top;
+  object-fit: cover;
+  height: 126px;
+  width: 126px;
   border-radius: 50%;
 }
 
