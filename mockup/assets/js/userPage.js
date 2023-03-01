@@ -127,6 +127,13 @@ $(".verifyIcon").on("click", function () {
 //Account setting
 $(".dropdownSetting>ul>li>a").on("click", function (e) {
   e.preventDefault();
-  console.log(this.hash);
-  $(this.hash).show();
+  if (/^#.{1,}$/.test(this.hash)) {
+    console.log(this.hash);
+    $(this.hash).show();
+  } else {
+    //redirect
+    console.log("redirect");
+    console.log($(this));
+    window.location.href = this.href;
+  }
 });
