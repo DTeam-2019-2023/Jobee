@@ -693,11 +693,13 @@ header .popupSetting:hover > .dropdownSetting {
   padding: 1em;
   border-radius: 8px;
 }
-
-.formHeader h2 {
+.signupForm .formHeader h2 {
   font-size: 32px;
   font-weight: 700;
   text-align: center;
+}
+.signupForm .inputTextContainer {
+  height: 64px;
 }
 
 /*# sourceMappingURL=signup.css.map */
