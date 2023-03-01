@@ -8,6 +8,7 @@
     <title>User page</title>
     <link rel="stylesheet" href="/assets/css/userPage.css" />
     <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script src="/node_modules/jquery-ui/dist/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -199,7 +200,7 @@
                                                 class="actionIcon" id="editEdu" /></abbr>
                                         <abbr title="Delete">
                                             <img src="/assets/images/icons8_trash 1.svg" alt="bin icon"
-                                                class="actionIcon delContent" />
+                                                class="actionIcon delContent" onclick="deleteItem('0')" />
                                         </abbr>
                                         <abbr title="View"><img src="/assets/images/Expand.svg" alt="expand icon"
                                                 class="actionIcon" id="expandEdu" /></abbr>
@@ -234,7 +235,7 @@
                                                 class="actionIcon" id="editProject" /></abbr>
                                         <abbr title="Delete">
                                             <img src="/assets/images/icons8_trash 1.svg" alt="bin icon"
-                                                class="actionIcon delContent" />
+                                                class="actionIcon delContent" onclick="deleteItem('1')" />
                                         </abbr>
                                         <abbr title="View"><img src="/assets/images/Expand.svg" alt="expand icon"
                                                 class="actionIcon" id="expandProject" /></abbr>
@@ -270,7 +271,7 @@
                                                 class="actionIcon" id="editCertificate" /></abbr>
                                         <abbr title="Delete">
                                             <img src="/assets/images/icons8_trash 1.svg" alt="bin icon"
-                                                class="actionIcon delContent" />
+                                                class="actionIcon delContent" onclick="deleteItem('2')" />
                                         </abbr>
                                         <abbr title="View"><img src="/assets/images/Expand.svg" alt="expand icon"
                                                 class="actionIcon" id="expandCertificate" /></abbr>
@@ -307,7 +308,7 @@
                                                 class="actionIcon" id="editActivity" /></abbr>
                                         <abbr title="Delete">
                                             <img src="/assets/images/icons8_trash 1.svg" alt="bin icon"
-                                                class="actionIcon delContent" />
+                                                class="actionIcon delContent" onclick="deleteItem('4')" />
                                         </abbr>
                                         <abbr title="View"><img src="/assets/images/Expand.svg" alt="expand icon"
                                                 class="actionIcon" id="expandActivity" /></abbr>
@@ -344,7 +345,7 @@
                                                 class="actionIcon" id="editAward" /></abbr>
                                         <abbr title="Delete">
                                             <img src="/assets/images/icons8_trash 1.svg" alt="bin icon"
-                                                class="actionIcon delContent" />
+                                                class="actionIcon delContent" onclick="deleteItem('5')" />
                                         </abbr>
                                         <abbr title="View"><img src="/assets/images/Expand.svg" alt="expand icon"
                                                 class="actionIcon" id="expandAward" /></abbr>
@@ -1170,7 +1171,7 @@
         <!-- ================ EDIT ================ -->
         <!-- POPUP EDIT EDUCATION  -->
         <div class="overlayPopup" id="overlayEditEdu">
-            <form method="post" class="popupContainer" id="editEduContainer">
+            <form method="post" class="popupContainer" id="editEduContainer" target="/user/add/edu">
                 <div class="formHeader">
                     <h3 class="headerTitle">Edit Your Education Result</h3>
                 </div>
@@ -1702,7 +1703,8 @@
         <!-- ==== POPUP NOTIFY ==== -->
         <!-- POPUP DELETE -->
         <div class="overlayNotifyContainer" id="deleteNotify">
-            <div class="notifyContainer">
+            <form method="post" target="https://webhook.site/e52d4258-87d3-4ffa-905d-82324e688202"
+                class="notifyContainer">
                 <div class="header" id="deleteHeader">
                     <div class="headerClose">
                         <svg class="closeIcon" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -1724,11 +1726,11 @@
                     </div>
                 </div>
                 <div class="buttonContent">
-                    <button class="btn btn--Yes btnDelete">Yes</button>
+                    <button class="btn btn--Yes btnDelete" type="submit">Yes</button>
                     <!-- NOTICE -> class btn--yes just use for css, not function -->
-                    <button class="btn btn--No">No</button>
+                    <button class="btn btn--No" type="button">No</button>
                 </div>
-            </div>
+            </form>
         </div>
 
         <!-- POPUP UPDATE SUCCESS -->

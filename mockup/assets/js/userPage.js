@@ -1,6 +1,6 @@
 //COMMON JS
 $(".overlayPopup").on("click", function () {
-  // $(this).hide();
+  // $(this).hide().trigger("hide");
 });
 
 //update avatar
@@ -10,8 +10,8 @@ $(".avartar > span").on("click", function () {
 
 $(".btnCancel").on("click", function (e) {
   e.preventDefault();
-  //   $(".overlayPopup").hide();
-  $(this).parent().parent().parent().hide();
+  //   $(".overlayPopup").hide().trigger("hide");
+  $(this).parent().parent().parent().hide().trigger("hide");
 });
 
 //==========================//
@@ -43,7 +43,7 @@ $("#awardBtn").on("click", function () {
 //=================================//
 //COMMON VIEW POPUP CLOSE
 $(".overlayContentPopup").on("click", function () {
-  $(this).hide();
+  $(this).hide().trigger("hide");
 });
 
 //VIEW EDU
@@ -91,27 +91,21 @@ $("#editAward").on("click", function () {
 });
 
 //=============POPUP DELETE=============
-$(".overlayNotifyContainer").on("click", function () {
-  $(this).hide();
-});
 
 $(".btn--No").on("click", function () {
-  $(".overlayNotifyContainer").hide();
-});
-
-$(".delContent").on("click", function () {
-  $("#deleteNotify").show();
+  $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
 });
 
 $(".btnUpdate").on("click", function (e) {
   e.preventDefault();
-  $("#successNotify").show(); //=> THIS IS OPTIONAL
-  // $("#failNotify").show(); // OPTIONAL TOO
+  // $("#successNotify").show(); //=> THIS IS OPTIONAL
+  $("#failNotify").show(); // OPTIONAL TOO
   // $(this).parent().parent().parent().show();
 });
 
 $(".btnTryagain").on("click", function (e) {
   e.preventDefault();
+  $(".overlayNotifyContainer").hide().trigger("hide");
 });
 // Update Profile popup
 $("#updateProfile").on("click", function (e) {
@@ -136,4 +130,30 @@ $(".dropdownSetting>ul>li>a").on("click", function (e) {
     console.log($(this));
     window.location.href = this.href;
   }
+});
+
+//Delete confirm
+function deleteItem(id) {
+  $("#deleteNotify").trigger("confirmDelete", id);
+}
+
+//confirm
+$("#deleteNotify").on("confirmDelete", function (e, id) {
+  const input = $("<input type='hidden' name='id'>");
+  input.val(id);
+  $("#deleteNotify>form").append(input);
+  console.log($("#deleteNotify>form"));
+  $("#deleteNotify").show();
+});
+
+$(".overlayNotifyContainer").on("hide", function (params) {
+  $(this).find("form>input[type='hidden']").remove();
+});
+
+$(".closeIcon").on("click", function () {
+  $(".overlayNotifyContainer").hide().trigger("hide");
+});
+
+$(".btn.btn--Success").on("click", function () {
+  $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
 });
