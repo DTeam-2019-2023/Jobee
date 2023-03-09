@@ -469,7 +469,6 @@ body {
   height: 16px;
 }
 .contentNavContainer .contentNavBody {
-  border: 1px solid #cccccc;
   padding: 4px;
   margin-top: 1em;
 }
@@ -478,6 +477,7 @@ body {
   align-items: center;
   padding: 0 8px;
   justify-content: space-between;
+  border: 1px solid #cccccc;
 }
 .contentNavContainer .contentNavBody .contentItem .itemFirst {
   display: flex;
@@ -1161,6 +1161,26 @@ header .popupSetting:hover > .dropdownSetting {
 }
 #AccountSettingContainer .btnaction {
   cursor: pointer;
+}
+
+#softSkill {
+  position: relative;
+}
+#softSkill::after {
+  content: "Separated by comma, up to 10 skills";
+  position: absolute;
+  right: 0;
+  top: -1em;
+  color: #cccccc;
+  font-size: 16px;
+}
+
+.contentFooter {
+  display: flex;
+  justify-content: right;
+}
+.contentFooter button:first-child {
+  margin-right: 1em;
 }
 
 /*# sourceMappingURL=userPage.css.map */
