@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobee", "Jobee\Jobee.csproj", "{FD036D32-593B-4D94-88ED-0CCF18B999A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobee_API", "Jobee_API\Jobee_API.csproj", "{F289AAFA-65DC-4AAD-B736-8A4F6A21317C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD036D32-593B-4D94-88ED-0CCF18B999A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD036D32-593B-4D94-88ED-0CCF18B999A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD036D32-593B-4D94-88ED-0CCF18B999A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD036D32-593B-4D94-88ED-0CCF18B999A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F289AAFA-65DC-4AAD-B736-8A4F6A21317C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F289AAFA-65DC-4AAD-B736-8A4F6A21317C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F289AAFA-65DC-4AAD-B736-8A4F6A21317C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F289AAFA-65DC-4AAD-B736-8A4F6A21317C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {80BF6105-3E78-4AF8-9990-C06C70AA09F6}
+	EndGlobalSection
+EndGlobal

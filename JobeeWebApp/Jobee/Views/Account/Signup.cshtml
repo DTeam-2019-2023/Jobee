@@ -1,0 +1,44 @@
+﻿@model Jobee.Controllers.AccountController.SignupModel
+@{
+    ViewData["Title"] = "Signup";
+    bool validationField(string input)
+    {
+        var state = ViewData.ModelState.GetFieldValidationState(input);
+        return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
+    }
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+}
+<form method="post" class="signupForm" asp-action="Signup">
+    <div class="formHeader">
+        <h2>Signup</h2>
+    </div>
+    <div class="inputContent">
+        <div class="inputTextContainer @(validationField("username")?"":"error")">
+            <input type="text" class="input" asp-for="username" />
+            <span class="inputSpan">Username</span>
+            <span class="inputError error" asp-validation-for="username"></span>
+        </div>
+        <div class="inputTextContainer @(validationField("password")?"":"error")">
+            <input type="password" class="input" asp-for="password" />
+            <span class="inputSpan">Password</span>
+            <span class="inputError error" asp-validation-for="password"></span>
+        </div>
+        <div class="inputTextContainer @(validationField("rePassword")?"":"error")">
+            <input type="password" class="input" asp-for="rePassword" />
+            <span class="inputSpan">Confirm Password</span>
+            <span class="inputError error" asp-validation-for="rePassword"></span>
+        </div>
+        <div class="inputTextContainer @(validationField("email")?"":"error")">
+            <input type="email" class="input" asp-for="email" />
+            <span class="inputSpan">Email</span>
+            <span class="inputError error" asp-validation-for="email"></span>
+        </div>
+        <button class="btn btn--Submit" type="submit">Signup</button>
+    </div>
+</form>
+@section Scripts{
+    <script src="~/js/input.js" asp-append-version="true"></script>
+}

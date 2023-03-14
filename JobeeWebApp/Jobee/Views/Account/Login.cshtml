@@ -1,0 +1,43 @@
+﻿@model Jobee.Controllers.AccountController.SigninModel
+@{
+    ViewData["Title"] = "Login";
+    var isValid = ViewData.ModelState.IsValid;
+    bool validationField(string input)
+    {
+        var state = ViewData.ModelState.GetFieldValidationState(input);
+        return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
+    }
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+}
+<form method="post" class="loginForm" asp-action="Login">
+    <div class="loginHeader">
+        <h2>Login</h2>
+    </div>
+    <div class="inputContent ">
+        <div class="inputTextContainer @(validationField("username")?"":"error")">
+            <input type="text" class="input" name="username" asp-for="username" />
+            <span class="inputSpan">Username</span>
+            <span class="inputError error" asp-validation-for="password"></span>
+
+        </div>
+        <div class="inputTextContainer @(validationField("password")?"":"error")">
+            <input type="password" class="input" name="password" asp-for="password" />
+            <span class="inputSpan">Password</span>
+            <span class="inputError error" asp-validation-for="password"></span>
+        </div>
+    </div>
+    <div class="loginOptional">
+        <a asp-action="ForgetPassword" class="optional">forget password?</a>
+        <a asp-action="Signup" class="optional">join with us</a>
+    </div>
+    <button class="btn btn--Submit" type="submit">Login</button>
+</form>
+@section Scripts{
+   @* @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }*@
+    <script src="~/js/input.js" asp-append-version="true"></script>
+
+}

@@ -1,0 +1,78 @@
+﻿@model Jobee_API.Models.model_Award
+@{
+    bool validationField(string input)
+    {
+        var state = ViewData.ModelState.GetFieldValidationState(input);
+        return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
+    }
+}
+<form method="post" class="popupContainer" id="awardContainer" asp-controller="User" asp-action="EditAward">
+    <div class="formHeader">
+        <h3 class="headerTitle">Edit Your Award</h3>
+    </div>
+    <!-- BODY -->
+    <div class="formBody">
+        <div class="row">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.81818 0C2.60364 0 0 2.60364 0 5.81818V58.1818C0 61.3964 2.60364 64 5.81818 64H58.1818C61.3964 64 64 61.3964 64 58.1818V5.81818C64 2.60364 61.3964 0 58.1818 0H5.81818ZM20.4034 7.64773C26.8732 7.64773 30.5568 10.5945 30.5568 15.6534V31.642H23.3068V28.733H22.9034C21.8532 30.7344 19.2827 32 16.3125 32C11.8034 32 8.72727 29.1974 8.72727 24.8977C8.72727 20.6214 12.0543 18.1362 18.1023 17.7784L23.2216 17.483V15.6534C23.2216 14.0738 22.0398 13.125 19.9773 13.125C18.0165 13.125 16.7585 13.7749 16.2727 15.017H9.56818C9.90564 10.4643 14.0616 7.64773 20.4034 7.64773ZM23.2216 21.6761L19.2841 21.9261C17.0703 22.0949 15.9148 22.9641 15.9148 24.375C15.9148 25.8703 17.1577 26.7955 19.0341 26.7955C21.3934 26.7955 23.2216 25.2377 23.2216 23.2159V21.6761ZM35.3239 32H54.8977V36.5398L44.9205 49.3125V49.7159H55.2727V55.2727H35.0739V51.3182L46.0284 37.9602V37.5568H35.3239V32Z"
+                      fill="black" />
+            </svg>
+            <div class="col">
+                <div class="popupInput inputTextContainer">
+                    <input asp-for="Name" class="input" />
+                    <span class="inputSpan">Name</span>
+                    <span class="inputError" asp-validation-for="Name"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <svg width="32" height="32" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_178_2149)">
+                    <path d="M15.8533 8.52885L14.9182 7.05529L15.4711 5.40144C15.548 5.17548 15.4543 4.92789 15.2476 4.80769L13.7355 3.9375L13.4567 2.21394C13.4182 1.97837 13.2187 1.80289 12.9831 1.79327L11.2379 1.72596L10.1899 0.326926C10.048 0.137022 9.78843 0.0745219 9.57689 0.175483L7.99997 0.925483L6.42304 0.175483C6.2091 0.0745219 5.95189 0.137022 5.80766 0.326926L4.76199 1.72596L3.01679 1.79327C2.78122 1.80289 2.5817 1.97837 2.54324 2.21394L2.26439 3.9351L0.752371 4.80769C0.545641 4.92548 0.451891 5.17308 0.52641 5.39904L1.0817 7.05529L0.146602 8.52885C0.0191982 8.73077 0.0528521 8.99279 0.223525 9.15866L1.48314 10.3678L1.34372 12.1058C1.32449 12.3438 1.47353 12.5601 1.70189 12.6274L3.37978 13.1106L4.06247 14.7163C4.15622 14.9351 4.38939 15.0625 4.62256 15.012L6.3317 14.6611L7.68266 15.7668C7.77401 15.8413 7.88699 15.8798 7.99997 15.8798C8.11295 15.8798 8.22353 15.8413 8.31728 15.7668L9.66824 14.6611L11.3774 15.012C11.6105 15.0625 11.8461 14.9375 11.9375 14.7163L12.6202 13.1106L14.298 12.6274C14.5264 12.5625 14.6754 12.3438 14.6562 12.1058L14.5168 10.3678L15.7764 9.15866C15.9471 8.99279 15.9807 8.73077 15.8533 8.52885ZM11.6178 6.1226L8.11535 11.3702C7.98314 11.5649 7.77641 11.6971 7.57449 11.6971C7.37016 11.6971 7.1442 11.5817 6.99756 11.4375L4.42785 8.82452C4.25237 8.64664 4.25237 8.35818 4.42785 8.17789L5.06247 7.53366C5.23795 7.35577 5.5216 7.35577 5.69708 7.53366L7.37016 9.23318L10.1298 5.09856C10.2668 4.88943 10.548 4.83654 10.7524 4.97837L11.4976 5.49039C11.7019 5.62981 11.7548 5.91587 11.6178 6.1226Z"
+                          fill="black" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_178_2149">
+                        <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <div class="dateRow popupInput inputTextContainer">
+                            <input asp-for="StartDate"class="input" />
+                            <span class="inputSpan">Start Date</span>
+                            <span class="inputError" asp-validation-for="StartDate"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="dateRow popupInput inputTextContainer">
+                            <input asp-for="EndDate"class="input" />
+                            <span class="inputSpan">End Date</span>
+                            <span class="inputError" asp-validation-for="EndDate"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M56.0982 0C54.0529 0 52.0494 0.792699 50.505 2.33638L24.0421 28.704L23.4577 29.2881L23.2908 30.1226L21.4542 39.4681L20.6194 43.3898L24.5429 42.5554L33.8926 40.7197L34.7274 40.5528L35.3118 39.9687L61.6913 13.5176C64.7696 10.4407 64.7696 5.4133 61.6913 2.33638C60.1469 0.792699 58.1434 0 56.0982 0ZM56.0982 5.1734C56.7243 5.1734 57.3399 5.49674 57.9347 6.09126C59.1243 7.28031 59.1243 8.57367 57.9347 9.76271L32.0561 35.6297L27.4647 36.5476L28.383 31.9583L54.2616 6.09126C54.8564 5.49674 55.4721 5.1734 56.0982 5.1734ZM0 10.5971V64H53.4268V28.7875L48.0841 34.1278V58.6597H5.34268V15.9374H29.8856L35.2283 10.5971H0Z"
+                      fill="black" />
+            </svg>
+            <div class="col">
+                <div class="popupInput inputTextContainer">
+                    <input asp-for="Description"class="input" />
+                    <span class="inputSpan">Description</span>
+                    <span class="inputError" asp-validation-for="Description"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="formFooter">
+        <button class="btn btn--hover btnCancel" type="button">Cancel</button>
+        <button class="btn btn--button btnUpdate" type="submit">Update</button>
+    </div>
+</form>

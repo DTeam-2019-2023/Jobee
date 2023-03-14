@@ -157,3 +157,4 @@ $(".closeIcon").on("click", function () {
 $(".btn.btn--Success").on("click", function () {
   $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
 });
+//post using jquery

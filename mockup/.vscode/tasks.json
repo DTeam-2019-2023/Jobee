@@ -29,7 +29,7 @@
       "command": "echo \"building script!\" ${workspaceFolder}",
       "dependsOn": ["css mapping", "Run LiveServer"],
       "runOptions": {
-        "runOn": "folderOpen"
+        // "runOn": "folderOpen"
       },
       "isBackground": true,
       "problemMatcher": []
