@@ -35,7 +35,6 @@
   }
 
   .contentNavBody {
-    border: 1px solid $grey;
     padding: 4px;
     margin-top: 1em;
 
@@ -44,6 +43,7 @@
       align-items: center;
       padding: 0 8px;
       justify-content: space-between;
+      border: 1px solid $grey;
 
       .itemFirst {
         display: flex;

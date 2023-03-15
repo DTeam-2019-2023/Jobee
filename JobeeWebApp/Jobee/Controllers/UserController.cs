@@ -382,7 +382,7 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok();
+                return Ok("success");
             }
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
         }

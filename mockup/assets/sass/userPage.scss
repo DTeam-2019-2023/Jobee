@@ -276,3 +276,24 @@
     cursor: pointer;
   }
 }
+
+#softSkill {
+  position: relative;
+  &::after {
+    content: "Separated by comma, up to 10 skills";
+    position: absolute;
+    right: 0;
+    top: -1em;
+    color: $grey;
+    font-size: 16px;
+  }
+}
+
+.contentFooter {
+  display: flex;
+  justify-content: right;
+
+  & button:first-child {
+    margin-right: 1em;
+  }
+}

@@ -103,100 +103,100 @@ $("#EditContentNav").on("submit", "form", function (e) {
         url: url,
         type: method,
         data: data,
-        success: function (data, res) {
-            console.log(res);
-            if (res == "success") {
-                //success
-                $("#successNotify").show();
-            } else {
-                //fail
-                $("#EditContentNav").html(data);
-                $("#failNotify").show();
-            }
-        },
-        error: function (err) {
-            console.log(err);
-        },
+
+    }).done(function (data) {
+        console.log(data);
+        if (data == "success") {
+            //success
+            $("#EditContentNav").hide();
+            $("#successNotify").show();
+        } else {
+            //fail
+            $("#EditContentNav").html(data);
+            $("#failNotify").show();
+        }
+    }).fail(function () {
+        alert("error");
     });
 });
 
-//=============POPUP DELETE=============
+    //=============POPUP DELETE=============
 
-$(".btn--No").on("click", function () {
-    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
-});
+    $(".btn--No").on("click", function () {
+        $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+    });
 
-$(".btnUpdate").on("click", function (e) {
-    e.preventDefault();
-    // $("#successNotify").show(); //=> THIS IS OPTIONAL
-    $("#failNotify").show(); // OPTIONAL TOO
-    // $(this).parent().parent().parent().show();
-});
+    $(".btnUpdate").on("click", function (e) {
+        e.preventDefault();
+        // $("#successNotify").show(); //=> THIS IS OPTIONAL
+        $("#failNotify").show(); // OPTIONAL TOO
+        // $(this).parent().parent().parent().show();
+    });
 
-$(".btnTryagain").on("click", function (e) {
-    e.preventDefault();
-    $(".overlayNotifyContainer").hide().trigger("hide");
-});
-// Update Profile popup
-$("#updateProfile").on("click", function (e) {
-    e.preventDefault();
-    $("#overlayUpdateProfile").show();
-});
+    $(".btnTryagain").on("click", function (e) {
+        e.preventDefault();
+        $(".overlayNotifyContainer").hide().trigger("hide");
+    });
+    // Update Profile popup
+    $("#updateProfile").on("click", function (e) {
+        e.preventDefault();
+        $("#overlayUpdateProfile").show();
+    });
 
-// SEND VERIFY REQUEST
-$(".verifyIcon").on("click", function () {
-    $("#verifyNotify").show();
-});
+    // SEND VERIFY REQUEST
+    $(".verifyIcon").on("click", function () {
+        $("#verifyNotify").show();
+    });
 
-//Account setting
-$(".dropdownSetting>ul>li>a").on("click", function (e) {
-    e.preventDefault();
-    if (/^#.{1,}$/.test(this.hash)) {
-        console.log(this.hash);
-        $(this.hash).show();
-    } else {
-        //redirect
-        console.log("redirect");
-        console.log($(this));
-        window.location.href = this.href;
+    //Account setting
+    $(".dropdownSetting>ul>li>a").on("click", function (e) {
+        e.preventDefault();
+        if (/^#.{1,}$/.test(this.hash)) {
+            console.log(this.hash);
+            $(this.hash).show();
+        } else {
+            //redirect
+            console.log("redirect");
+            console.log($(this));
+            window.location.href = this.href;
+        }
+    });
+
+    //Delete confirm
+    function deleteItem(id) {
+        $("#deleteNotify").trigger("confirmDelete", id);
     }
-});
 
-//Delete confirm
-function deleteItem(id) {
-    $("#deleteNotify").trigger("confirmDelete", id);
-}
-
-//confirm
-$("#deleteNotify").on("confirmDelete", function (e, id) {
-    const input = $("<input type='hidden' name='id'>");
-    input.val(id);
-    $("#deleteNotify>form").append(input);
-    console.log($("#deleteNotify>form"));
-    $("#deleteNotify").show();
-});
-
-$(".overlayNotifyContainer").on("hide", function (params) {
-    $(this).find("form>input[type='hidden']").remove();
-});
-
-$(".closeIcon").on("click", function () {
-    $(".overlayNotifyContainer").hide().trigger("hide");
-});
-
-$(".btn.btn--Success").on("click", function () {
-    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
-});
-
-$("a.viewContentNavAction").on("click", function (e) {
-    e.preventDefault();
-    const idvalue = $(this).parent().attr("iditem");
-
-    $.post(this.href, { id: idvalue }, function (data) {
-        $("#ViewContentNav").html(data);
-        $("#ViewContentNav").show();
+    //confirm
+    $("#deleteNotify").on("confirmDelete", function (e, id) {
+        const input = $("<input type='hidden' name='id'>");
+        input.val(id);
+        $("#deleteNotify>form").append(input);
+        console.log($("#deleteNotify>form"));
+        $("#deleteNotify").show();
     });
-});
+
+    $(".overlayNotifyContainer").on("hide", function (params) {
+        $(this).find("form>input[type='hidden']").remove();
+    });
+
+    $(".closeIcon").on("click", function () {
+        $(".overlayNotifyContainer").hide().trigger("hide");
+    });
+
+    $(".btn.btn--Success").on("click", function () {
+        $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+    });
+
+    $("a.viewContentNavAction").on("click", function (e) {
+        e.preventDefault();
+        const idvalue = $(this).parent().attr("iditem");
+
+        $.post(this.href, { id: idvalue }, function (data) {
+            $("#ViewContentNav").html(data);
+            $("#ViewContentNav").show();
+        });
+    });
 
 //post using jquery
 
