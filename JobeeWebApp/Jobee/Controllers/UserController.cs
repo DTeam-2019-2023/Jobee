@@ -1,15 +1,22 @@
 ﻿using Jobee_API.Entities;
 using Jobee_API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text.Json;
+using static Jobee.Controllers.AccountController;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Jobee.Controllers
 {
     public interface IUserController
     {
-        
-        public IActionResult Index();
+
+        public Task<IActionResult> Index();
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
@@ -38,6 +45,12 @@ namespace Jobee.Controllers
 
     public class UserController : Controller, IUserController
     {
+        private readonly HttpClient client = null;
+        public UserController()
+        {
+            client = new HttpClient();
+           
+        }
         public class UserCVModel
         {
             public Profile profile { get; set; }
@@ -55,22 +68,27 @@ namespace Jobee.Controllers
         public UserCVModel _model { get; set; } = default!;
         public string StatusMessage { get; set; }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var token = HttpContext.Request.Cookies["jwt"];
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            client.DefaultRequestHeaders.Accept.Add(contentType);
+            var CvAPI = await client.GetAsync("https://localhost:7063/api/TbCvs/GetTbCvsById");
+            var content_CVAPI = await CvAPI.Content.ReadAsStringAsync();
+            var cvData = JsonConvert.DeserializeObject<dynamic>(content_CVAPI);
+            
+            var ProfileAPI = await client.GetAsync("https://localhost:7063/api/TbProfiles/GetProfileById");
+            var content_ProfileAPI = await ProfileAPI.Content.ReadAsStringAsync();
+            var cvProfile = JsonConvert.DeserializeObject<dynamic>(content_ProfileAPI);
 
+            //đang lỗi
+            var EduAPI = await client.GetAsync("https://localhost:7063/api/Education/listEducations");
+            var content_EduAPI = await EduAPI.Content.ReadAsStringAsync();
+            var edu = JsonConvert.DeserializeObject<List<Education>>(content_EduAPI);
 
             _model = new()
             {
-                profile = new()
-                {
-                    FirstName = "Nguyen",
-                    LastName = "Thanh Tai",
-                    DoB = DateTime.Parse("1/1/2001"),
-                    Gender = true,
-                    PhoneNumber = "0123123123",
-                    Address = "Cantho, Vietnam",
-                    SocialNetwork = "fb.com/nguyenthanhtai"
-                },
                 Educations = new()
                 {
                     new()
@@ -85,6 +103,16 @@ namespace Jobee.Controllers
                         Gpa = 7.0,
                         Id = "edu2"
                     }
+                },
+                profile = new()
+                {
+                    FirstName = cvProfile.firstName,
+                    LastName = cvProfile.lastName,
+                    DoB = cvProfile.doB,
+                    Gender = cvProfile.gender,
+                    PhoneNumber = cvProfile.phoneNumber,
+                    Address = cvProfile.address,
+                    SocialNetwork = cvProfile.socialNetwork
                 },
                 Activitys = new() {
                     new(){

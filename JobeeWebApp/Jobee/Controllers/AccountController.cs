@@ -1,10 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Runtime.InteropServices.JavaScript;
+using System.Text.Json;
+using static Jobee.Controllers.AccountController;
+using static System.Net.WebRequestMethods;
 
 namespace Jobee.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly HttpClient client = null;
+        private string SignupUserAPIUrl = null;
+        private string LoginUserAPIUrl = null;
+
+
+        public AccountController()
+        {
+            client= new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            client.DefaultRequestHeaders.Accept.Add(contentType);
+            SignupUserAPIUrl = "https://localhost:7063/api/Users/signup";
+            LoginUserAPIUrl = "https://localhost:7063/api/Users/login";
+        }
+
         public IActionResult Index()
         {
             return NotFound();
@@ -24,11 +45,26 @@ namespace Jobee.Controllers
         //[BindProperty]
         //public SigninModel signinModel { get; set; } = default!;
             
-        [HttpPost("/Account/Login")]
-        public IActionResult LoginForm([Bind("username, password")] SigninModel signinModel)
+        [HttpPost, ActionName("Login")]
+        public async Task<IActionResult> LoginForm([Bind("username, password")] SigninModel signinModel)
         {
-            if(ModelState.IsValid)
-            return Content($"username: {signinModel.username}, password: {signinModel.password}");
+            if (ModelState.IsValid)
+            {
+                var respone = await client.PostAsJsonAsync(requestUri: LoginUserAPIUrl, signinModel);
+                string strData = await respone.Content.ReadAsStringAsync();
+                dynamic token = JObject.Parse(strData);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                if (respone == null)
+                {
+                    return View(nameof(Login));
+                }
+                Response.Cookies.Append("jwt", token.token.ToString());
+                return RedirectToAction(nameof(Index), nameof(User));
+            }
             return View(nameof(Login));
         }
 
@@ -55,10 +91,14 @@ namespace Jobee.Controllers
             return View();
         }
         [HttpPost("/Account/Signup")]
-        public IActionResult SignupForm([Bind("username, password, rePassword, email")] SignupModel signupModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignupForm([Bind("username, password, rePassword, email")] SignupModel signupModel)
         {
             if (ModelState.IsValid)
-                return Content($"username: {signupModel.username}, password: {signupModel.password}, email: {signupModel.email}");
+            {
+                var respone = await client.PostAsJsonAsync(requestUri: SignupUserAPIUrl, signupModel);
+                return View(nameof(Login));
+            }
             return View(nameof(Signup));
 
         }

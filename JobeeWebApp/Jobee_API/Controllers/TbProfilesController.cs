@@ -35,16 +35,18 @@ namespace Jobee_API.Controllers
 
         // GET: api/TbProfiles/5
         // admin và guest cũng có thể sử dụng
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TbProfile>> GetTbProfile(string id)
+        [HttpGet]
+        [Route("GetProfileById")]
+        public async Task<ActionResult<TbProfile>> GetProfileById()
         {
-            var tbPro = await _context.TbProfiles.FindAsync(id);
-
+            string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+            var idProfile = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            var existIdProfile = await _context.TbProfiles.FindAsync(idProfile.Id);
+            var tbPro = await _context.TbProfiles.FindAsync(existIdProfile.Id);
             if (tbPro == null)
             {
                 return NotFound();
             }
-
             return tbPro;
         }
 
