@@ -1,0 +1,115 @@
+﻿@model Jobee_API.Models.CV
+<section class="panel" id="General">
+    <form method="post" asp-controller="User" asp-action="EditGeneral">
+        <div class="header">
+            <span>
+                <h1>General</h1>
+            </span>
+        </div>
+        <div class="content">
+            <!-- INPUT TEXT FIELD -->
+            <div class="row">
+                <div class="col">
+                    <div class="inputTextContainer">
+                        <input asp-for="ApplyPosition" class="input" /> 
+                        <span class="inputSpan">Apply Position</span>
+                        <span class="inputError" asp-validation-for="ApplyPosition"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <!-- INPUT SELECT FIELD -->
+                    <div class="inputSelectContainer">
+                        <select asp-for="CurrentJob" asp-items="ViewBag.CurrentJobs"></select>
+                       @* <select name="InputSelectList">
+                            <option value="" disabled selected hidden>Current Job</option>
+                            <option value="1">Value 1</option>
+                            <option value="2">Value 2</option>
+                        </select>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="inputTextContainer">
+                        <input asp-for="DesirySalary" class="input" />
+                        <span class="inputSpan">Desired Salary</span>
+                        <span class="inputError" asp-validation-for="DesirySalary"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- INPUT SELECT FIELD -->
+                    <div class="inputSelectContainer">
+                        <select asp-for="Degree" asp-items="ViewBag.Degrees"></select>
+                       @* <select name="InputSelectList">
+                            <option value="" disabled selected hidden>Degree</option>
+                            <option value="1">Value 1</option>
+                            <option value="2">Value 2</option>
+                        </select>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col">
+                    <!-- INPUT SELECT FIELD -->
+                    <div class="inputSelectContainer">
+                        <select asp-for="WorkExperience" asp-items="ViewBag.WorkExperiences"></select>
+
+                        @*<select name="InputSelectList">
+                            <option value="" disabled selected hidden>Work experience</option>
+                            <option value="1">Value 1</option>
+                            <option value="2">Value 2</option>
+                        </select>*@
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- INPUT SELECT FIELD -->
+                    <div class="inputSelectContainer">
+                        <select asp-for="DesiredWorkLocation" asp-items="ViewBag.DesiredWorkLocations"></select>
+@*
+                        <select name="InputSelectList">
+                            <option value="" disabled selected hidden>Desired Work Locations</option>
+                            <option value="1">Value 1</option>
+                        <option value="2">Value 2</option>
+                        </select>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col">
+                    <!-- INPUT SELECT FIELD -->
+                    <div class="inputSelectContainer">
+                        <select asp-for="WorkingForm" asp-items="ViewBag.WorkingForms"></select>
+@*
+                        <select name="InputSelectList">
+                            <option value="" disabled selected hidden>Working Form</option>
+                            <option value="1">Value 1</option>
+                            <option value="2">Value 2</option>
+                        </select>*@
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- TEXTAREA -->
+                    <div class="inputTextareaContainer">
+                        <textarea asp-for="CarrerObjiect" class="inputTxt"></textarea>
+                        <span class="areaSpan">Carrer Objective</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="softSkill">
+                <div class="col">
+                    <div class="inputTextContainer">
+                        <input asp-for="SoftSkill" id="" class="input" />
+                        <span class="inputSpan">Soft Skills (Optional)</span>
+                        <span class="inputError" asp-validation-for="SoftSkill"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="contentFooter">
+                <button type="submit" class="btn btn--button" >Save</button>
+            </div>
+    </form>
+</section>

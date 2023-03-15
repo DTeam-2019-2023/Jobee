@@ -1,6 +1,7 @@
 ﻿using Jobee_API.Entities;
 using Jobee_API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -8,7 +9,7 @@ namespace Jobee.Controllers
 {
     public interface IUserController
     {
-        
+
         public IActionResult Index();
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
@@ -33,6 +34,10 @@ namespace Jobee.Controllers
         public IActionResult EditCertificateForm([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
         public IActionResult EditActivityForm([Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
         public IActionResult EditAwardForm([Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
+        //null
+        //public IActionResult UpdateAvatar();
+        public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
+        public IActionResult DeleteContentNav(string navType, string id);
 
     }
 
@@ -40,17 +45,23 @@ namespace Jobee.Controllers
     {
         public class UserCVModel
         {
-            public Profile profile { get; set; }
+            public Profile profile { get; set; } = default!;
+            public CV general { get; set; } = default!;
 
-            public string avtUrl { get; set; }
+            public string avtUrl { get; set; } = default!;
 
             public List<Education> Educations { get; set; } = default!;
             public List<Project> Projects { get; set; } = default!;
             public List<Certificate> Certificates { get; set; } = default!;
             public List<Activity> Activitys { get; set; } = default!;
             public List<Award> Awards { get; set; } = default!;
-            public _ModelManagerment modelPopup { get; set; }
+            public _ModelManagerment modelPopup { get; set; } = default!;
         }
+        List<string> DesiredWorkLocations = new List<string>() { "An Giang", "Bà Rịa-Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh", "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Quốc", "Đà Nẵng", "Hải Phòng", "Hà Nội", "Thành phố Hồ Chí Minh", "Cần Thơ" };
+        List<string> Degrees = new List<string>() { "High school diploma", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctorate degree" };
+        List<string> CurrentJobs = new List<string>() { "Collaborator", "Specialist - Staff", "Expert", "Team Leader - Supervisor", "Middle Manager", "Senior Manager" };
+        List<string> WorkExperiences = new List<string>() { "No experience", "1 year", "2 years", "3 years", "4 years", "5 years", "Over 5 years" };
+        List<string> WorkingForms = new List<string>() { "Full-time permanent", "Full-time temporary", "Part-time permanent", "Part-time temporary", "Consultancy contract", "Internship", "Other" };
 
         public UserCVModel _model { get; set; } = default!;
         public string StatusMessage { get; set; }
@@ -167,24 +178,65 @@ namespace Jobee.Controllers
                         Description = "Description2"
                     }
                 },
+                general = new CV()
+                {
+                    Avatar = "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg",
+                    ApplyPosition = "Collaborator",
+                    CarrerObjiect = "-",
+                    CurrentJob = CurrentJobs[1],
+                    Degree = Degrees[1],
+                    DesiredWorkLocation = DesiredWorkLocations[1],
+                    DesirySalary = 0,
+                    SoftSkill ="-",
+                    WorkExperience = WorkExperiences[1],
+                    WorkingForm = WorkingForms[0]
+                },
                 modelPopup = new()
             };
+            ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
+            ViewData["Degrees"] = getListItem("Degree",Degrees, _model.general?.Degree);
+            ViewData["CurrentJobs"] = getListItem("Current Job",CurrentJobs, _model.general?.CurrentJob);
+            ViewData["WorkExperiences"] = getListItem("Work Experience",WorkExperiences, _model.general?.WorkExperience);
+            ViewData["WorkingForms"] = getListItem("Working Form",WorkingForms, _model.general?.WorkingForm);
             return View(_model);
+        }
+        private List<SelectListItem> getListItem(string Title,List<string> data, string? selected)
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            if(!string.IsNullOrEmpty(Title))
+            result.Add(new SelectListItem { Value = "", Text = Title, Disabled = true });
+            for (int i = 0; i < data.Count; i++)
+            {
+                result.Add(new SelectListItem { Value = i.ToString(), Text = data[i], Selected = data[i].Equals(selected)});
+            }
+            return result;
         }
 
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
         {
-            return Ok(model);
+            if (ModelState.IsValid)
+            {
+                return Content("OK");
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
-            return Ok(model);
+            if (ModelState.IsValid)
+            {
+                return Content("OK");
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
         {
-            return Ok(model);
+            if (ModelState.IsValid)
+            {
+                return Content("OK");
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
@@ -198,7 +250,11 @@ namespace Jobee.Controllers
 
         public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] model_Award model)
         {
-            return Ok(model);
+            if (ModelState.IsValid)
+            {
+                return Content("OK");
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -358,16 +414,16 @@ namespace Jobee.Controllers
             }
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
         }
-        [HttpPost("EditProject")]
+        [HttpPost, ActionName("EditProject")]
         public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
             if (ModelState.IsValid)
             {
-                
+
             }
             return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", model);
         }
-        [HttpPost("EditCertificate")]
+        [HttpPost, ActionName("EditCertificate")]
         public IActionResult EditCertificateForm([Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
         {
             if (ModelState.IsValid)
@@ -376,7 +432,7 @@ namespace Jobee.Controllers
             }
             return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", model);
         }
-        [HttpPost("EditActivity")]
+        [HttpPost, ActionName("EditActivity")]
         public IActionResult EditActivityForm([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
         {
             if (ModelState.IsValid)
@@ -385,7 +441,7 @@ namespace Jobee.Controllers
             }
             return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", model);
         }
-        [HttpPost("EditAward")]
+        [HttpPost, ActionName("EditAward")]
         public IActionResult EditAwardForm([Bind("Name, StartDate, EndDate, Description")] model_Award model)
         {
             if (ModelState.IsValid)
@@ -393,6 +449,36 @@ namespace Jobee.Controllers
 
             }
             return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", model);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteContentNav(string navType, string id)
+        {
+            switch (navType)
+            {
+                case "Education":
+
+                    break;
+                case "Project":
+
+                    break;
+                case "Certificate":
+
+                    break;
+                case "Activity":
+
+                    break;
+                case "Award":
+
+                    break;
+                default: return Conflict("not found type of activity");
+            }
+            return Ok(new { status = "success", id = id });
+
+        }
+
+        public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
+        {
+            throw new NotImplementedException();
         }
     }
 
