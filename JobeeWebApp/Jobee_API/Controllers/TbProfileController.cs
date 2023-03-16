@@ -63,11 +63,28 @@ namespace Jobee_API.Controllers
         public async Task<ActionResult<TbProfile>> PutTbProfile(Profile tbProfile)
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            var idProfile = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var existIdProfile = await _context.TbProfiles.FindAsync(idProfile.Id);
+            var existIdProfile = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            //var existIdProfile = await _context.TbProfiles.FindAsync(idProfile.Id);
             if (existIdProfile == null)
             {
-                return await CreateProfile(tbProfile, iduser);
+                string Profileid = Guid.NewGuid().ToString();
+                TbProfile ProfileDB = new TbProfile()
+                {
+                    Id = Profileid,
+                    Idaccount = iduser,
+                    FirstName = tbProfile.FirstName,
+                    LastName = tbProfile.LastName,
+                    Gender = tbProfile.Gender,
+                    DoB = tbProfile.DoB,
+                    PhoneNumber = tbProfile.PhoneNumber,
+                    Address = tbProfile.Address,
+                    SocialNetwork = tbProfile.SocialNetwork,
+                    DetailAddress = tbProfile.DetailAddress,
+                    Email = tbProfile.Email
+                };
+                _context.TbProfiles.Add(ProfileDB);
+                await _context.SaveChangesAsync();
+                return ProfileDB;
             }
 
             existIdProfile.LastName = tbProfile.LastName;
@@ -80,45 +97,10 @@ namespace Jobee_API.Controllers
             existIdProfile.Email = tbProfile.Email;
             _context.Update(existIdProfile);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TbProfileExists(idProfile.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
+            
 
             return existIdProfile;
-        }
-
-        public async Task<TbProfile> CreateProfile(Profile tbProfile, string iduser)
-        {
-            string Profileid = Guid.NewGuid().ToString();
-            TbProfile ProfileDB = new TbProfile()
-            {
-                Id = Profileid,
-                Idaccount = iduser,
-                FirstName = tbProfile.FirstName,
-                LastName = tbProfile.LastName,
-                Gender = tbProfile.Gender,
-                DoB = tbProfile.DoB,
-                PhoneNumber = tbProfile.PhoneNumber,
-                Address = tbProfile.Address,
-                SocialNetwork = tbProfile.SocialNetwork,
-                DetailAddress = tbProfile.DetailAddress,
-                Email = tbProfile.Email
-            };
-            _context.TbProfiles.Add(ProfileDB);
-            await _context.SaveChangesAsync();
-            return ProfileDB;
         }
 
 

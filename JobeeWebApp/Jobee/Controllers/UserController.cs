@@ -46,7 +46,9 @@ namespace Jobee.Controllers
         public IActionResult EditAwardForm([Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
         //null
         //public IActionResult UpdateAvatar();
-        public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
+        public IActionResult CreateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
+
+        public IActionResult UpdateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
         public IActionResult UpdateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model);
         public IActionResult CreateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model);
 
@@ -99,9 +101,23 @@ namespace Jobee.Controllers
 
             TbCv tbCV;
             fetcher.GetSingleAuto(out tbCV);
-
-            //var content_CVAPI = await CvAPI.Content.ReadAsStringAsync();
-            //var cvData = JsonConvert.DeserializeObject<dynamic>(content_CVAPI);
+            CV cv = default!;
+            if (tbCV.Id != null)
+            {
+                cv = new()
+                {
+                    ApplyPosition = tbCV.ApplyPosition,
+                    CurrentJob = tbCV.CurrentJob,
+                    DesirySalary = tbCV.DesirySalary,
+                    Degree = tbCV.Degree,
+                    WorkExperience= tbCV.WorkExperience,
+                    DesiredWorkLocation= tbCV.DesiredWorkLocation,
+                    WorkingForm= tbCV.WorkingForm,
+                    CarrerObjiect=tbCV.CarrerObject,
+                    SoftSkill= tbCV.SoftSkill,
+                    Avatar= "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg"
+                };
+            }
 
             TbProfile Tbprofile;
             fetcher.GetSingleAuto(out Tbprofile);
@@ -121,16 +137,25 @@ namespace Jobee.Controllers
                 };
             }
 
-            //var ProfileAPI = await client.GetAsync("https://localhost:7063/api/TbProfiles/GetProfileById");
-            //var content_ProfileAPI = await ProfileAPI.Content.ReadAsStringAsync();
-            //var cvProfile = JsonConvert.DeserializeObject<dynamic>(content_ProfileAPI);
-            //var edu = new Education();
-            //fetcher.GetSingleAuto(out edu);
+            List<Education> edus;
+            fetcher.GetAll(out edus);
+            model_Education edu;
 
-            //đang lỗi
-            //var EduAPI = await client.GetAsync("https://localhost:7063/api/Education/listEducations");
-            //var content_EduAPI = await EduAPI.Content.ReadAsStringAsync();
-            //var edu = JsonConvert.DeserializeObject<List<Education>>(content_EduAPI);
+            if (edus.Count > 0)
+            {
+                foreach (var item in edus)
+                {
+                    edu = new()
+                    {
+                        Name = item.Name,
+                        Major = item.Major,
+                        StartDate = item.StartDate,
+                        EndDate = item.EndDate,
+                        GPA = item.Gpa,
+                        Description = item.Description
+                    };
+                }
+            }
 
             _model = new()
             {
@@ -231,19 +256,7 @@ namespace Jobee.Controllers
                         Description = "Description2"
                     }
                 },
-                general = new CV()
-                {
-                    Avatar = "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg",
-                    ApplyPosition = "Collaborator",
-                    CarrerObjiect = "-",
-                    CurrentJob = CurrentJobs[1],
-                    Degree = Degrees[1],
-                    DesiredWorkLocation = DesiredWorkLocations[1],
-                    DesirySalary = 0,
-                    SoftSkill = "-",
-                    WorkExperience = WorkExperiences[1],
-                    WorkingForm = WorkingForms[0]
-                },
+                general = cv,
                 modelPopup = new()
             };
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
@@ -269,9 +282,23 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Content("OK");
+                Education tbedu;
+                var result = fetcher.Create(out tbedu, model);
+                if (result)
+                    return RedirectToAction(nameof(Index));
+                return Conflict();
             }
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost, ActionName("EditEducation")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditEducationForm([Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok("success");
+            }
+            return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
         }
 
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
@@ -457,16 +484,7 @@ namespace Jobee.Controllers
             };
             return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", awa1);
         }
-        [HttpPost, ActionName("EditEducation")]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditEducationForm([Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Ok("success");
-            }
-            return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
-        }
+        
         [HttpPost, ActionName("EditProject")]
         public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
@@ -529,7 +547,16 @@ namespace Jobee.Controllers
 
         }
 
-        public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
+        public IActionResult CreateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
+        {
+            TbCv cv;
+            var result = fetcher.Create(out cv, model);
+            if (result)
+                return RedirectToAction(nameof(Index));
+            return Conflict();
+        }
+
+        public IActionResult UpdateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
         {
             TbCv cv;
             var result = fetcher.Update(out cv, model);

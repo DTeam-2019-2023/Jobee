@@ -67,6 +67,7 @@ namespace Jobee_API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Authorize(Roles ="emp")]
+        [Route("Update")]
         public async Task<IActionResult> PutEducation(string id, model_Education education)
         {
             var existEdu = await _context.Educations.FindAsync(id);
@@ -105,7 +106,8 @@ namespace Jobee_API.Controllers
         // POST: api/Education
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles ="emp")]
+        [Authorize(Roles = "emp")]
+        [Route("Create")]
         public async Task<ActionResult<Education>> PostEducation(model_Education education)
         {
             string eduId = Guid.NewGuid().ToString();
