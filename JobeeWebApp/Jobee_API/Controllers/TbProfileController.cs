@@ -141,7 +141,7 @@ namespace Jobee_API.Controllers
                     throw;
                 }
             }
-            return CreatedAtAction("GetTbProfile", new { id = ProfileDB.Id }, ProfileDB);
+            return ProfileDB;
         }
 
 
