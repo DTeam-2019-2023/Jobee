@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 
-namespace Jobee_API
+namespace Jobee_Lib
 {
     #region JWT Token Manager
     public class JwtTokenManager

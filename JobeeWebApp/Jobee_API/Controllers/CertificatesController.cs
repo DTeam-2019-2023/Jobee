@@ -108,6 +108,7 @@ namespace Jobee_API.Controllers
             existCer.StartDate= certificate.StartDate;
             existCer.EndDate= certificate.EndDate;
             existCer.Url = certificate.Url;
+            existCer.Description= certificate.Description;
 
             _context.Update(existCer);
 

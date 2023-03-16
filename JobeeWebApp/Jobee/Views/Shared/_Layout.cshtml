@@ -67,8 +67,35 @@
             <img src="/images/Logo.svg" alt="" srcset="" />
         </a>
         <div class="group-btn">
-            <a class="btn btn--simpButton center" role="button"  asp-controller="Account" asp-action="Signup">Sign Up</a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="bell active">
+                    <img src="/images/Bell notification.svg" alt="" srcset="" />
+                    <div class="notification">
+                        <ul class="notify">
+                            <li><a href="#">Your request verify have been in contain!</a></li>
+                            <li><a href="#">Notify 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="popupSetting">
+                    <a class="btn btn--hover" role="button" href="/templates/pages/signup.html">Option</a>
+                    <div class="dropdownSetting">
+                        <ul>
+                            <li><a href="#">Setting</a></li>
+                            <li>
+                                <form method="post" asp-controller="Account" asp-action="Logout"><button type="submit">Logout</button>
+                                </form>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+            <a class="btn btn--simpButton center" role="button" asp-controller="Account" asp-action="Signup">Sign Up</a>
             <a class="btn btn--button" role="button" asp-controller="Account" asp-action="Login">Login</a>
+            }
         </div>
     </header>
     <div class="container">

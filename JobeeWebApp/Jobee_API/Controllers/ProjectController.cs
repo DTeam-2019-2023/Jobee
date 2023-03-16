@@ -13,11 +13,11 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class ProjectController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
-        public ProjectsController(Project_JobeeContext context)
+        public ProjectController(Project_JobeeContext context)
         {
             _context = context;
         }

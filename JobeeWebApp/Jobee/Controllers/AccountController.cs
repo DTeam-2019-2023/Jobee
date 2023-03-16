@@ -1,10 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Runtime.InteropServices.JavaScript;
+using System.Security.Claims;
+using System.Text.Json;
+using static Jobee.Controllers.AccountController;
+using static System.Net.WebRequestMethods;
 
 namespace Jobee.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly HttpClient client = null;
+        private string SignupUserAPIUrl = null;
+        private string LoginUserAPIUrl = null;
+
+
+        public AccountController()
+        {
+        }
+
         public IActionResult Index()
         {
             return NotFound();
@@ -23,12 +44,71 @@ namespace Jobee.Controllers
         }
         //[BindProperty]
         //public SigninModel signinModel { get; set; } = default!;
-            
-        [HttpPost("/Account/Login")]
-        public IActionResult LoginForm([Bind("username, password")] SigninModel signinModel)
+
+        [HttpPost, ActionName("Login")]
+        public async Task<IActionResult> LoginForm([Bind("username, password")] SigninModel signinModel)
         {
-            if(ModelState.IsValid)
-            return Content($"username: {signinModel.username}, password: {signinModel.password}");
+            if (ModelState.IsValid)
+            {
+                var (token, type) = Fetcher.LoginAsync(signinModel).Result;
+                if (string.IsNullOrEmpty(token))
+                {
+                    ModelState.AddModelError("", "Username or pass word wrong");
+                    return View(nameof(Login));
+                }
+                //var respone = await client.PostAsJsonAsync(requestUri: LoginUserAPIUrl, signinModel);
+                //string strData = await respone.Content.ReadAsStringAsync();
+                //dynamic token = JObject.Parse(strData);
+                //var options = new JsonSerializerOptions
+                //{
+                //    PropertyNameCaseInsensitive = true
+                //};
+
+                //if (respone == null)
+                //{
+                //    return View(nameof(Login));
+                //}
+                Response.Cookies.Append("jwt", token);
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, signinModel.username),
+            new Claim(ClaimTypes.Role, type),
+        };
+
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties
+                {
+                    //AllowRefresh = <bool>,
+                    // Refreshing the authentication session should be allowed.
+
+                    //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
+                    // The time at which the authentication ticket expires. A 
+                    // value set here overrides the ExpireTimeSpan option of 
+                    // CookieAuthenticationOptions set with AddCookie.
+
+                    //IsPersistent = true,
+                    // Whether the authentication session is persisted across 
+                    // multiple requests. When used with cookies, controls
+                    // whether the cookie's lifetime is absolute (matching the
+                    // lifetime of the authentication ticket) or session-based.
+
+                    //IssuedUtc = <DateTimeOffset>,
+                    // The time at which the authentication ticket was issued.
+
+                    //RedirectUri = <string>
+                    // The full path or absolute URI to be used as an http 
+                    // redirect response value.
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity),
+                    authProperties);
+
+                return RedirectToAction(nameof(Index), nameof(User));
+            }
             return View(nameof(Login));
         }
 
@@ -37,7 +117,7 @@ namespace Jobee.Controllers
             [Required]
             public string username { get; set; }
             [Required]
-            [DataType(dataType:DataType.Password)]
+            [DataType(dataType: DataType.Password)]
             public string password { get; set; }
             [Required]
             [Compare("password", ErrorMessage = "The password and confirmation password do not match.")]
@@ -55,10 +135,14 @@ namespace Jobee.Controllers
             return View();
         }
         [HttpPost("/Account/Signup")]
-        public IActionResult SignupForm([Bind("username, password, rePassword, email")] SignupModel signupModel)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignupForm([Bind("username, password, rePassword, email")] SignupModel signupModel)
         {
             if (ModelState.IsValid)
-                return Content($"username: {signupModel.username}, password: {signupModel.password}, email: {signupModel.email}");
+            {
+                if(Fetcher.SignupAsync(signupModel).Result)
+                return View(nameof(Login));
+            }
             return View(nameof(Signup));
 
         }
@@ -163,6 +247,22 @@ namespace Jobee.Controllers
             if (ModelState.IsValid)
                 return Content($"EntryNewEmail: {entryNewEmailModel.email}");
             return View(nameof(EntryNewEmail));
+        }
+
+        //logout
+        [HttpPost]
+        [Authorize(Roles = "emp,ad")]
+        public async Task<IActionResult> Logout()
+        {
+            Fetcher fetcher = new Fetcher(new Fetcher.ConfigFetcher()
+            {
+                context = HttpContext,
+                root = "https://localhost:7063/api"
+            });
+
+            if (await fetcher.LogoutAsync())
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

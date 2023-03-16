@@ -27,11 +27,14 @@
                 </span>
             </div>
             <div class="info">
-                <nav><strong>Full Name:</strong> @Model.profile.FirstName @Model.profile.LastName</nav>
-                <nav><strong>Birthday:</strong> @Model.profile.DoB.ToShortDateString() <strong>Gender:</strong> @(Model.profile.Gender ? "Male" : "Female")</nav>
-                <nav><strong>Phone Number:</strong> @Model.profile.PhoneNumber</nav>
-                <nav><strong>Address:</strong> @Model.profile.Address</nav>
-                <nav><strong>Contact:</strong> @Model.profile.SocialNetwork</nav>
+                @if (Model.profile != null)
+                {
+                <nav><strong>Full Name:</strong> @Model.profile?.FirstName @Model.profile.LastName</nav>
+                <nav><strong>Birthday:</strong> @Model.profile?.DoB.ToShortDateString() <strong>Gender:</strong> @(Model.profile.Gender&&true ? "Male" : "Female")</nav>
+                <nav><strong>Phone Number:</strong> @Model.profile?.PhoneNumber</nav>
+                <nav><strong>Address:</strong> @Model.profile?.Address</nav>
+                <nav><strong>Contact:</strong> @Model.profile?.SocialNetwork</nav>
+                }
             </div>
         </div>
     </section>
@@ -312,6 +315,8 @@
             </div>
         </form>
     </div>
+
+    
     <!-- POPUP UPDATE SUCCESS -->
     <div class="overlayNotifyContainer" id="successNotify">
         <div class="notifyContainer">
@@ -340,6 +345,10 @@
         </div>
     </div>
 
+    @{
+        await Html.RenderPartialAsync("_UserModelPartial");
+        await Html.RenderPartialAsync("_Profile", Model.profile);
+    }
     <!-- POPUP UPDATE FAILED -->
     <div class="overlayNotifyContainer" id="failNotify">
         <div class="notifyContainer">
@@ -373,9 +382,6 @@
 
 </div>
 
-@{
-    await Html.RenderPartialAsync("_UserModelPartial");
-}
 @section Scripts{
     <script src="~/js/input.js" asp-append-version="true"></script>
     <script src="~/js/userPage.js" asp-append-version="true"></script>

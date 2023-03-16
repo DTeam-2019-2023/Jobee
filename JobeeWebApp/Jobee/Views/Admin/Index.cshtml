@@ -1,0 +1,563 @@
+﻿@model Jobee.Controllers.UserController.UserCVModel
+@{
+    ViewData["Title"] = "Admin page";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
+
+    <div class="container adminContainer">
+        <div class="leftContainer">
+            <div class="manageList">
+                <a href="#manageUser" class="manageItem active">
+                    <!-- <img
+                        src="/images/User Group.svg"
+                        alt="icon user group"
+                        class="manageIcon"
+                      /> -->
+                    <span class="managerName">Manager User</span>
+                </a>
+                <a href="#verifyRequest" class="manageItem">
+                    <!-- <img
+                        src="/images/verify check.svg"
+                        alt="icon verify"
+                        class="manageIcon"
+                      /> -->
+                    <span class="managerName">Verify Request</span>
+                </a>
+            </div>
+        </div>
+        <div class="rightContainer">
+            <!-- MANAGER USER -->
+            <div class="manageUserContainer show" id="manageUser">
+                <div class="listTitle">
+                    <h3>Manager User</h3>
+                </div>
+                <div class="listAction">
+                    <!-- INPUT SEARCH -->
+                    <form method="get" class="searchGroupContainer">
+                        <div class="searchGroup">
+                            <input type="text" class="searchGroupInput" placeholder="Searching ..." />
+                            <button type="submit" class="searchButton">Search</button>
+                        </div>
+                    </form>
+                    <button class="btn btn--Create" id="btnCreate">Create</button>
+                </div>
+                <table width="100%">
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 10%" />
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Type Account</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="text--ellipsis">111111111111111111111111112</span>
+                        </td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">ad001</span></td>
+                        <td>Admin</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">Admin</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text--ellipsis">user001</span></td>
+                        <td>Username1</td>
+                        <td class="typeAccount">
+                            <div class="typeUs typeName">User</div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
+                                </abbr>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+                <div class="paging">
+                    <ul class="pagingList">
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>...</li>
+                        <li>100</li>
+                        <li>101</li>
+                        <li>next</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- VERIFY REQUEST -->
+            <div class="verifyRequestContainer" id="verifyRequest">
+                <div class="listTitle">
+                    <h3>Verify Request</h3>
+                </div>
+                <table width="100%">
+                    <!-- <col style="width: 20%" />
+                      <col style="width: 20%" />
+                      <col style="width: 20%" />
+                      <col style="width: 10%" /> -->
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Certificate</th>
+                        <th>Expired Date</th>
+                        <th>Description</th>
+                        <th>URL</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Nguyen Van A</td>
+                        <td>UX - UI Design</td>
+                        <td>
+                            <span class="startDate">[StartDate]</span> -
+                            <span class="endDate">[EndDate]</span>
+                        </td>
+                        <td>Text to description</td>
+                        <td>
+                            <div class="urlFieldContainer">
+                                <div class="urlField">
+                                    <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
+                                    <span class="extendIconContainer">
+                                        <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="iconList">
+                            <abbr title="Accept">
+                                <img src="/images/verify check.svg" alt="trash icon" class="actionIcon acceptAction"
+                                     target="idcertificate" />
+                            </abbr>
+                            <abbr title="Reject">
+                                <img src="/images/iconClose.svg" alt="info icon" class="actionIcon rejectAction"
+                                     target="idcertificate" />
+                            </abbr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nguyen Van A</td>
+                        <td>UX - UI Design</td>
+                        <td>
+                            <span class="startDate">[StartDate]</span> -
+                            <span class="endDate">[EndDate]</span>
+                        </td>
+                        <td><span class="text--ellipsis">Text to descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</span></td>
+                        <td>
+                            <div class="urlFieldContainer">
+                                <div class="urlField">
+                                    <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
+                                    <span class="extendIconContainer">
+                                        <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="iconList">
+                            <abbr title="Accept">
+                                <img src="/images/verify check.svg" alt="trash icon" class="actionIcon acceptAction" />
+                            </abbr>
+                            <abbr title="Reject">
+                                <img src="/images/iconClose.svg" alt="info icon" class="actionIcon rejectAction" />
+                            </abbr>
+                        </td>
+                    </tr>
+                </table>
+                <div class="paging">
+                    <ul class="pagingList">
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>...</li>
+                        <li>100</li>
+                        <li>101</li>
+                        <li>next</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Admin create -->
+    <div class="overlayPopup" id="overlayCreateAdmin">
+        <form method="post" class="popupContainer" id="updateProfileContainer">
+            <div class="formHeader">
+                <h3 class="headerTitle">Create Admin</h3>
+            </div>
+            <div class="formBody">
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">User Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="password" name="" id="" class="input" />
+                            <span class="inputSpan">Password</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="password" name="" id="" class="input" />
+                            <span class="inputSpan">Confirm your Password</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Last Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">First Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Date of Birth</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputSelectContainer">
+                            <select name="InputSelectList" id="">
+                                <option value="" disabled selected hidden>Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputSelectContainer">
+                            <select>
+                                <option value="" disabled selected hidden>Address</option>
+                                <option value="1">An Giang</option>
+                                <option value="2">Can Tho</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="number" name="" id="" class="input" />
+                            <span class="inputSpan">Phone Number</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Email</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Details Address</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="formFooter">
+                <button class="btn btn--hover btnCancel" type="button">Cancel</button>
+                <button class="btn btn--button" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- POPUP CONFIRM REJECT -->
+    <div class="overlayNotifyContainer" id="deleteNotify">
+        <form method="/admin/reject" class="notifyContainer">
+            <div class="header" id="deleteHeader">
+                <div class="headerClose">
+                    <svg class="closeIcon" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 0C4.03832 0 0 4.03832 0 9C0 13.9617 4.03832 18 9 18C13.9617 18 18 13.9617 18 9C18 4.03832 13.9617 0 9 0ZM9 1.5C13.151 1.5 16.5 4.84898 16.5 9C16.5 13.151 13.151 16.5 9 16.5C4.84898 16.5 1.5 13.151 1.5 9C1.5 4.84898 4.84898 1.5 9 1.5ZM6.53027 5.46973L5.46973 6.53027L7.93945 9L5.46973 11.4697L6.53027 12.5303L9 10.0605L11.4697 12.5303L12.5303 11.4697L10.0605 9L12.5303 6.53027L11.4697 5.46973L9 7.93945L6.53027 5.46973Z"
+                              fill="white" />
+                    </svg>
+                </div>
+                <div class="headerContent">
+                    <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.625 0.75C5.62939 0.75 0.75 5.62793 0.75 11.625C0.75 17.6221 5.62939 22.5 11.625 22.5C17.6206 22.5 22.5 17.6221 22.5 11.625C22.5 5.62793 17.6206 0.75 11.625 0.75ZM11.625 1.5C17.2075 1.5 21.75 6.04248 21.75 11.625C21.75 17.2075 17.2075 21.75 11.625 21.75C6.04248 21.75 1.5 17.2075 1.5 11.625C1.5 6.04248 6.04248 1.5 11.625 1.5ZM11.4609 3.00293C9.25195 3.04688 7.11035 3.94189 5.52539 5.52539C2.16357 8.88867 2.16357 14.3599 5.52539 17.7231C5.59863 17.7964 5.69531 17.833 5.79053 17.833C5.88721 17.833 5.98389 17.7964 6.05713 17.7231C6.20361 17.5767 6.20361 17.3394 6.05713 17.1929C2.98535 14.1226 2.98682 9.12744 6.05713 6.05713C7.83691 4.27588 10.3872 3.45117 12.8774 3.84961C13.0811 3.8833 13.2744 3.74268 13.3066 3.53906C13.3403 3.33398 13.1997 3.14063 12.9961 3.1084C12.4849 3.02637 11.9722 2.99121 11.4609 3.00293ZM14.4961 3.52002C14.3511 3.52588 14.2163 3.61816 14.1621 3.76318C14.0889 3.95801 14.187 4.17334 14.3818 4.24658C14.6499 4.34619 14.9136 4.46191 15.1699 4.58936C15.2241 4.61719 15.2812 4.63037 15.3384 4.63037C15.4746 4.63037 15.6064 4.55566 15.6738 4.42383C15.7661 4.23926 15.6914 4.01367 15.5068 3.91992C15.2285 3.7793 14.937 3.65332 14.644 3.54346C14.5957 3.52588 14.5459 3.51855 14.4961 3.52002ZM16.6626 4.75342C16.5674 4.76514 16.4766 4.81201 16.4121 4.89404C16.2847 5.05664 16.3125 5.29248 16.4766 5.41992C16.7271 5.61621 16.9673 5.83008 17.1929 6.05713C20.2646 9.12744 20.2646 14.1226 17.1929 17.1929C17.0464 17.3408 17.0464 17.5767 17.1929 17.7246C17.2661 17.7964 17.3628 17.8345 17.4595 17.8345C17.5547 17.8345 17.6514 17.7964 17.7246 17.7246C21.0864 14.3613 21.0864 8.88867 17.7246 5.52539C17.4771 5.2793 17.2134 5.04492 16.9395 4.82959C16.8574 4.7666 16.7563 4.7417 16.6626 4.75342ZM8.44336 8.06836C8.34814 8.06836 8.25146 8.10498 8.17822 8.17822C8.03174 8.32471 8.03174 8.56201 8.17822 8.7085L11.0947 11.625L8.17822 14.5415C8.03174 14.688 8.03174 14.9253 8.17822 15.0718C8.25146 15.145 8.34668 15.1816 8.44336 15.1816C8.54004 15.1816 8.63525 15.145 8.7085 15.0718L11.625 12.1553L14.5415 15.0718C14.6147 15.145 14.71 15.1816 14.8066 15.1816C14.9033 15.1816 14.9985 15.145 15.0718 15.0718C15.2183 14.9253 15.2183 14.688 15.0718 14.5415L12.1553 11.625L15.0718 8.7085C15.2183 8.56201 15.2183 8.32471 15.0718 8.17822C14.9253 8.03174 14.688 8.03174 14.5415 8.17822L11.625 11.0947L8.7085 8.17822C8.63525 8.10498 8.53857 8.06836 8.44336 8.06836ZM8.01562 17.7729C7.86914 17.7554 7.72119 17.8228 7.64502 17.9575L7.27002 18.6079C7.16602 18.7866 7.22754 19.0151 7.40625 19.1191C7.46484 19.1528 7.5293 19.1704 7.59375 19.1704C7.72266 19.1704 7.84863 19.103 7.91748 18.9829L8.29248 18.3325C8.39648 18.1538 8.33643 17.9238 8.15625 17.8198C8.11084 17.7949 8.0625 17.7788 8.01562 17.7729ZM15.2344 17.7729C15.186 17.7788 15.1377 17.7949 15.0938 17.8198C14.9136 17.9238 14.8535 18.1538 14.9575 18.334L15.3325 18.9829C15.4014 19.103 15.5273 19.1704 15.6562 19.1704C15.7207 19.1704 15.7852 19.1543 15.8438 19.1191C16.0239 19.0166 16.084 18.7866 15.98 18.6079L15.605 17.959C15.5273 17.8242 15.3794 17.7554 15.2344 17.7729ZM9.68115 18.5039C9.53613 18.5244 9.41016 18.6284 9.36914 18.7793L9.17578 19.5044C9.12158 19.7036 9.2417 19.9087 9.44092 19.9629C9.47314 19.9717 9.50537 19.9761 9.53906 19.9761C9.70312 19.9761 9.85547 19.8647 9.90088 19.6978L10.0957 18.9727C10.1484 18.7734 10.0298 18.5669 9.83057 18.5142C9.7793 18.4995 9.72949 18.4966 9.68115 18.5039ZM13.5703 18.5039C13.522 18.4966 13.4707 18.4995 13.4194 18.5142C13.2202 18.5669 13.1016 18.7734 13.1543 18.9727L13.3491 19.6978C13.3945 19.8647 13.5454 19.9761 13.7109 19.9761C13.7446 19.9761 13.7769 19.9717 13.8091 19.9629C14.0083 19.9087 14.1284 19.7036 14.0742 19.5044L13.8809 18.7793C13.8398 18.6284 13.7139 18.5244 13.5703 18.5039ZM11.625 18.75C11.417 18.75 11.25 18.9185 11.25 19.125V19.875C11.25 20.0815 11.417 20.25 11.625 20.25C11.833 20.25 12 20.0815 12 19.875V19.125C12 18.9185 11.833 18.75 11.625 18.75Z"
+                              fill="white" />
+                    </svg>
+                    <h3 class="contentTitle">WARNING!</h3>
+                    <p class="contentDescription">
+                        Are you sure to reject this request?
+                    </p>
+                </div>
+            </div>
+            <div class="buttonContent">
+                <button class="btn btn--Yes btnDelete" type="submit">Yes</button>
+                <!-- NOTICE -> class btn--yes just use for css, not function -->
+                <button class="btn btn--No" type="button">No</button>
+            </div>
+        </form>
+    </div>
+    <!-- POPUP CONFIRM ACCEPT -->
+    <div class="overlayNotifyContainer" id="verifyNotify">
+        <form class="notifyContainer">
+            <div class="header" id="verifyHeader">
+                <div class="headerClose">
+                    <svg class="closeIcon" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 0C4.03832 0 0 4.03832 0 9C0 13.9617 4.03832 18 9 18C13.9617 18 18 13.9617 18 9C18 4.03832 13.9617 0 9 0ZM9 1.5C13.151 1.5 16.5 4.84898 16.5 9C16.5 13.151 13.151 16.5 9 16.5C4.84898 16.5 1.5 13.151 1.5 9C1.5 4.84898 4.84898 1.5 9 1.5ZM6.53027 5.46973L5.46973 6.53027L7.93945 9L5.46973 11.4697L6.53027 12.5303L9 10.0605L11.4697 12.5303L12.5303 11.4697L10.0605 9L12.5303 6.53027L11.4697 5.46973L9 7.93945L6.53027 5.46973Z"
+                              fill="white" />
+                    </svg>
+                </div>
+                <div class="headerContent">
+                    <svg width="100" height="100" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_178_2149)">
+                            <path d="M15.8533 8.52885L14.9182 7.05529L15.4711 5.40144C15.548 5.17548 15.4543 4.92789 15.2476 4.80769L13.7355 3.9375L13.4567 2.21394C13.4182 1.97837 13.2187 1.80289 12.9831 1.79327L11.2379 1.72596L10.1899 0.326926C10.048 0.137022 9.78843 0.0745219 9.57689 0.175483L7.99997 0.925483L6.42304 0.175483C6.2091 0.0745219 5.95189 0.137022 5.80766 0.326926L4.76199 1.72596L3.01679 1.79327C2.78122 1.80289 2.5817 1.97837 2.54324 2.21394L2.26439 3.9351L0.752371 4.80769C0.545641 4.92548 0.451891 5.17308 0.52641 5.39904L1.0817 7.05529L0.146602 8.52885C0.0191982 8.73077 0.0528521 8.99279 0.223525 9.15866L1.48314 10.3678L1.34372 12.1058C1.32449 12.3438 1.47353 12.5601 1.70189 12.6274L3.37978 13.1106L4.06247 14.7163C4.15622 14.9351 4.38939 15.0625 4.62256 15.012L6.3317 14.6611L7.68266 15.7668C7.77401 15.8413 7.88699 15.8798 7.99997 15.8798C8.11295 15.8798 8.22353 15.8413 8.31728 15.7668L9.66824 14.6611L11.3774 15.012C11.6105 15.0625 11.8461 14.9375 11.9375 14.7163L12.6202 13.1106L14.298 12.6274C14.5264 12.5625 14.6754 12.3438 14.6562 12.1058L14.5168 10.3678L15.7764 9.15866C15.9471 8.99279 15.9807 8.73077 15.8533 8.52885ZM11.6178 6.1226L8.11535 11.3702C7.98314 11.5649 7.77641 11.6971 7.57449 11.6971C7.37016 11.6971 7.1442 11.5817 6.99756 11.4375L4.42785 8.82452C4.25237 8.64664 4.25237 8.35818 4.42785 8.17789L5.06247 7.53366C5.23795 7.35577 5.5216 7.35577 5.69708 7.53366L7.37016 9.23318L10.1298 5.09856C10.2668 4.88943 10.548 4.83654 10.7524 4.97837L11.4976 5.49039C11.7019 5.62981 11.7548 5.91587 11.6178 6.1226Z"
+                                  fill="white" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_178_2149">
+                                <rect width="16" height="16" fill="white" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+                    <h3 class="contentTitle">VERIFY</h3>
+                    <p class="contentDescription">Are you sure that certificate is real?</p>
+                </div>
+            </div>
+            <div class="buttonContent">
+                <button class="btn btn--verifyBtn" type="submit">Yes</button>
+                <button class="btn btn--No" type="button">No</button>
+            </div>
+        </form>
+    </div>
+
+@section Scripts{
+    <script src="~/js/input.js" asp-append-version="true"></script>
+    <script src="~/js/admin.js" asp-append-version="true"></script>
+}

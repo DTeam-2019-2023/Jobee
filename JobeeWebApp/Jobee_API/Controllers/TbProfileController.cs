@@ -14,12 +14,12 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TbProfilesController : ControllerBase
+    public class TbProfileController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
 
-        public TbProfilesController(Project_JobeeContext context)
+        public TbProfileController(Project_JobeeContext context)
         {
             _context = context;
         }
@@ -35,16 +35,21 @@ namespace Jobee_API.Controllers
 
         // GET: api/TbProfiles/5
         // admin và guest cũng có thể sử dụng
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TbProfile>> GetTbProfile(string id)
+        [HttpGet]
+        [Route("GetSingleAuto")]
+        [Authorize]
+        public async Task<ActionResult<TbProfile>> GetProfileById()
         {
-            var tbPro = await _context.TbProfiles.FindAsync(id);
-
+            string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+            
+            var idProfile = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            
+            var existIdProfile = await _context.TbProfiles.FindAsync(idProfile?.Id);
+            var tbPro = await _context.TbProfiles.FindAsync(existIdProfile?.Id);
             if (tbPro == null)
             {
                 return NotFound();
             }
-
             return tbPro;
         }
 
@@ -52,7 +57,8 @@ namespace Jobee_API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Authorize(Roles = "emp, ad")]
-        public async Task<IActionResult> PutTbProfile(Profile tbProfile)
+        [Route("Update")]
+        public async Task<ActionResult<TbProfile>> PutTbProfile(Profile tbProfile)
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idProfile = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
@@ -88,13 +94,14 @@ namespace Jobee_API.Controllers
                 }
             }
 
-            return NoContent();
+            return existIdProfile;
         }
 
         // POST: api/TbProfiles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles = "ad, emp")]
+        [Route("Create")]
         public async Task<ActionResult<TbProfile>> PostTbProfile(Profile tbProfile)
         {
             string Profileid = Guid.NewGuid().ToString();

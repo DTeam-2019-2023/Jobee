@@ -1,16 +1,26 @@
 ﻿using Jobee_API.Entities;
 using Jobee_API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text.Json;
+using static Jobee.Controllers.AccountController;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Reflection;
 
 namespace Jobee.Controllers
 {
     public interface IUserController
     {
 
-        public IActionResult Index();
+        public Task<IActionResult> Index();
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
@@ -37,12 +47,24 @@ namespace Jobee.Controllers
         //null
         //public IActionResult UpdateAvatar();
         public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
+        public IActionResult UpdateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model);
+        public IActionResult CreateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model);
+
         public IActionResult DeleteContentNav(string navType, string id);
 
     }
-
+    [Authorize(Roles = "emp")]
     public class UserController : Controller, IUserController
     {
+        private Fetcher fetcher;
+        public UserController(IHttpContextAccessor context)
+        {
+            fetcher = new Fetcher(new Fetcher.ConfigFetcher()
+            {
+                context = context.HttpContext,
+                root = "https://localhost:7063/api"
+            });
+        }
         public class UserCVModel
         {
             public Profile profile { get; set; } = default!;
@@ -66,22 +88,52 @@ namespace Jobee.Controllers
         public UserCVModel _model { get; set; } = default!;
         public string StatusMessage { get; set; }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var token = HttpContext.Request.Cookies["jwt"];
+            if (string.IsNullOrEmpty(token)) return RedirectToAction("Login", "Account");
+            //var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //client.DefaultRequestHeaders.Accept.Add(contentType);
+            //var CvAPI = await client.GetAsync("https://localhost:7063/api/TbCvs/GetTbCvsById");
 
+            TbCv tbCV;
+            fetcher.GetSingleAuto(out tbCV);
+
+            //var content_CVAPI = await CvAPI.Content.ReadAsStringAsync();
+            //var cvData = JsonConvert.DeserializeObject<dynamic>(content_CVAPI);
+
+            TbProfile Tbprofile;
+            fetcher.GetSingleAuto(out Tbprofile);
+            Profile profile = default!;
+            if (Tbprofile.Id != null)
+            {
+                profile = new() { 
+                    FirstName = Tbprofile.FirstName,
+                    LastName = Tbprofile.LastName,
+                    DoB = Tbprofile.DoB,
+                    Gender = Tbprofile.Gender,
+                    PhoneNumber = Tbprofile.PhoneNumber,
+                    Address = Tbprofile.Address,
+                    SocialNetwork = Tbprofile.SocialNetwork,
+                    Email = Tbprofile.Email,
+                    DetailAddress = Tbprofile.DetailAddress,
+                };
+            }
+
+            //var ProfileAPI = await client.GetAsync("https://localhost:7063/api/TbProfiles/GetProfileById");
+            //var content_ProfileAPI = await ProfileAPI.Content.ReadAsStringAsync();
+            //var cvProfile = JsonConvert.DeserializeObject<dynamic>(content_ProfileAPI);
+            //var edu = new Education();
+            //fetcher.GetSingleAuto(out edu);
+
+            //đang lỗi
+            //var EduAPI = await client.GetAsync("https://localhost:7063/api/Education/listEducations");
+            //var content_EduAPI = await EduAPI.Content.ReadAsStringAsync();
+            //var edu = JsonConvert.DeserializeObject<List<Education>>(content_EduAPI);
 
             _model = new()
             {
-                profile = new()
-                {
-                    FirstName = "Nguyen",
-                    LastName = "Thanh Tai",
-                    DoB = DateTime.Parse("1/1/2001"),
-                    Gender = true,
-                    PhoneNumber = "0123123123",
-                    Address = "Cantho, Vietnam",
-                    SocialNetwork = "fb.com/nguyenthanhtai"
-                },
                 Educations = new()
                 {
                     new()
@@ -93,10 +145,11 @@ namespace Jobee.Controllers
                     new()
                     {
                         Name = "Van",
-                        Gpa = 7.0,
+                        Gpa = 4.0,
                         Id = "edu2"
                     }
                 },
+                profile = profile,
                 Activitys = new() {
                     new(){
                     Id = "Ac1",
@@ -187,27 +240,27 @@ namespace Jobee.Controllers
                     Degree = Degrees[1],
                     DesiredWorkLocation = DesiredWorkLocations[1],
                     DesirySalary = 0,
-                    SoftSkill ="-",
+                    SoftSkill = "-",
                     WorkExperience = WorkExperiences[1],
                     WorkingForm = WorkingForms[0]
                 },
                 modelPopup = new()
             };
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
-            ViewData["Degrees"] = getListItem("Degree",Degrees, _model.general?.Degree);
-            ViewData["CurrentJobs"] = getListItem("Current Job",CurrentJobs, _model.general?.CurrentJob);
-            ViewData["WorkExperiences"] = getListItem("Work Experience",WorkExperiences, _model.general?.WorkExperience);
-            ViewData["WorkingForms"] = getListItem("Working Form",WorkingForms, _model.general?.WorkingForm);
+            ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
+            ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
+            ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
+            ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
             return View(_model);
         }
-        private List<SelectListItem> getListItem(string Title,List<string> data, string? selected)
+        private List<SelectListItem> getListItem(string Title, List<string> data, string? selected)
         {
             List<SelectListItem> result = new List<SelectListItem>();
-            if(!string.IsNullOrEmpty(Title))
-            result.Add(new SelectListItem { Value = "", Text = Title, Disabled = true });
+            if (!string.IsNullOrEmpty(Title))
+                result.Add(new SelectListItem { Value = "", Text = Title, Disabled = true });
             for (int i = 0; i < data.Count; i++)
             {
-                result.Add(new SelectListItem { Value = i.ToString(), Text = data[i], Selected = data[i].Equals(selected)});
+                result.Add(new SelectListItem { Value = data[i], Text = data[i], Selected = data[i].Equals(selected) });
             }
             return result;
         }
@@ -478,7 +531,29 @@ namespace Jobee.Controllers
 
         public IActionResult EditGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
         {
-            throw new NotImplementedException();
+            TbCv cv;
+            var result = fetcher.Update(out cv, model);
+            if (result)
+                return RedirectToAction(nameof(Index));
+            return Conflict();
+        }
+
+        public IActionResult CreateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model)
+        {
+            TbProfile profile;
+            var result = fetcher.Create(out profile, model);
+            if(result)
+            return RedirectToAction(nameof(Index));
+            return Conflict();
+        }
+
+        public IActionResult UpdateProfile([Bind(new[] { "LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email" })] Profile model)
+        {
+            TbProfile profile;
+            var result = fetcher.Update(out profile, model);
+            if (result)
+                return RedirectToAction(nameof(Index));
+            return Conflict();
         }
     }
 

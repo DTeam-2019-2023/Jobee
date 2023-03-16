@@ -121,7 +121,7 @@ namespace Jobee_API.Controllers
                         new Claim("id", user.Id)
                         );
                     _logger.LogInformation("Login successfuly \n {0}", user.ToString());
-                    res = Ok(new { token = token, user.IdtypeAccount });
+                    res = Ok(new { token = token, type = user.IdtypeAccount });
                 }
                 else
                 {

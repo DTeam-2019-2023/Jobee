@@ -25,8 +25,9 @@ namespace Jobee_API.Controllers
         }
 
         // GET: api/5/Educations
-        [HttpGet("listEducations")]
-        public async Task<ActionResult<List<Education>>> GetEducationsByCVId()
+        [HttpGet]
+        [Route("GetSingleAuto")]
+        public ActionResult<List<Education>> GetEducationsByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();

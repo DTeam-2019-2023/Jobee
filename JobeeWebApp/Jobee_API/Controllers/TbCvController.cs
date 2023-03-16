@@ -13,11 +13,11 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TbCvsController : ControllerBase
+    public class TbCvController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
-        public TbCvsController(Project_JobeeContext context)
+        public TbCvController(Project_JobeeContext context)
         {
             _context = context;
         }
@@ -32,10 +32,16 @@ namespace Jobee_API.Controllers
 
         // GET: api/TbCvs/5
         // admin và guest có thể sử dụng
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TbCv>> GetTbCv(string id)
+        [HttpGet]
+        [Route("GetSingleAuto")]
+        [Route("Update")]
+        public async Task<ActionResult<TbCv>> GetTbCvsById()
         {
-            var tbCv = await _context.TbCvs.FindAsync(id);
+            string iduser = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+            /* HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;*/
+            var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            var existIdCv = await _context.TbCvs.FindAsync(idCv?.Id);
+            var tbCv = await _context.TbCvs.FindAsync(existIdCv?.Id);
 
             if (tbCv == null)
             {
