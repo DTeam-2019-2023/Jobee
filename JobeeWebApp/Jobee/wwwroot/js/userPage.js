@@ -1,19 +1,64 @@
-//COMMON JS
-
-//update avatar
-$(".avartar > span").on("click", function () {
-    $("#avt-update").trigger("click");
-});
-
+//#region Golble
 $(document).on("click", ".btnCancel", function (e) {
     e.preventDefault();
     //   $(".overlayPopup").hide().trigger("hide");
     $(this).parent().parent().parent().hide().trigger("hide");
 })
 
-//==========================//
+$(".btn--No").on("click", function () {
+    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+});
 
-// JS EDU
+$(".btnTryagain").on("click", function (e) {
+    e.preventDefault();
+    $(".overlayNotifyContainer").hide().trigger("hide");
+});
+
+$(".dropdownSetting>ul>li>a").on("click", function (e) {
+    e.preventDefault();
+    if (/^#.{1,}$/.test(this.hash)) {
+        console.log(this.hash);
+        $(this.hash).show();
+    } else {
+        //redirect
+        console.log("redirect");
+        console.log($(this));
+        window.location.href = this.href;
+    }
+});
+
+$(".overlayNotifyContainer").on("hide", function (params) {
+    $(this).find("form>input[type='hidden']").remove();
+});
+
+$(".closeIcon").on("click", function () {
+    $(".overlayNotifyContainer").hide().trigger("hide");
+});
+
+$(".btn.btn--Success").on("click", function () {
+    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+});
+//#endregion
+
+//#region Avatar
+$(".avartar > span").on("click", function () {
+    $("#avt-update").trigger("click");
+});
+//#endregion
+
+//#region Popup
+$(".overlayContentPopup").on("click", function () {
+    $(this).hide().trigger("hide");
+});
+//#endregion
+
+//#region Add Navigation
+//#region Show add popup
+
+$("#eduBtn").on("click", function () {
+    $("#overlayEdu").show();
+});
+
 $("#eduBtn").on("click", function () {
     $("#overlayEdu").show();
 });
@@ -36,56 +81,15 @@ $("#activityBtn").on("click", function () {
 $("#awardBtn").on("click", function () {
     $("#overlayAward").show();
 });
+//#endregion
+//#endregion
 
-//=================================//
-//COMMON VIEW POPUP CLOSE
-$(".overlayContentPopup").on("click", function () {
-    $(this).hide().trigger("hide");
-});
-
-//VIEW EDU
-$("#expandEdu").on("click", function () {
-    $("#overlayViewEducation").show();
-});
-
-//VIEW PROJECT
-$("#expandProject").on("click", function () {
-    $("#overlayViewProject").show();
-});
-//VIEW CERTIFICATE
-$("#expandCertificate").on("click", function () {
-    $("#overlayViewCertificate").show();
-});
-//VIEW ACTIVITY
-$("#expandActivity").on("click", function () {
-    $("#overlayViewActivity").show();
-});
-
-//VIEW AWARD
-$("#expandAward").on("click", function () {
-    $("#overlayViewAward").show();
-});
-
-//COMMON EDIT POPUP
-$("#editEdu").on("click", function () {
-    $("#overlayEditEdu").show();
-});
-
-$("#editProject").on("click", function () {
-    $("#overlayEditProject").show();
-});
-
-$("#editCertificate").on("click", function () {
-    $("#overlayEditCert").show();
-});
-
-$("#editActivity").on("click", function () {
-    $("#overlayEditActivity").show();
-});
+//#region Edit Navigation
+//#region Get pupup edit
 
 $(".editContentNavAction").on("click", function (e) {
     e.preventDefault();
-    const idvalue = $(this).parent().attr("iditem");
+    const idvalue = $(this).parent().parent().attr("iditem");
 
     $.get(this.href, { id: idvalue }, function (data) {
         $("#EditContentNav").html(data);
@@ -93,7 +97,8 @@ $(".editContentNavAction").on("click", function (e) {
     });
 
 });
-
+//#endregion
+//#region Send form Edit Navigation
 $("#EditContentNav").on("submit", "form", function (e) {
     e.preventDefault();
     var data = $(this).serialize();
@@ -104,9 +109,9 @@ $("#EditContentNav").on("submit", "form", function (e) {
         type: method,
         data: data,
 
-    }).done(function (data) {
-        console.log(data);
-        if (data == "success") {
+    }).done(function (rep) {
+        console.log(rep);
+        if (rep.status == "success") {
             //success
             $("#EditContentNav").hide();
             $("#successNotify").show();
@@ -119,55 +124,27 @@ $("#EditContentNav").on("submit", "form", function (e) {
         alert("error");
     });
 });
+//#endregion
+//#endregion
 
-//=============POPUP DELETE=============
+//#region View Navigation
 
-$(".btn--No").on("click", function () {
-    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
-});
-
-$(".btnUpdate").on("click", function (e) {
+$("a.viewContentNavAction").on("click", function (e) {
     e.preventDefault();
-    // $("#successNotify").show(); //=> THIS IS OPTIONAL
-    $("#failNotify").show(); // OPTIONAL TOO
-    // $(this).parent().parent().parent().show();
-});
+    const idvalue = $(this).parent().parent().attr("iditem");
 
-$(".btnTryagain").on("click", function (e) {
-    e.preventDefault();
-    $(".overlayNotifyContainer").hide().trigger("hide");
+    $.post(this.href, { id: idvalue }, function (data) {
+        $("#ViewContentNav").html(data);
+        $("#ViewContentNav").show();
+    });
 });
-// Update Profile popup
-$("#updateProfile").on("click", function (e) {
-    e.preventDefault();
-    $("#overlayUpdateProfile").show();
-});
+//#endregion
 
-// SEND VERIFY REQUEST
-$(".verifyIcon").on("click", function () {
-    $("#verifyNotify").show();
-});
-
-//Account setting
-$(".dropdownSetting>ul>li>a").on("click", function (e) {
-    e.preventDefault();
-    if (/^#.{1,}$/.test(this.hash)) {
-        console.log(this.hash);
-        $(this.hash).show();
-    } else {
-        //redirect
-        console.log("redirect");
-        console.log($(this));
-        window.location.href = this.href;
-    }
-});
-
-//Delete confirm
+//#region Delete Navigation
 function deleteItem(typeNav, id) {
     $("#deleteNotify").trigger("confirmDelete", { typeNav, id });
 }
 
-//confirm
 $("#deleteNotify").on("confirmDelete", function (e, data) {
     const InputidItem = $(`<input type="hidden" name="id">`);
     const InputtypeNav = $(`<input type="hidden" name="navType">`);
@@ -199,54 +176,18 @@ $("#deleteNotify").on("confirmDelete", function (e, data) {
         alert("error");
     })
 });
+//#endregion
 
-$(".overlayNotifyContainer").on("hide", function (params) {
-    $(this).find("form>input[type='hidden']").remove();
-});
-
-$(".closeIcon").on("click", function () {
-    $(".overlayNotifyContainer").hide().trigger("hide");
-});
-
-$(".btn.btn--Success").on("click", function () {
-    $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
-});
-
-$("a.viewContentNavAction").on("click", function (e) {
+//#region Profile
+$("#updateProfile").on("click", function (e) {
     e.preventDefault();
-    const idvalue = $(this).parent().attr("iditem");
-
-    $.post(this.href, { id: idvalue }, function (data) {
-        $("#ViewContentNav").html(data);
-        $("#ViewContentNav").show();
-    });
+    $("#overlayUpdateProfile").show();
 });
+//#endregion
 
-//post using jquery
+//#region Verify
+$(".verifyIcon").on("click", function () {
+    $("#verifyNotify").show();
+});
+//#endregion
 
-//$("form").on("submit", function (e) {
-//    //empty data affter send form
-//    e.preventDefault();
-//    var data = $(this).serialize();
-//    var url = $(this).attr("action");
-//    var method = $(this).attr("method");
-//    $.ajax({
-//        url: url,
-//        type: method,
-//        data: data,
-//        success: function (res) {
-//            console.log(res);
-//            if (res.status == 200) {
-//                //success
-//                $("#successNotify").show();
-//            } else {
-//                //fail
-//                $("#failNotify").show();
-//            }
-//        },
-//        error: function (err) {
-//            console.log(err);
-//        },
-//    });
-
-//});

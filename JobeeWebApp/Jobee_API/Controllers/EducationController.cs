@@ -26,19 +26,23 @@ namespace Jobee_API.Controllers
 
         // GET: api/5/Educations
         [HttpGet]
-        [Route("GetSingleAuto")]
+        [Route("GetAll")]
         public ActionResult<List<Education>> GetEducationsByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var dbEdu = _context.Educations.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
-
-            if (dbEdu.Count == 0)
+            if (idCv != null)
             {
-                return NotFound();
+                var dbEdu = _context.Educations.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
+                if (dbEdu.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return dbEdu;
             }
 
-            return dbEdu;
+            return default!;
         }
 
         // GET: api/Education
@@ -50,7 +54,8 @@ namespace Jobee_API.Controllers
         //}
 
         // GET: api/Education/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Education>> GetEducation(string id)
         {
             var education = await _context.Educations.FindAsync(id);
@@ -65,10 +70,10 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Education/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles ="emp")]
-        [Route("Update")]
-        public async Task<IActionResult> PutEducation(string id, model_Education education)
+        [Route("UpdateById/{id}")]
+        public async Task<ActionResult<Education>> PutEducation(string id, model_Education education)
         {
             var existEdu = await _context.Educations.FindAsync(id);
             if (existEdu == null)
@@ -100,7 +105,7 @@ namespace Jobee_API.Controllers
                 }
             }
 
-            return CreatedAtAction("GetEducation", new { id = existEdu.Id }, existEdu);
+            return existEdu;
         }
 
         // POST: api/Education
@@ -112,11 +117,13 @@ namespace Jobee_API.Controllers
         {
             string eduId = Guid.NewGuid().ToString();
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault().Id;
+            var cv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            if (cv == null) return default!;
+            
             Education edu = new Education()
             {
                 Id= eduId,
-                Idcv= "5846b158-2f89-4642-abdc-247897bee30e",
+                Idcv= cv.Id,
                 Name= education.Name,
                 Major=education.Major,
                 StartDate=education.StartDate,
@@ -147,6 +154,7 @@ namespace Jobee_API.Controllers
         // DELETE: api/Education/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "emp")]
+        [Route("Remove/{id}")]
         public async Task<IActionResult> DeleteEducation(string id)
         {
             var education = await _context.Educations.FindAsync(id);

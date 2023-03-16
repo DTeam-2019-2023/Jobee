@@ -50,7 +50,7 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                var (token, type) = Fetcher.LoginAsync(signinModel).Result;
+                var (token, type) = await Fetcher.LoginAsync(model: signinModel,loginUri: "https://localhost:7063/api/Users/login");
                 if (string.IsNullOrEmpty(token))
                 {
                     ModelState.AddModelError("", "Username or pass word wrong");

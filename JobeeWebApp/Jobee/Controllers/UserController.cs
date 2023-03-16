@@ -39,7 +39,7 @@ namespace Jobee.Controllers
         public IActionResult EditActivity(string id);
         public IActionResult EditAward(string id);
 
-        public IActionResult EditEducationForm([Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
+        public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
         public IActionResult EditCertificateForm([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
         public IActionResult EditActivityForm([Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
@@ -70,7 +70,7 @@ namespace Jobee.Controllers
         public class UserCVModel
         {
             public Profile profile { get; set; } = default!;
-            public CV general { get; set; } = default!;
+            public CV general { get; set; } = new();
 
             public string avtUrl { get; set; } = default!;
 
@@ -79,7 +79,7 @@ namespace Jobee.Controllers
             public List<Certificate> Certificates { get; set; } = default!;
             public List<Activity> Activitys { get; set; } = default!;
             public List<Award> Awards { get; set; } = default!;
-            public _ModelManagerment modelPopup { get; set; } = default!;
+            public _ModelManagerment modelPopup { get; set; } = new();
         }
         List<string> DesiredWorkLocations = new List<string>() { "An Giang", "Bà Rịa-Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh", "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Quốc", "Đà Nẵng", "Hải Phòng", "Hà Nội", "Thành phố Hồ Chí Minh", "Cần Thơ" };
         List<string> Degrees = new List<string>() { "High school diploma", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctorate degree" };
@@ -87,7 +87,7 @@ namespace Jobee.Controllers
         List<string> WorkExperiences = new List<string>() { "No experience", "1 year", "2 years", "3 years", "4 years", "5 years", "Over 5 years" };
         List<string> WorkingForms = new List<string>() { "Full-time permanent", "Full-time temporary", "Part-time permanent", "Part-time temporary", "Consultancy contract", "Internship", "Other" };
 
-        public UserCVModel _model { get; set; } = default!;
+        public UserCVModel _model { get; set; } = new();
         public string StatusMessage { get; set; }
 
         public async Task<IActionResult> Index()
@@ -99,32 +99,13 @@ namespace Jobee.Controllers
             //client.DefaultRequestHeaders.Accept.Add(contentType);
             //var CvAPI = await client.GetAsync("https://localhost:7063/api/TbCvs/GetTbCvsById");
 
-            TbCv tbCV;
-            fetcher.GetSingleAuto(out tbCV);
-            CV cv = default!;
-            if (tbCV.Id != null)
-            {
-                cv = new()
-                {
-                    ApplyPosition = tbCV.ApplyPosition,
-                    CurrentJob = tbCV.CurrentJob,
-                    DesirySalary = tbCV.DesirySalary,
-                    Degree = tbCV.Degree,
-                    WorkExperience= tbCV.WorkExperience,
-                    DesiredWorkLocation= tbCV.DesiredWorkLocation,
-                    WorkingForm= tbCV.WorkingForm,
-                    CarrerObjiect=tbCV.CarrerObject,
-                    SoftSkill= tbCV.SoftSkill,
-                    Avatar= "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg"
-                };
-            }
 
             TbProfile Tbprofile;
             fetcher.GetSingleAuto(out Tbprofile);
-            Profile profile = default!;
-            if (Tbprofile.Id != null)
+            if (Tbprofile != null)
             {
-                profile = new() { 
+                _model.profile = new()
+                {
                     FirstName = Tbprofile.FirstName,
                     LastName = Tbprofile.LastName,
                     DoB = Tbprofile.DoB,
@@ -137,128 +118,148 @@ namespace Jobee.Controllers
                 };
             }
 
-            List<Education> edus;
-            fetcher.GetAll(out edus);
-            model_Education edu;
-
-            if (edus.Count > 0)
+            TbCv tbCV;
+            fetcher.GetSingleAuto(out tbCV);
+            if (tbCV != null)
             {
-                foreach (var item in edus)
+                _model.general = new()
                 {
-                    edu = new()
-                    {
-                        Name = item.Name,
-                        Major = item.Major,
-                        StartDate = item.StartDate,
-                        EndDate = item.EndDate,
-                        GPA = item.Gpa,
-                        Description = item.Description
-                    };
+                    ApplyPosition = tbCV.ApplyPosition,
+                    CurrentJob = tbCV.CurrentJob,
+                    DesirySalary = tbCV.DesirySalary,
+                    Degree = tbCV.Degree,
+                    WorkExperience = tbCV.WorkExperience,
+                    DesiredWorkLocation = tbCV.DesiredWorkLocation,
+                    WorkingForm = tbCV.WorkingForm,
+                    CarrerObjiect = tbCV.CarrerObject,
+                    SoftSkill = tbCV.SoftSkill,
+                    Avatar = "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg"
+                };
+                List<Education> edus;
+                fetcher.GetAll(out edus);
+                model_Education edu;
+
+                if (edus != null)
+                {
+                    _model.Educations = edus;
+                    //foreach (var item in edus)
+                    //{
+                    //    edu = new()
+                    //    {
+                    //        Name = item.Name,
+                    //        Major = item.Major,
+                    //        StartDate = item.StartDate,
+                    //        EndDate = item.EndDate,
+                    //        GPA = item.Gpa,
+                    //        Description = item.Description
+                    //    };
+                    //}
                 }
             }
 
-            _model = new()
-            {
-                Educations = new()
-                {
-                    new()
-                    {
-                        Name = "Toan",
-                        Gpa = 4.0,
-                        Id = "edu1"
-                    },
-                    new()
-                    {
-                        Name = "Van",
-                        Gpa = 4.0,
-                        Id = "edu2"
-                    }
-                },
-                profile = profile,
-                Activitys = new() {
-                    new(){
-                    Id = "Ac1",
-                    Name = "Ac1",
-                    EndDate = DateTime.Parse("1/1/2001"),
-                    StartDate = DateTime.Parse("1/1/2001"),
-                    Role = "Role1",
-                    Description = "Description1"
-                    },
-                    new(){
-                    Id = "Ac2",
-                    Name = "Ac2",
-                    EndDate = DateTime.Parse("1/1/2001"),
-                    StartDate = DateTime.Parse("1/1/2001"),
-                    Role = "Role2",
-                    Description = "Description2"
-                    }
-                },
-                Projects = new()
-                {
-                    new()
-                    {
-                        Id = "Pro1",
-                        Name = "Pro1",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Role = "Role1",
-                        Description = "Description1",
-                        TeamSize = 1,
-                        Technology = "Tech1"
-                    },
-                    new()
-                    {
-                        Id = "Pro2",
-                        Name = "Pro2",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Role = "Role2",
-                        Description = "Description2",
-                        TeamSize = 2,
-                        Technology = "Tech2"
-                    }
-                },
-                Certificates = new()
-                {
-                    new()
-                    {
-                        Id = "Cer1",
-                        Name = "Cer1",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Url = "Url1"
-                    },
-                    new()
-                    {
-                        Id = "Cer2",
-                        Name = "Cer2",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Url = "Url2"
-                    }
-                },
-                Awards = new()
-                {
-                    new()
-                    {
-                        Id = "Awa1",
-                        Name = "Awa1",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Description = "Description1"
-                    },
-                    new()
-                    {
-                        Id = "Awa2",
-                        Name = "Awa2",
-                        EndDate = DateTime.Parse("1/1/2001"),
-                        StartDate = DateTime.Parse("1/1/2001"),
-                        Description = "Description2"
-                    }
-                },
-                general = cv,
-                modelPopup = new()
-            };
+
+            //_model = new()
+            //{
+            //    Educations = new()
+            //    {
+            //        new()
+            //        {
+            //            Name = "Toan",
+            //            Gpa = 4.0,
+            //            Id = "edu1"
+            //        },
+            //        new()
+            //        {
+            //            Name = "Van",
+            //            Gpa = 4.0,
+            //            Id = "edu2"
+            //        }
+            //    },
+            //    profile = profile,
+            //    Activitys = new() {
+            //        new(){
+            //        Id = "Ac1",
+            //        Name = "Ac1",
+            //        EndDate = DateTime.Parse("1/1/2001"),
+            //        StartDate = DateTime.Parse("1/1/2001"),
+            //        Role = "Role1",
+            //        Description = "Description1"
+            //        },
+            //        new(){
+            //        Id = "Ac2",
+            //        Name = "Ac2",
+            //        EndDate = DateTime.Parse("1/1/2001"),
+            //        StartDate = DateTime.Parse("1/1/2001"),
+            //        Role = "Role2",
+            //        Description = "Description2"
+            //        }
+            //    },
+            //    Projects = new()
+            //    {
+            //        new()
+            //        {
+            //            Id = "Pro1",
+            //            Name = "Pro1",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Role = "Role1",
+            //            Description = "Description1",
+            //            TeamSize = 1,
+            //            Technology = "Tech1"
+            //        },
+            //        new()
+            //        {
+            //            Id = "Pro2",
+            //            Name = "Pro2",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Role = "Role2",
+            //            Description = "Description2",
+            //            TeamSize = 2,
+            //            Technology = "Tech2"
+            //        }
+            //    },
+            //    Certificates = new()
+            //    {
+            //        new()
+            //        {
+            //            Id = "Cer1",
+            //            Name = "Cer1",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Url = "Url1"
+            //        },
+            //        new()
+            //        {
+            //            Id = "Cer2",
+            //            Name = "Cer2",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Url = "Url2"
+            //        }
+            //    },
+            //    Awards = new()
+            //    {
+            //        new()
+            //        {
+            //            Id = "Awa1",
+            //            Name = "Awa1",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Description = "Description1"
+            //        },
+            //        new()
+            //        {
+            //            Id = "Awa2",
+            //            Name = "Awa2",
+            //            EndDate = DateTime.Parse("1/1/2001"),
+            //            StartDate = DateTime.Parse("1/1/2001"),
+            //            Description = "Description2"
+            //        }
+            //    },
+            //    general = cv,
+            //    modelPopup = new()
+            //};
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
             ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
             ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
@@ -292,11 +293,13 @@ namespace Jobee.Controllers
         }
         [HttpPost, ActionName("EditEducation")]
         [ValidateAntiForgeryToken]
-        public IActionResult EditEducationForm([Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
+        public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
         {
             if (ModelState.IsValid)
             {
-                return Ok("success");
+                Education data;
+                fetcher.UpdateById(out data, model, id);
+                return Ok(new { status = "success", data = model });
             }
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
         }
@@ -340,29 +343,23 @@ namespace Jobee.Controllers
         [HttpPost]
         public IActionResult ViewEducation(string id)
         {
-            model_Education edu1 = new()
+            Education data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Toan",
-                Major = "Toan",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                GPA = 4.0,
-                Description = "Toan"
-            };
-            model_Education edu2 = new()
-            {
-                Name = "Van",
-                Major = "Van",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                GPA = 7.0,
-                Description = "Van"
-            };
-            if (id == "edu1")
-            {
-                return PartialView("~/Views/User/Popup/View/_viewEducation.cshtml", edu1);
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewEducation.cshtml", new model_Education
+                {
+                    Name = data.Name,
+                    Major = data.Major,
+                    GPA = data.Gpa,
+                    Description = data.Description!,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
             }
-            return PartialView("~/Views/User/Popup/View/_viewEducation.cshtml", edu2);
+            return PartialView("~/Views/User/Popup/View/_viewEducation.cshtml", new model_Education());
+
         }
 
         public IActionResult ViewProject(string id)
@@ -420,15 +417,21 @@ namespace Jobee.Controllers
         [HttpGet]
         public IActionResult EditEducation(string id)
         {
-            model_Education data = new()
+            Education data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Toan",
-                Major = "Toan",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                GPA = 4.0,
-                Description = "Toan"
-            };
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", new model_Education
+                {
+                    Name = data.Name,
+                    Major = data.Major,
+                    GPA = data.Gpa,
+                    Description = data.Description!,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
+            }
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", data);
         }
 
@@ -484,7 +487,7 @@ namespace Jobee.Controllers
             };
             return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", awa1);
         }
-        
+
         [HttpPost, ActionName("EditProject")]
         public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
@@ -527,19 +530,20 @@ namespace Jobee.Controllers
             switch (navType)
             {
                 case "Education":
-
+                    fetcher.Remove<Education>(id);
                     break;
                 case "Project":
-
+                    fetcher.Remove<Project>(id);
                     break;
                 case "Certificate":
-
+                    fetcher.Remove<Certificate>(id);
                     break;
                 case "Activity":
+                    fetcher.Remove<Activity>(id);
 
                     break;
                 case "Award":
-
+                    fetcher.Remove<Award>(id);
                     break;
                 default: return Conflict("not found type of activity");
             }
@@ -569,8 +573,8 @@ namespace Jobee.Controllers
         {
             TbProfile profile;
             var result = fetcher.Create(out profile, model);
-            if(result)
-            return RedirectToAction(nameof(Index));
+            if (result)
+                return RedirectToAction(nameof(Index));
             return Conflict();
         }
 

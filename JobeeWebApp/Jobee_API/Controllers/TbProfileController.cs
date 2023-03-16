@@ -92,6 +92,7 @@ namespace Jobee_API.Controllers
             existIdProfile.Address = tbProfile.Address;
             existIdProfile.PhoneNumber = tbProfile.PhoneNumber;
             existIdProfile.DoB = tbProfile.DoB;
+            existIdProfile.Gender = tbProfile.Gender;
             existIdProfile.SocialNetwork = tbProfile.SocialNetwork;
             existIdProfile.DetailAddress = tbProfile.DetailAddress;
             existIdProfile.Email = tbProfile.Email;
