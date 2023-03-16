@@ -34,7 +34,6 @@ namespace Jobee_API.Controllers
         // admin và guest có thể sử dụng
         [HttpGet]
         [Route("GetSingleAuto")]
-        [Route("Update")]
         public async Task<ActionResult<TbCv>> GetTbCvsById()
         {
             string iduser = User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;

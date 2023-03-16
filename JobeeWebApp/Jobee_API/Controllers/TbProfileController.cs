@@ -9,6 +9,8 @@ using Jobee_API.Entities;
 using Jobee_API.Models;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
+using Profile = Jobee_API.Models.Profile;
 
 namespace Jobee_API.Controllers
 {
@@ -65,7 +67,7 @@ namespace Jobee_API.Controllers
             var existIdProfile = await _context.TbProfiles.FindAsync(idProfile.Id);
             if (existIdProfile == null)
             {
-                return BadRequest();
+                return await CreateProfile(tbProfile, iduser);
             }
 
             existIdProfile.LastName = tbProfile.LastName;
@@ -97,20 +99,9 @@ namespace Jobee_API.Controllers
             return existIdProfile;
         }
 
-        // POST: api/TbProfiles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        [Authorize(Roles = "ad, emp")]
-        [Route("Create")]
-        public async Task<ActionResult<TbProfile>> PostTbProfile(Profile tbProfile)
+        public async Task<TbProfile> CreateProfile(Profile tbProfile, string iduser)
         {
             string Profileid = Guid.NewGuid().ToString();
-            string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            var existProfileOfUser = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).FirstOrDefault();
-            if (existProfileOfUser != null)
-            {
-                return Ok("da co profile roi");
-            }
             TbProfile ProfileDB = new TbProfile()
             {
                 Id = Profileid,
@@ -126,23 +117,57 @@ namespace Jobee_API.Controllers
                 Email = tbProfile.Email
             };
             _context.TbProfiles.Add(ProfileDB);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (TbProfileExists(ProfileDB.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return CreatedAtAction("GetTbProfile", new { id = ProfileDB.Id }, ProfileDB);
+            await _context.SaveChangesAsync();
+            return ProfileDB;
         }
+
+
+        // POST: api/TbProfiles
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //[Authorize(Roles = "ad, emp")]
+        //[Route("Create")]
+        //public async Task<ActionResult<TbProfile>> PostTbProfile(Profile tbProfile)
+        //{
+        //    string Profileid = Guid.NewGuid().ToString();
+        //    string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+        //    var existProfileOfUser = _context.TbProfiles.Where(u => u.Idaccount.Equals(iduser)).FirstOrDefault();
+        //    if (existProfileOfUser != null)
+        //    {
+        //        return Ok("da co profile roi");
+        //    }
+        //    TbProfile ProfileDB = new TbProfile()
+        //    {
+        //        Id = Profileid,
+        //        Idaccount = iduser,
+        //        FirstName = tbProfile.FirstName,
+        //        LastName = tbProfile.LastName,
+        //        Gender = tbProfile.Gender,
+        //        DoB = tbProfile.DoB,
+        //        PhoneNumber = tbProfile.PhoneNumber,
+        //        Address = tbProfile.Address,
+        //        SocialNetwork = tbProfile.SocialNetwork,
+        //        DetailAddress = tbProfile.DetailAddress,
+        //        Email = tbProfile.Email
+        //    };
+        //    _context.TbProfiles.Add(ProfileDB);
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (TbProfileExists(ProfileDB.Id))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+        //    return CreatedAtAction("GetTbProfile", new { id = ProfileDB.Id }, ProfileDB);
+        //}
 
 
         // DELETE: api/TbProfiles/5
