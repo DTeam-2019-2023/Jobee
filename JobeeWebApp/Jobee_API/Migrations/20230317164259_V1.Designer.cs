@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jobee_API.Migrations
 {
     [DbContext(typeof(Project_JobeeContext))]
-    [Migration("20230223150156_init")]
-    partial class init
+    [Migration("20230317164259_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,6 @@ namespace Jobee_API.Migrations
                         .HasColumnName("ID");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
@@ -70,7 +69,6 @@ namespace Jobee_API.Migrations
                         .HasColumnName("ID");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
@@ -84,9 +82,7 @@ namespace Jobee_API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("date");
@@ -105,6 +101,9 @@ namespace Jobee_API.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("ID");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("date");
 
@@ -113,6 +112,9 @@ namespace Jobee_API.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
                         .HasColumnName("IDCV");
+
+                    b.Property<bool?>("IsVertify")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -181,7 +183,6 @@ namespace Jobee_API.Migrations
                         .HasColumnName("ID");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
@@ -204,9 +205,8 @@ namespace Jobee_API.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("TeamSize")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TeamSize")
+                        .HasColumnType("int");
 
                     b.Property<string>("Technology")
                         .IsRequired()
@@ -279,10 +279,9 @@ namespace Jobee_API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Avatar")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CarrerObjiect")
+                    b.Property<string>("CarrerObject")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -301,18 +300,13 @@ namespace Jobee_API.Migrations
                     b.Property<decimal>("DesirySalary")
                         .HasColumnType("money");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Idemployee")
+                    b.Property<string>("Idaccount")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)")
-                        .HasColumnName("IDEmployee");
+                        .HasColumnName("IDAccount");
 
                     b.Property<string>("SoftSkill")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WorkExperience")
@@ -325,7 +319,7 @@ namespace Jobee_API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Idemployee");
+                    b.HasIndex("Idaccount");
 
                     b.ToTable("tbCV", (string)null);
                 });
@@ -350,6 +344,40 @@ namespace Jobee_API.Migrations
                     b.ToTable("tbEmployee", (string)null);
                 });
 
+            modelBuilder.Entity("Jobee_API.Entities.TbForgotPwd", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("ExpireDay")
+                        .HasColumnType("datetime")
+                        .HasColumnName("expire_day");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasMaxLength(511)
+                        .IsUnicode(false)
+                        .HasColumnType("char(511)")
+                        .HasColumnName("link")
+                        .IsFixedLength();
+
+                    b.Property<string>("Uid")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("uid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Uid");
+
+                    b.ToTable("tbForgotPwd", (string)null);
+                });
+
             modelBuilder.Entity("Jobee_API.Entities.TbProfile", b =>
                 {
                     b.Property<string>("Id")
@@ -369,7 +397,6 @@ namespace Jobee_API.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -412,7 +439,6 @@ namespace Jobee_API.Migrations
                         .HasColumnName("ID");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -422,6 +448,20 @@ namespace Jobee_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tbTypeAccount", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "emp",
+                            Description = "role for employee",
+                            Name = "Employee"
+                        },
+                        new
+                        {
+                            Id = "ad",
+                            Description = "role for admin manager",
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.Activity", b =>
@@ -503,13 +543,13 @@ namespace Jobee_API.Migrations
 
             modelBuilder.Entity("Jobee_API.Entities.TbCv", b =>
                 {
-                    b.HasOne("Jobee_API.Entities.TbEmployee", "IdemployeeNavigation")
+                    b.HasOne("Jobee_API.Entities.TbAccount", "IdaccountNavigation")
                         .WithMany("TbCvs")
-                        .HasForeignKey("Idemployee")
+                        .HasForeignKey("Idaccount")
                         .IsRequired()
-                        .HasConstraintName("FK_tbCV_tbEmployee");
+                        .HasConstraintName("FK_tbCV_tbAccount");
 
-                    b.Navigation("IdemployeeNavigation");
+                    b.Navigation("IdaccountNavigation");
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.TbEmployee", b =>
@@ -521,6 +561,17 @@ namespace Jobee_API.Migrations
                         .HasConstraintName("FK_tbEmployee_tbProfile");
 
                     b.Navigation("IdprofileNavigation");
+                });
+
+            modelBuilder.Entity("Jobee_API.Entities.TbForgotPwd", b =>
+                {
+                    b.HasOne("Jobee_API.Entities.TbAccount", "UidNavigation")
+                        .WithMany("TbForgotPwds")
+                        .HasForeignKey("Uid")
+                        .IsRequired()
+                        .HasConstraintName("FK_tbForgotPwd_tbAccount");
+
+                    b.Navigation("UidNavigation");
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.TbProfile", b =>
@@ -536,6 +587,10 @@ namespace Jobee_API.Migrations
 
             modelBuilder.Entity("Jobee_API.Entities.TbAccount", b =>
                 {
+                    b.Navigation("TbCvs");
+
+                    b.Navigation("TbForgotPwds");
+
                     b.Navigation("TbProfiles");
                 });
 
@@ -550,11 +605,6 @@ namespace Jobee_API.Migrations
                     b.Navigation("Educations");
 
                     b.Navigation("Projects");
-                });
-
-            modelBuilder.Entity("Jobee_API.Entities.TbEmployee", b =>
-                {
-                    b.Navigation("TbCvs");
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.TbProfile", b =>

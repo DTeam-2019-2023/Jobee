@@ -290,6 +290,22 @@ namespace Jobee_API.Entities
                 entity.Property(e => e.Id)
                     .HasMaxLength(64)
                     .HasColumnName("ID");
+
+                entity.HasData(
+                    new TbTypeAccount()
+                    {
+                        Id = "emp",
+                        Name = "Employee",
+                        Description = "role for employee"
+
+                    },
+                    new TbTypeAccount()
+                    {
+                        Id = "ad",
+                        Name = "Admin",
+                        Description = "role for admin manager",
+                    }
+                    );
             });
 
             OnModelCreatingPartial(modelBuilder);

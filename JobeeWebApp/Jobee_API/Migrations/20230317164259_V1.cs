@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Jobee_API.Migrations
 {
-    public partial class init : Migration
+    public partial class V1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace Jobee_API.Migrations
                 {
                     ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,6 +42,53 @@ namespace Jobee_API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tbCV",
+                columns: table => new
+                {
+                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    IDAccount = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    ApplyPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CurrentJob = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DesirySalary = table.Column<decimal>(type: "money", nullable: false),
+                    Degree = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DesiredWorkLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    WorkingForm = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CarrerObject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SoftSkill = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbCV", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_tbCV_tbAccount",
+                        column: x => x.IDAccount,
+                        principalTable: "tbAccount",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tbForgotPwd",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    uid = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    link = table.Column<string>(type: "char(511)", unicode: false, fixedLength: true, maxLength: 511, nullable: false),
+                    expire_day = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbForgotPwd", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_tbForgotPwd_tbAccount",
+                        column: x => x.uid,
+                        principalTable: "tbAccount",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tbProfile",
                 columns: table => new
                 {
@@ -55,7 +102,7 @@ namespace Jobee_API.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SocialNetwork = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DetailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,68 +111,6 @@ namespace Jobee_API.Migrations
                         name: "FK_tbProfile_tbAccount",
                         column: x => x.IDAccount,
                         principalTable: "tbAccount",
-                        principalColumn: "ID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tbAdmin",
-                columns: table => new
-                {
-                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    IDProfile = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tbAdmin", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_tbAdmin_tbProfile",
-                        column: x => x.IDProfile,
-                        principalTable: "tbProfile",
-                        principalColumn: "ID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tbEmployee",
-                columns: table => new
-                {
-                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    IDProfile = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tbEmployee", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_tbEmployee_tbProfile",
-                        column: x => x.IDProfile,
-                        principalTable: "tbProfile",
-                        principalColumn: "ID");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tbCV",
-                columns: table => new
-                {
-                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    IDEmployee = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    ApplyPosition = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CurrentJob = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DesirySalary = table.Column<decimal>(type: "money", nullable: false),
-                    Degree = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DesiredWorkLocation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WorkingForm = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CarrerObjiect = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SoftSkill = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tbCV", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_tbCV_tbEmployee",
-                        column: x => x.IDEmployee,
-                        principalTable: "tbEmployee",
                         principalColumn: "ID");
                 });
 
@@ -139,7 +124,7 @@ namespace Jobee_API.Migrations
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -157,10 +142,10 @@ namespace Jobee_API.Migrations
                 {
                     ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     IDCV = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Name = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -181,7 +166,9 @@ namespace Jobee_API.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsVertify = table.Column<bool>(type: "bit", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -223,12 +210,12 @@ namespace Jobee_API.Migrations
                     ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     IDCV = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TeamSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamSize = table.Column<int>(type: "int", nullable: true),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Technology = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -239,6 +226,50 @@ namespace Jobee_API.Migrations
                         principalTable: "tbCV",
                         principalColumn: "ID");
                 });
+
+            migrationBuilder.CreateTable(
+                name: "tbAdmin",
+                columns: table => new
+                {
+                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    IDProfile = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbAdmin", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_tbAdmin_tbProfile",
+                        column: x => x.IDProfile,
+                        principalTable: "tbProfile",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tbEmployee",
+                columns: table => new
+                {
+                    ID = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    IDProfile = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbEmployee", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_tbEmployee_tbProfile",
+                        column: x => x.IDProfile,
+                        principalTable: "tbProfile",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.InsertData(
+                table: "tbTypeAccount",
+                columns: new[] { "ID", "Description", "Name" },
+                values: new object[] { "ad", "role for admin manager", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "tbTypeAccount",
+                columns: new[] { "ID", "Description", "Name" },
+                values: new object[] { "emp", "role for employee", "Employee" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activity_IDCV",
@@ -276,14 +307,19 @@ namespace Jobee_API.Migrations
                 column: "IDProfile");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tbCV_IDEmployee",
+                name: "IX_tbCV_IDAccount",
                 table: "tbCV",
-                column: "IDEmployee");
+                column: "IDAccount");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tbEmployee_IDProfile",
                 table: "tbEmployee",
                 column: "IDProfile");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tbForgotPwd_uid",
+                table: "tbForgotPwd",
+                column: "uid");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tbProfile_IDAccount",
@@ -312,10 +348,13 @@ namespace Jobee_API.Migrations
                 name: "tbAdmin");
 
             migrationBuilder.DropTable(
-                name: "tbCV");
+                name: "tbEmployee");
 
             migrationBuilder.DropTable(
-                name: "tbEmployee");
+                name: "tbForgotPwd");
+
+            migrationBuilder.DropTable(
+                name: "tbCV");
 
             migrationBuilder.DropTable(
                 name: "tbProfile");
