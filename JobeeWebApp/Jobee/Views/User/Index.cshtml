@@ -359,7 +359,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <span>@User.Identity.Name</span>
+                            <span>@User.Identity?.Name</span>
                             <span class="inputSpan focus">Username</span>
                         </div>
                     </div>
@@ -381,7 +381,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <span>@Model.profile.Email</span>
+                            <span>@Model.profile?.Email</span>
                             <span class="inputSpan focus">Email</span>
                             <a class="btnaction" asp-controller="Account" asp-action="EntryNewEmail">
                                 <abbr title="Edit">
