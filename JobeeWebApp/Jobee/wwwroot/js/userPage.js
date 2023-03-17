@@ -92,7 +92,21 @@ $(".editContentNavAction").on("click", function (e) {
     const idvalue = $(this).parent().parent().attr("iditem");
 
     $.get(this.href, { id: idvalue }, function (data) {
-        $("#EditContentNav").html(data);
+        var newComponent = $(data);
+        $("#EditContentNav").html(newComponent);
+        setTimeout(function () {
+            newComponent.find("input").focus();
+            newComponent.find("input[type='date']").each(function () {
+                //check if their value is not null
+                if ($(this).val()) {
+                    //add focus class to their sibling span element
+                    $(this).siblings("span.inputSpan").toggleClass("focus", true);
+                } else {
+                    //remove focus class from their sibling span element
+                    $(this).siblings("span.inputSpan").toggleClass("focus", false);
+                }
+            });
+        }, 4);
         $("#EditContentNav").show();
     });
 

@@ -51,6 +51,7 @@ namespace Jobee.Controllers
             if (ModelState.IsValid)
             {
                 var (token, type) = await Fetcher.LoginAsync(model: signinModel,loginUri: "https://localhost:7063/api/Users/login");
+                
                 if (string.IsNullOrEmpty(token))
                 {
                     ModelState.AddModelError("", "Username or pass word wrong");
@@ -140,7 +141,7 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(Fetcher.SignupAsync(signupModel).Result)
+                if(await Fetcher.SignupAsync(signupModel, "https://localhost:7063/api/Users/signup"))
                 return View(nameof(Login));
             }
             return View(nameof(Signup));
@@ -161,7 +162,20 @@ namespace Jobee.Controllers
         public IActionResult ForgetPassword([Bind("email")] ForgetPasswordModel forgetPasswordModel)
         {
             if (ModelState.IsValid)
-                return Content($"email: {forgetPasswordModel.email}");
+               Fetcher.Custom(async client => {
+                  var res = await client.GetAsync($"https://localhost:7063/api/ForgotPwd/checkMail/{forgetPasswordModel.email}");
+                   if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                   {
+                       string strData = await res.Content.ReadAsStringAsync();
+                       if (string.IsNullOrEmpty(strData)) return;
+
+                       var options = new JsonSerializerOptions
+                       {
+                           PropertyNameCaseInsensitive = true
+                       };
+                      var value = JsonSerializer.Deserialize<dynamic>(strData, options);
+                   }
+               });
             return View(nameof(ForgetPassword));
 
         }

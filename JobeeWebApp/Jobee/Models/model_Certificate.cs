@@ -11,5 +11,6 @@ namespace Jobee_API.Models
         public DateTime EndDate { get; set; }
         public string Url { get; set; }
         public string Description { get; set; }
+        public bool? IsVertify { get; set; } = false;
     }
 }

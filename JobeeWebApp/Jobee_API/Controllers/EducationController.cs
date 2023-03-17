@@ -152,7 +152,7 @@ namespace Jobee_API.Controllers
         }
 
         // DELETE: api/Education/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = "emp")]
         [Route("Remove/{id}")]
         public async Task<IActionResult> DeleteEducation(string id)

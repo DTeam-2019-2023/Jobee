@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using static Jobee.Controllers.AccountController;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -12,7 +14,6 @@ namespace Jobee
 {
     public class Fetcher
     {
-        private static Fetcher instance = default!;
         private readonly HttpClient client = null!;
         public Dictionary<string, string> ApiUrl;
         public class ConfigFetcher
@@ -33,6 +34,8 @@ namespace Jobee
             ApiUrl = new();
             ApiUrl.Add("root", config.root);
         }
+        
+       
 
         public static async Task<(string, string)> LoginAsync(SigninModel model, string loginUri)
         {
@@ -55,19 +58,30 @@ namespace Jobee
             }
             return default!;
         }
-        public static async Task<bool> SignupAsync(SignupModel model)
+
+        public static async Task<bool> SignupAsync(SignupModel model, string signupUri)
         {
             var client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
 
-            var respone = await client.PostAsJsonAsync(requestUri: "https://localhost:7063/api/Users/signup", model);
+            var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
             return respone.IsSuccessStatusCode;
         }
         public async Task<bool> LogoutAsync()
         {
             var result = await client.PostAsync(requestUri: $"{ApiUrl["root"]}/Users/logout", null);
             return true;
+        }
+
+        public static Task Custom(Action<HttpClient> Client)
+        {
+            var _client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            _client.DefaultRequestHeaders.Accept.Add(contentType);
+            Client(_client);
+
+            return Task.CompletedTask;
         }
         //[HttpGet]
         //[Route("GetAll")]
@@ -228,7 +242,7 @@ namespace Jobee
             {
                 string strData = await res.Content.ReadAsStringAsync();
                 if (string.IsNullOrEmpty(strData)) return default!;
-               
+
                 var options = new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
