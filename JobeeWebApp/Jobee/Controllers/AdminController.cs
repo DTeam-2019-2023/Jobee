@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using static Jobee.Controllers.AccountController;
 using System.Text.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Jobee.Controllers
 {
@@ -40,20 +41,21 @@ namespace Jobee.Controllers
                 {
                     string strData = await res.Content.ReadAsStringAsync();
                     if (string.IsNullOrEmpty(strData)) return;
-
+                    dynamic temp = JObject.Parse(strData);
                     var options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    listVerifies = JsonSerializer.Deserialize<List<dynamic>>(strData, options).Select(i => new VerifyContent()
-                    {
-                        FullName = i.FullName,
-                        Name = i.Name,
-                        StartDate = i.StartDate,
-                        EndDate = i.EndDate,
-                        Description = i.Description,
-                        Url = i.Url
-                    }).ToList();
+                    listVerifies = JsonSerializer.Deserialize<List<VerifyContent>>(temp, options);
+                    //listVerifies = result.Select(i => new VerifyContent()
+                    //{
+                    //    FullName = i.fullName,
+                    //    Name = i.name,
+                    //    StartDate = i.startDate,
+                    //    EndDate = i.endDate,
+                    //    Description = i.description,
+                    //    Url = i.url
+                    //}).ToList();
                 }
             });
             ViewData["Verifies"] = listVerifies;

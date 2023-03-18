@@ -104,11 +104,11 @@ namespace Jobee_API.Controllers
                           select new
                           {
                               FullName = acc.FirstName + " " + acc.LastName,
-                              certs.Name,
-                              certs.StartDate,
-                              certs.EndDate,
-                              certs.Description,
-                              certs.Url
+                              Name = certs.Name,
+                              StartDate = certs.StartDate,
+                              EndDate = certs.EndDate,
+                              Description = certs.Description,
+                              Url = certs.Url
                           }).ToList<object>();
             return result;
         }
