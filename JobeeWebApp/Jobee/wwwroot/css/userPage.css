@@ -475,7 +475,7 @@ body {
 .contentNavContainer .contentNavBody .contentItem {
   display: flex;
   align-items: center;
-  padding: 0 8px;
+  padding: 8px;
   justify-content: space-between;
   border: 1px solid #cccccc;
 }
@@ -484,7 +484,8 @@ body {
   align-items: center;
 }
 .contentNavContainer .contentNavBody .contentItem .itemFirst .titleIcon {
-  width: 60px;
+  width: 50px;
+  margin-right: 1em;
 }
 .contentNavContainer .contentNavBody .contentItem .itemFirst .titleName {
   color: #0062e6;
