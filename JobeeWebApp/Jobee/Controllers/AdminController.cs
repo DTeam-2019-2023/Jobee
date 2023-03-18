@@ -41,24 +41,19 @@ namespace Jobee.Controllers
                 {
                     string strData = await res.Content.ReadAsStringAsync();
                     if (string.IsNullOrEmpty(strData)) return;
-                    dynamic temp = JObject.Parse(strData);
+                    //dynamic temp = JObject.Parse(strData);
                     var options = new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    listVerifies = JsonSerializer.Deserialize<List<VerifyContent>>(temp, options);
-                    //listVerifies = result.Select(i => new VerifyContent()
-                    //{
-                    //    FullName = i.fullName,
-                    //    Name = i.name,
-                    //    StartDate = i.startDate,
-                    //    EndDate = i.endDate,
-                    //    Description = i.description,
-                    //    Url = i.url
-                    //}).ToList();
+                    var result = JsonSerializer.Deserialize<List<VerifyContent>>(strData, options);
+                    if (result != null)
+                    {
+                        listVerifies = result;
+                    }
                 }
             });
-            ViewData["Verifies"] = listVerifies;
+            ViewData["Verified"] = listVerifies;
             ViewData["Users"] = accounts;
 
             return View();

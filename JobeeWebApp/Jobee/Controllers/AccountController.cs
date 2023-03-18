@@ -221,16 +221,17 @@ namespace Jobee.Controllers
             bool valid = false;
             await Fetcher.Custom(async fetcher =>
             {
-                var res = await fetcher.GetAsync($"https://localhost:7063/api/ForgotPwd/isKeyExist?key={key}");
+                var res = fetcher.GetAsync($"https://localhost:7063/api/ForgotPwd/isKeyExist?key={key}").Result;
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string strData = await res.Content.ReadAsStringAsync();
-                    valid = string.IsNullOrEmpty(strData);
+                    valid = !string.IsNullOrEmpty(strData);
                 }
             });
 
             if (valid)
             {
+                ViewData["key"] = key;
                 return View();
             }
             return NotFound();
@@ -243,8 +244,13 @@ namespace Jobee.Controllers
                 var new_pwd = createNewPasswordModel.newPassword;
                 await Fetcher.Custom(async fetcher =>
                 {
-
-                    var res = await fetcher.PostAsJsonAsync($"https://localhost:7063/api/ForgotPwd/recover", new JObject(key, new_pwd));
+                    UriBuilder builder = new UriBuilder("https://localhost:7063/api/ForgotPwd/recover");
+                    //builder.Query = $"key={key}&new_pwd={new_pwd}";
+                    var res = await fetcher.PostAsJsonAsync(builder.Uri, new
+                    {
+                        key = key,
+                        new_pwd = new_pwd
+                    });
                     if (res.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         string strData = await res.Content.ReadAsStringAsync();

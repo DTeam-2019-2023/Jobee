@@ -184,11 +184,13 @@ namespace Jobee_API.Controllers
             return forgot_user != null;
         }
 
-        [HttpPost("/recover")]
-        public async Task<IActionResult> PostTbForgotPwd(string key, string new_pwd)
+        [HttpPost("recover")]
+        public async Task<IActionResult> PostTbForgotPwd(dynamic data)
         {
             try
             {
+                var key = (string)data.key;
+                var new_pwd = (string) data.new_pwd;
                 var forgot_user = await _dbContext.TbForgotPwds.FirstAsync<TbForgotPwd>(m => m.Link == key);
                 if (forgot_user == null) return BadRequest(new { status = "ERR", message = "Can not find the key inside the database" });
 
@@ -199,7 +201,7 @@ namespace Jobee_API.Controllers
 
                 var result = await _dbContext.TbAccounts.FirstAsync<TbAccount>(m => m.Id == forgot_user.Uid);
                 if (result == null) return BadRequest(new { status = "ERR", message = "Fail to find the new user" });
-                result.Passwork = new_pwd;
+                result.Passwork = Jobee_API.Tools.HashPassword.hashPassword(new_pwd);
                 _dbContext.Entry(result).State = EntityState.Modified;
 
                 await _dbContext.SaveChangesAsync();
