@@ -65,43 +65,43 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Education/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        [Authorize(Roles ="emp")]
-        [Route("Update")]
-        public async Task<IActionResult> PutEducation(string id, model_Education education)
-        {
-            var existEdu = await _context.Educations.FindAsync(id);
-            if (existEdu == null)
-            {
-                return BadRequest();
-            }
-            existEdu.Name= education.Name;
-            existEdu.Major= education.Major;
-            existEdu.StartDate= education.StartDate;
-            existEdu.EndDate= education.EndDate;
-            existEdu.Gpa = education.GPA;
-            existEdu.Description= education.Description;
+        //[HttpPut("{id}")]
+        //[Authorize(Roles ="emp")]
+        //[Route("Update")]
+        //public async Task<IActionResult> PutEducation(string id, model_Education education)
+        //{
+        //    var existEdu = await _context.Educations.FindAsync(id);
+        //    if (existEdu == null)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    existEdu.Name= education.Name;
+        //    existEdu.Major= education.Major;
+        //    existEdu.StartDate= education.StartDate;
+        //    existEdu.EndDate= education.EndDate;
+        //    existEdu.Gpa = education.GPA;
+        //    existEdu.Description= education.Description;
 
-            _context.Update(existEdu);
+        //    _context.Update(existEdu);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EducationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!EducationExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return CreatedAtAction("GetEducation", new { id = existEdu.Id }, existEdu);
-        }
+        //    return CreatedAtAction("GetEducation", new { id = existEdu.Id }, existEdu);
+        //}
 
         // POST: api/Education
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

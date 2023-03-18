@@ -137,25 +137,25 @@ namespace Jobee.Controllers
                 };
             }
 
-            List<Education> edus;
-            fetcher.GetAll(out edus);
-            model_Education edu;
+            //List<Education> edus;
+            //fetcher.GetAll(out edus);
+            //model_Education edu;
 
-            if (edus.Count > 0)
-            {
-                foreach (var item in edus)
-                {
-                    edu = new()
-                    {
-                        Name = item.Name,
-                        Major = item.Major,
-                        StartDate = item.StartDate,
-                        EndDate = item.EndDate,
-                        GPA = item.Gpa,
-                        Description = item.Description
-                    };
-                }
-            }
+            //if (edus.Count > 0)
+            //{
+            //    foreach (var item in edus)
+            //    {
+            //        edu = new()
+            //        {
+            //            Name = item.Name,
+            //            Major = item.Major,
+            //            StartDate = item.StartDate,
+            //            EndDate = item.EndDate,
+            //            GPA = item.Gpa,
+            //            Description = item.Description
+            //        };
+            //    }
+            //}
 
             _model = new()
             {
