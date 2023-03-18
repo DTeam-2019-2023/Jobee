@@ -7,6 +7,7 @@
     }
 }
 <form method="post" class="popupContainer" id="editEduContainer" asp-controller="User" asp-action="EditEducation">
+    <input type="hidden" name="id" value="@ViewBag.id" />
     <div class="formHeader">
         <h3 class="headerTitle">Edit Your Education Result</h3>
     </div>

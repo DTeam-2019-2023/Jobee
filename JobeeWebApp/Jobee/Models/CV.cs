@@ -13,5 +13,19 @@
         public string CarrerObjiect { get; set; }
         public string SoftSkill { get; set; }
         public string Avatar { get; set; }
+
+        public CV()
+        {
+            this.ApplyPosition = string.Empty;
+            this.CurrentJob = string.Empty;
+            this.DesirySalary = 0;
+            this.Degree = string.Empty;
+            this.WorkExperience = string.Empty;
+            this.DesiredWorkLocation = string.Empty;
+            this.WorkingForm = string.Empty;
+            this.CarrerObjiect = string.Empty;
+            this.SoftSkill = string.Empty;
+            this.Avatar = string.Empty;
+        }
     }
 }

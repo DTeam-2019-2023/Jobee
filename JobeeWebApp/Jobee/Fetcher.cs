@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
+using System.Net.Http.Json;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using static Jobee.Controllers.AccountController;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Jobee
 {
     public class Fetcher
     {
-        private static Fetcher instance = default!;
         private readonly HttpClient client = null!;
         public Dictionary<string, string> ApiUrl;
         public class ConfigFetcher
@@ -32,29 +34,38 @@ namespace Jobee
             ApiUrl = new();
             ApiUrl.Add("root", config.root);
         }
+        
+       
 
-        public static async Task<(string, string)> LoginAsync(SigninModel model)
-        {
-         var client = new HttpClient();
-            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
-            client.DefaultRequestHeaders.Accept.Add(contentType);
-            
-            var respone = await client.PostAsJsonAsync(requestUri: "https://localhost:7063/api/Users/login", model);
-            string strData = await respone.Content.ReadAsStringAsync();
-            dynamic result = JObject.Parse(strData);
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            return (result.token.ToString(), result.type.ToString());
-        }
-        public static async Task<bool> SignupAsync(SignupModel model)
+        public static async Task<(string, string)> LoginAsync(SigninModel model, string loginUri)
         {
             var client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
 
-            var respone = await client.PostAsJsonAsync(requestUri: "https://localhost:7063/api/Users/signup", model);
+            var respone = await client.PostAsJsonAsync(requestUri: loginUri, model);
+            if (respone.IsSuccessStatusCode)
+            {
+                string strData = await respone.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
+
+                dynamic result = Newtonsoft.Json.Linq.JObject.Parse(strData);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                return (result.token.ToString(), result.type.ToString());
+            }
+            return default!;
+        }
+
+        public static async Task<bool> SignupAsync(SignupModel model, string signupUri)
+        {
+            var client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            client.DefaultRequestHeaders.Accept.Add(contentType);
+
+            var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
             return respone.IsSuccessStatusCode;
         }
         public async Task<bool> LogoutAsync()
@@ -62,118 +73,192 @@ namespace Jobee
             var result = await client.PostAsync(requestUri: $"{ApiUrl["root"]}/Users/logout", null);
             return true;
         }
-        public void GetAll<T>(out List<T> objs)
+
+        public static Task Custom(Action<HttpClient> Client)
+        {
+            var _client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            _client.DefaultRequestHeaders.Accept.Add(contentType);
+            Client(_client);
+
+            return Task.CompletedTask;
+        }
+        //[HttpGet]
+        //[Route("GetAll")]
+        public void GetAll<T>(out List<T> objs) where T : class
         {
             objs = GetAllAsync<T>().Result;
         }
-        public void GetById<T>(out T obj, string id)
+        //[HttpGet]
+        //[Route("GetById/{id}")]
+        public void GetById<T>(out T obj, string id) where T : class
         {
-            obj = GetByIdAsync<T>(typeof(T).Name, id).Result;
+            obj = GetByIdAsync<T>(id).Result;
         }
-
-        public void GetSingleAuto<T>(out T obj)
+        //[HttpGet]
+        //[Route("GetSingleAuto")]
+        public void GetSingleAuto<T>(out T obj) where T : class
         {
             obj = GetSingleAutoAsync<T>().Result;
         }
+        //[HttpPost]
+        //[Route("Create")]
+        public bool Create<T, U>(out T result, U Data) where T : class where U : notnull
+        {
+            result = CreateAsync<T, U>(Data).Result;
+            return true;
+        }
+        //[HttpPut]
+        //[Route("Update")]
+        public bool Update<T, U>(out T result, U Data) where T : class where U : notnull
+        {
+            result = UpdateAsync<T, U>(Data).Result;
+            return true;
+        }
+        //[HttpPut]
+        //[Route("UpdateById/{id}")]
+        public bool UpdateById<T, U>(out T result, U Data, string id) where T : class where U : notnull
+        {
+            result = UpdateByIdAsync<T, U>(Data, id).Result;
+            return true;
+        }
+        //[HttpDelete]
+        //[Route("Remove/{id}")]
+        public bool Remove<T>(string id)
+        {
+            _ = RemoveAsync<T>(id);
+            return true;
+        }
 
+        #region private 
+        private async Task<T> GetByIdAsync<T>(string id)
+        {
+            UriBuilder builder = new UriBuilder(ApiUrl["root"]);
+            builder.Path += $"/{typeof(T).Name}/{nameof(GetById)}/{id}";
+            var res = await client.GetAsync(requestUri: builder.Uri);
+            if (res.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<T>(strData, options);
+                return values!;
+            }
+            return default!;
+        }
         private async Task<T> GetSingleAutoAsync<T>()
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
             builder.Path += $"/{typeof(T).Name}/{nameof(GetSingleAuto)}";
             var res = await client.GetAsync(requestUri: builder.Uri);
-            string strData = await res.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
+            if (res.IsSuccessStatusCode)
             {
-                PropertyNameCaseInsensitive = true
-            };
-            if (strData == "null")
-            {
-                return default!;
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<T>(strData, options);
+                return values!;
             }
-            var values = JsonSerializer.Deserialize<T>(strData, options);
-            return values!;
-        }
+            return default!;
 
-        private async Task<T> GetByIdAsync<T>(string objName, string id)
-        {
-            UriBuilder builder = new UriBuilder(ApiUrl["root"]);
-            builder.Path += $"/{objName}/{"1"}";
-            var res = await client.GetAsync(requestUri: builder.Uri);
-            string strData = await res.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            var values = JsonSerializer.Deserialize<T>(strData, options);
-            return values!;
         }
-
-        public bool Create<T,U>(out T result, U Data)
-        {
-            result = CreateAsync<T,U>( Data).Result;
-            return true;
-        }
-        
-        public async Task<T> CreateAsync<T,U>(U Data)
+        private async Task<T> CreateAsync<T, U>(U Data)
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
             builder.Path += $"/{typeof(T).Name}/{nameof(Create)}";
 
             var res = await client.PostAsJsonAsync(requestUri: builder.Uri, Data);
-            string strData = await res.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
+            if (res.IsSuccessStatusCode)
             {
-                PropertyNameCaseInsensitive = true
-            };
-            var values = JsonSerializer.Deserialize<T>(strData, options);
-            return values!;
-        }
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
 
-        public bool Update<T, U>(out T result, U Data)
-        {
-            result = UpdateAsync<T, U>(Data).Result;
-            return true;
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<T>(strData, options);
+                return values!;
+            }
+            return default!;
         }
-
-        public async Task<T> UpdateAsync<T, U>(U Data)
+        private async Task<T> UpdateAsync<T, U>(U Data)
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
             builder.Path += $"/{typeof(T).Name}/{nameof(Update)}";
 
             var res = await client.PutAsJsonAsync(requestUri: builder.Uri, Data);
-            string strData = await res.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
+            if (res.IsSuccessStatusCode)
             {
-                PropertyNameCaseInsensitive = true
-            };
-            var values = JsonSerializer.Deserialize<T>(strData, options);
-            return values!;
-        }
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
 
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<T>(strData, options);
+                return values!;
+            }
+            return default!;
+        }
+        private async Task<T> UpdateByIdAsync<T, U>(U Data, string id)
+            where T : class
+            where U : notnull
+        {
+            UriBuilder builder = new UriBuilder(ApiUrl["root"]);
+            builder.Path += $"/{typeof(T).Name}/{nameof(UpdateById)}/{id}";
+
+            var res = await client.PutAsJsonAsync(requestUri: builder.Uri, Data);
+            if (res.IsSuccessStatusCode)
+            {
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<T>(strData, options);
+                return values!;
+            }
+            return default!;
+        }
         private async Task<List<T>> GetAllAsync<T>()
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
-            HttpResponseMessage r = await client.GetAsync(builder.Uri);
-            string strData = await r.Content.ReadAsStringAsync();
-            var options = new JsonSerializerOptions
+            builder.Path += $"/{typeof(T).Name}/{nameof(GetAll)}";
+
+            HttpResponseMessage res = await client.GetAsync(builder.Uri);
+            if (res.IsSuccessStatusCode)
             {
-                PropertyNameCaseInsensitive = true
-            };
-            var values = JsonSerializer.Deserialize<List<T>>(strData, options);
-            return values!;
-        }
+                string strData = await res.Content.ReadAsStringAsync();
+                if (string.IsNullOrEmpty(strData)) return default!;
 
-        public bool Remove(string key)
-        {
-            _ = RemoveAsync(key);
-            return true;
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                var values = JsonSerializer.Deserialize<List<T>>(strData, options);
+                return values!;
+            }
+            return default!;
         }
-
-        public async Task RemoveAsync(string key)
+        private async Task RemoveAsync<T>(string id)
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
-            builder.Query = $"key={key}";
+            builder.Path += $"/{typeof(T).Name}/{nameof(Remove)}/{id}";
+
             var res = await client.DeleteAsync(requestUri: builder.Uri);
         }
+        #endregion
     }
 }

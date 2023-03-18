@@ -92,5 +92,25 @@ namespace Jobee_API.Controllers
         {
             return _dbContext.Certificates.Any(e => e.Id == id);
         }
+
+        [HttpGet]
+        [Route("GetVerifies")]
+        [AllowAnonymous]
+        public ActionResult<List<object>> GetVerifies()
+        {
+            var result = (from certs in _dbContext.Certificates
+                          join cvs in _dbContext.TbCvs on certs.Idcv equals cvs.Id
+                          join acc in _dbContext.TbProfiles on cvs.Idaccount equals acc.Idaccount
+                          select new
+                          {
+                              FullName = acc.FirstName + " " + acc.LastName,
+                              Name = certs.Name,
+                              StartDate = certs.StartDate,
+                              EndDate = certs.EndDate,
+                              Description = certs.Description,
+                              Url = certs.Url
+                          }).ToList<object>();
+            return result;
+        }
     }
 }

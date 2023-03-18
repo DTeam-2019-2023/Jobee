@@ -174,7 +174,7 @@ namespace Jobee_API.Controllers
 
         // DELETE: api/Certificates/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "emp, ad")]
+        [Authorize(Roles = "emp,ad")]
         public async Task<IActionResult> DeleteCertificate(string id)
         {
             var certificate = await _context.Certificates.FindAsync(id);

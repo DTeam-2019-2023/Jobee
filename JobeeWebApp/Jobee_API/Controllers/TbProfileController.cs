@@ -58,7 +58,7 @@ namespace Jobee_API.Controllers
         // PUT: api/TbProfiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        [Authorize(Roles = "emp, ad")]
+        [Authorize(Roles = "emp,ad")]
         [Route("Update")]
         public async Task<ActionResult<TbProfile>> PutTbProfile(Profile tbProfile)
         {
@@ -92,6 +92,7 @@ namespace Jobee_API.Controllers
             existIdProfile.Address = tbProfile.Address;
             existIdProfile.PhoneNumber = tbProfile.PhoneNumber;
             existIdProfile.DoB = tbProfile.DoB;
+            existIdProfile.Gender = tbProfile.Gender;
             existIdProfile.SocialNetwork = tbProfile.SocialNetwork;
             existIdProfile.DetailAddress = tbProfile.DetailAddress;
             existIdProfile.Email = tbProfile.Email;
