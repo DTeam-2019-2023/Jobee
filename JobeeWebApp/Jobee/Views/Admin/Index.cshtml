@@ -1,4 +1,5 @@
-﻿@model Jobee.Controllers.UserController.UserCVModel
+﻿@using Jobee_API.Entities;
+@using static Jobee.Controllers.AdminController;
 @{
     ViewData["Title"] = "Admin page";
 }
@@ -54,11 +55,21 @@
                         <th>Type Account</th>
                         <th>Action</th>
                     </tr>
+                @foreach(TbAccount item in ViewBag.Users)
+                {
                     <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
+                        <td><span class="text--ellipsis">@item.Id</span></td>
+                        <td>@item.Username</td>
                         <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
+                            <div class="typeAd typeName">
+                                @if(item.IdtypeAccount == "emp")
+                                {
+                                    @:User
+                                } else
+                                {
+                                    @:Admin
+                                }
+                            </div>
                         </td>
                         <td class="iconList">
                             <a href="/user/cv/id" target="_blank">
@@ -68,218 +79,7 @@
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <span class="text--ellipsis">111111111111111111111111112</span>
-                        </td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">ad001</span></td>
-                        <td>Admin</td>
-                        <td class="typeAccount">
-                            <div class="typeAd typeName">Admin</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><span class="text--ellipsis">user001</span></td>
-                        <td>Username1</td>
-                        <td class="typeAccount">
-                            <div class="typeUs typeName">User</div>
-                        </td>
-                        <td class="iconList">
-                            <a href="/user/cv/id" target="_blank">
-                                <abbr title="View">
-                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                </abbr>
-                            </a>
-                        </td>
-                    </tr>
+                }
                 </table>
                 <div class="paging">
                     <ul class="pagingList">
@@ -312,18 +112,20 @@
                         <th>URL</th>
                         <th>Action</th>
                     </tr>
-                    <tr>
-                        <td>Nguyen Van A</td>
-                        <td>UX - UI Design</td>
+                @foreach(VerifyContent item in ViewBag.Verified)
+                {
+                     <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.Name</td>
                         <td>
-                            <span class="startDate">[StartDate]</span> -
-                            <span class="endDate">[EndDate]</span>
+                            <span class="startDate">@item.StartDate</span> -
+                            <span class="endDate">@item.EndDate</span>
                         </td>
-                        <td>Text to description</td>
+                        <td>@item.Description</td>
                         <td>
                             <div class="urlFieldContainer">
                                 <div class="urlField">
-                                    <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
+                                    <input type="text" class="urlFieldInput" placeholder="@item.Url" readonly />
                                     <span class="extendIconContainer">
                                         <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
                                     </span>
@@ -340,34 +142,8 @@
                                      target="idcertificate" />
                             </abbr>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Nguyen Van A</td>
-                        <td>UX - UI Design</td>
-                        <td>
-                            <span class="startDate">[StartDate]</span> -
-                            <span class="endDate">[EndDate]</span>
-                        </td>
-                        <td><span class="text--ellipsis">Text to descriptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</span></td>
-                        <td>
-                            <div class="urlFieldContainer">
-                                <div class="urlField">
-                                    <input type="text" class="urlFieldInput" placeholder="url value ..." readonly />
-                                    <span class="extendIconContainer">
-                                        <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
-                                    </span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="iconList">
-                            <abbr title="Accept">
-                                <img src="/images/verify check.svg" alt="trash icon" class="actionIcon acceptAction" />
-                            </abbr>
-                            <abbr title="Reject">
-                                <img src="/images/iconClose.svg" alt="info icon" class="actionIcon rejectAction" />
-                            </abbr>
-                        </td>
-                    </tr>
+                    </tr>                    
+                }
                 </table>
                 <div class="paging">
                     <ul class="pagingList">
