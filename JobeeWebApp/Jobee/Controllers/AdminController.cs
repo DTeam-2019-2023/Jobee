@@ -35,7 +35,7 @@ namespace Jobee.Controllers
 
             await Fetcher.Custom(async client =>
             {
-                var res = await client.GetAsync($"https://localhost:7063/api/Admin/GetVerifies");
+                var res = client.GetAsync($"https://localhost:7063/api/Admin/GetVerifies").Result;
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string strData = await res.Content.ReadAsStringAsync();
