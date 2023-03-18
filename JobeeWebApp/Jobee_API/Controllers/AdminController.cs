@@ -93,8 +93,8 @@ namespace Jobee_API.Controllers
             return _dbContext.Certificates.Any(e => e.Id == id);
         }
 
-        [HttpGet("GetVerifies")]
-        [AllowAnonymous]
+        [HttpGet]
+        [Route("GetVerifies")]
         public ActionResult<List<object>> GetVerifies()
         {
             var result = (from certs in _dbContext.Certificates

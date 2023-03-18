@@ -31,10 +31,9 @@ namespace Jobee.Controllers
         {
             List<TbAccount> accounts;
             fetcher.GetAll(out accounts);
-            ViewData["Users"] = accounts;
             List<VerifyContent> listVerifies = new List<VerifyContent>();
 
-            Fetcher.Custom(async client =>
+            await Fetcher.Custom(async client =>
             {
                 var res = await client.GetAsync($"https://localhost:7063/api/Admin/GetVerifies");
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
@@ -56,9 +55,10 @@ namespace Jobee.Controllers
                         Url = i.Url
                     }).ToList();
                 }
-            }).Wait();
-                
+            });
             ViewData["Verifies"] = listVerifies;
+            ViewData["Users"] = accounts;
+
             return View();
         }
 

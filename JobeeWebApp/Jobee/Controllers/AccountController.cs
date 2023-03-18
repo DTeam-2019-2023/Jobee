@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Jobee_API.Entities;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -50,8 +51,8 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                var (token, type) = await Fetcher.LoginAsync(model: signinModel,loginUri: "https://localhost:7063/api/Users/login");
-                
+                var (token, type) = await Fetcher.LoginAsync(model: signinModel, loginUri: "https://localhost:7063/api/Users/login");
+
                 if (string.IsNullOrEmpty(token))
                 {
                     ModelState.AddModelError("", "Username or pass word wrong");
@@ -141,8 +142,8 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(await Fetcher.SignupAsync(signupModel, "https://localhost:7063/api/Users/signup"))
-                return View(nameof(Login));
+                if (await Fetcher.SignupAsync(signupModel, "https://localhost:7063/api/Users/signup"))
+                    return View(nameof(Login));
             }
             return View(nameof(Signup));
 
@@ -162,20 +163,21 @@ namespace Jobee.Controllers
         public IActionResult ForgetPassword([Bind("email")] ForgetPasswordModel forgetPasswordModel)
         {
             if (ModelState.IsValid)
-               Fetcher.Custom(async client => {
-                  var res = await client.GetAsync($"https://localhost:7063/api/ForgotPwd/checkMail/{forgetPasswordModel.email}");
-                   if (res.StatusCode == System.Net.HttpStatusCode.OK)
-                   {
-                       string strData = await res.Content.ReadAsStringAsync();
-                       if (string.IsNullOrEmpty(strData)) return;
+                Fetcher.Custom(async client =>
+                {
+                    var res = await client.GetAsync($"https://localhost:7063/api/ForgotPwd/checkMail/{forgetPasswordModel.email}");
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string strData = await res.Content.ReadAsStringAsync();
+                        if (string.IsNullOrEmpty(strData)) return;
 
-                       var options = new JsonSerializerOptions
-                       {
-                           PropertyNameCaseInsensitive = true
-                       };
-                      var value = JsonSerializer.Deserialize<dynamic>(strData, options);
-                   }
-               });
+                        var options = new JsonSerializerOptions
+                        {
+                            PropertyNameCaseInsensitive = true
+                        };
+                        var value = JsonSerializer.Deserialize<dynamic>(strData, options);
+                    }
+                });
             return View(nameof(ForgetPassword));
 
         }
@@ -213,18 +215,45 @@ namespace Jobee.Controllers
             [Compare("newPassword", ErrorMessage = "The password and confirmation password do not match.")]
             public string reNewPassword { get; set; }
         }
-        public IActionResult CreateNewPassword()
+        [HttpGet]
+        public async Task<IActionResult> CreateNewPassword(string email, string key)
         {
-            return View();
+            bool valid = false;
+            await Fetcher.Custom(async fetcher =>
+            {
+                var res = await fetcher.GetAsync($"https://localhost:7063/api/ForgotPwd/isKeyExist?key={key}");
+                if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    string strData = await res.Content.ReadAsStringAsync();
+                    valid = string.IsNullOrEmpty(strData);
+                }
+            });
+
+            if (valid)
+            {
+                return View();
+            }
+            return NotFound();
         }
         [HttpPost("/Account/CreateNewPassword")]
-        public IActionResult CreateNewPassword([Bind("newPassword, reNewPassword")] CreateNewPasswordModel createNewPasswordModel)
+        public async Task<IActionResult> CreateNewPasswordAsync(string key, [Bind("newPassword, reNewPassword")] CreateNewPasswordModel createNewPasswordModel)
         {
             if (ModelState.IsValid)
+            {
+                var new_pwd = createNewPasswordModel.newPassword;
+                await Fetcher.Custom(async fetcher =>
+                {
+
+                    var res = await fetcher.PostAsJsonAsync($"https://localhost:7063/api/ForgotPwd/recover", new JObject(key, new_pwd));
+                    if (res.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        string strData = await res.Content.ReadAsStringAsync();
+                    }
+                });
                 return Content($"CreateNewPassword: {createNewPasswordModel.newPassword}");
+            }
             return View(nameof(CreateNewPassword));
         }
-
         public class EntryNewEmailModel
         {
             [Required]
@@ -275,7 +304,7 @@ namespace Jobee.Controllers
             });
 
             if (await fetcher.LogoutAsync())
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
     }

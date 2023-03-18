@@ -12,6 +12,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Jobee_API.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Project_JobeeContext>(options => options.UseSqlServer
 (builder.Configuration.GetConnectionString("DBJobee")));
+
+var mailsetting = builder.Configuration.GetSection(nameof(MailSettings));
+builder.Services.Configure<MailSettings>(mailsetting);
+builder.Services.AddTransient<IEmailService, SendMailService>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

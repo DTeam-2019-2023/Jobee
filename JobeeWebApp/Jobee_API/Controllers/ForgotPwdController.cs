@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Jobee_API.Models;
 using System.Text;
 using Jobee_API.Entities;
-
+using Jobee_API.Tools;
+using MailKit;
+using System.Security.Cryptography;
 
 namespace Jobee_API.Controllers
 {
@@ -17,10 +19,11 @@ namespace Jobee_API.Controllers
     public class ForgotPwdController : ControllerBase
     {
         private readonly Project_JobeeContext _dbContext;
-
-        public ForgotPwdController(Project_JobeeContext dbContext)
+        private readonly IEmailService _emailService;
+        public ForgotPwdController(Project_JobeeContext dbContext, IEmailService emailService)
         {
             _dbContext = dbContext;
+            _emailService = emailService;
         }
 
         class ReturnMailCheck
@@ -106,6 +109,27 @@ namespace Jobee_API.Controllers
                     username = null
                 });
             }
+
+            //send mail
+            string current_url = "localhost:7079/Account/CreateNewPassword?email=" + email + "&key=";
+            var new_link = RandomString(255);
+            var new_forgot_user = new TbForgotPwd()
+            {
+                Link = new_link,
+                Uid = result.Id,
+                ExpireDay = DateTime.UtcNow.AddDays(1.0),
+            };
+            _dbContext.TbForgotPwds.Add(new_forgot_user);
+            await _dbContext.SaveChangesAsync();
+            await _emailService.SendEmailAsync(
+                new EmailData()
+                {
+                    EmailToId = email,
+                    EmailSubject = "CV Profile Verify Email",
+                    EmailBody = SendMailService.GetConfirmMail(result.Username, CALLBACK_URL: $"https://{current_url}{new_link}")
+                }
+                );
+
             return Ok(new ReturnMailCheck()
             {
                 status = "OK",
@@ -116,45 +140,52 @@ namespace Jobee_API.Controllers
         }
 
         // GET: api/ForgotPwd/5
-        [HttpGet("getLink")]
-        public async Task<IActionResult> GetTbForgotPwd(string email, string uid)
-        {
-            string current_url = "localhost:5151/api/ForgotPwd/recover?email=" + email + "&key=";
-            var new_link = RandomString(255);
-            var new_forgot_user = new TbForgotPwd()
-            {
-                Link = new_link,
-                Uid = uid,
-                ExpireDay = DateTime.UtcNow.AddDays(1.0),
-            };
-            try
-            {
-                _dbContext.TbForgotPwds.Add(new_forgot_user);
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new ReturnLink()
-                {
-                    status = "ERR",
-                    link = null,
-                    message = "There is an un-expected error happened when we create your new link to recover password"
-                });
-            }
+        //[HttpGet("getLink")]
+        //public async Task<IActionResult> GetTbForgotPwd(string email, string uid)
+        //{
+        //    string current_url = "localhost:5151/api/ForgotPwd/recover?email=" + email + "&key=";
+        //    var new_link = RandomString(255);
+        //    var new_forgot_user = new TbForgotPwd()
+        //    {
+        //        Link = new_link,
+        //        Uid = uid,
+        //        ExpireDay = DateTime.UtcNow.AddDays(1.0),
+        //    };
+        //    try
+        //    {
+        //        _dbContext.TbForgotPwds.Add(new_forgot_user);
+        //        await _dbContext.SaveChangesAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new ReturnLink()
+        //        {
+        //            status = "ERR",
+        //            link = null,
+        //            message = "There is an un-expected error happened when we create your new link to recover password"
+        //        });
+        //    }
 
-            return Ok(new ReturnLink()
-            {
-                status = "OK",
-                message = "Successfully create new link for you to recover your password",
-                link = current_url + new_link
-            });
-        }
+        //    return Ok(new ReturnLink()
+        //    {
+        //        status = "OK",
+        //        message = "Successfully create new link for you to recover your password",
+        //        link = current_url + new_link
+        //    });
+        //}
 
 
         // POST: api/ForgotPwd
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpGet("isKeyExist")]
+        public async Task<bool> isKeyExist(string key)
+        {
+            var forgot_user = await _dbContext.TbForgotPwds.FirstAsync<TbForgotPwd>(m => m.Link == key);
+            return forgot_user != null;
+        }
+
         [HttpPost("/recover")]
-        public async Task<IActionResult> PostTbForgotPwd(string key, string email, string new_pwd)
+        public async Task<IActionResult> PostTbForgotPwd(string key, string new_pwd)
         {
             try
             {
