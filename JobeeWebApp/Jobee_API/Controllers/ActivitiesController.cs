@@ -23,19 +23,23 @@ namespace Jobee_API.Controllers
         }
 
         // GET: api/5/listActivities
-        [HttpGet("listActivities")]
-        public async Task<ActionResult<List<Activity>>> GetActivitiesByCVId()
+        [HttpGet]
+        [Route("GetAll")]
+        public ActionResult<List<Activity>> GetActivitiesByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var dbAc = _context.Activities.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
 
-            if (dbAc.Count == 0)
+            if (idCv != null)
             {
-                return NotFound();
+                var dbAc = _context.Activities.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
+                if(dbAc.Count == 0)
+                {
+                    return NotFound();
+                }
             }
 
-            return dbAc;
+            return default!;
         }
 
         // GET: api/Activities
@@ -47,7 +51,8 @@ namespace Jobee_API.Controllers
         //}
 
         // GET: api/Activities/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Activity>> GetActivity(string id)
         {
             var activity = await _context.Activities.FindAsync(id);
@@ -62,9 +67,11 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Activities/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "emp")]
-        public async Task<IActionResult> PutActivity(string id, model_Activity activity)
+        [Route("UpdateById/{id}")]
+
+        public async Task<ActionResult<Activity>> PutActivity(string id, model_Activity activity)
         {
             var existIdAc = await _context.Activities.FindAsync(id);
             if (existIdAc == null)
@@ -77,41 +84,27 @@ namespace Jobee_API.Controllers
             existIdAc.StartDate = activity.StartDate;
             existIdAc.EndDate = activity.EndDate;
             existIdAc.Description = activity.Description;
-            _context.Update(existIdAc);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ActivityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtAction("GetActivity", new { id = existIdAc.Id }, existIdAc);
+            return existIdAc;
         }
 
         // POST: api/Activities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles = "emp")]
+        [Route("Create")]
         public async Task<ActionResult<Activity>> PostActivity(model_Activity activity)
         {
 
             string DBId = Guid.NewGuid().ToString();
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            string idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault().Id;
+            var cv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            if (cv == null) return default!;
+
             Activity DbAc = new Activity()
             {
                 Id = DBId,
-                Idcv = idCv,
+                Idcv = cv.Id,
                 Name = activity.Name,
                 Role = activity.Role,
                 StartDate = activity.StartDate,
@@ -141,8 +134,10 @@ namespace Jobee_API.Controllers
         }
 
         // DELETE: api/Activities/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = "emp")]
+        [Route("Remove/{id}")]
+
         public async Task<IActionResult> DeleteActivity(string id)
         {
             var activity = await _context.Activities.FindAsync(id);

@@ -87,23 +87,23 @@ namespace Jobee_API.Controllers
             existEdu.Gpa = education.GPA;
             existEdu.Description= education.Description;
 
-            _context.Update(existEdu);
+        //    _context.Update(existEdu);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EducationExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!EducationExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
             return existEdu;
         }

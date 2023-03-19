@@ -40,10 +40,10 @@ namespace Jobee.Controllers
         public IActionResult EditAward(string id);
 
         public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
-        public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
-        public IActionResult EditCertificateForm([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
-        public IActionResult EditActivityForm([Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
-        public IActionResult EditAwardForm([Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
+        public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
+        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
+        public IActionResult EditActivityForm(string id, [Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
+        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
         //null
         //public IActionResult UpdateAvatar();
         public IActionResult CreateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
@@ -142,6 +142,27 @@ namespace Jobee.Controllers
                 if (edus != null)
                 {
                     _model.Educations = edus;
+                    //foreach (var item in edus)
+                    //{
+                    //    edu = new()
+                    //    {
+                    //        Name = item.Name,
+                    //        Major = item.Major,
+                    //        StartDate = item.StartDate,
+                    //        EndDate = item.EndDate,
+                    //        GPA = item.Gpa,
+                    //        Description = item.Description
+                    //    };
+                    //}
+                }
+
+                List<Activity> acs;
+                fetcher.GetAll(out acs);
+                model_Activity ac;
+
+                if (acs != null)
+                {
+                    _model.Activitys = acs;
                     //foreach (var item in edus)
                     //{
                     //    edu = new()
@@ -291,6 +312,20 @@ namespace Jobee.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
+        {
+            if (ModelState.IsValid)
+            {
+                Activity tbac;
+                var result = fetcher.Create(out tbac, model);
+                if (result)
+                    return RedirectToAction(nameof(Index));
+                return Conflict();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost, ActionName("EditEducation")]
         [ValidateAntiForgeryToken]
         public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
@@ -304,6 +339,19 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", model);
         }
 
+        [HttpPost, ActionName("EditActivity")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditActivityForm(string id, [Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
+        {
+            if (ModelState.IsValid)
+            {
+                Activity data;
+                fetcher.UpdateById(out data, model, id);
+                return Ok(new { status = "success", data = model });
+            }
+            return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", model);
+        }
+
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
             if (ModelState.IsValid)
@@ -314,15 +362,6 @@ namespace Jobee.Controllers
         }
 
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
-        {
-            if (ModelState.IsValid)
-            {
-                return Content("OK");
-            }
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
         {
             if (ModelState.IsValid)
             {
@@ -362,6 +401,27 @@ namespace Jobee.Controllers
 
         }
 
+        [HttpPost]
+        public IActionResult ViewActivity(string id)
+        {
+            Activity data;
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", new model_Activity
+                {
+                    Name = data.Name,
+                    Role = data.Role,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate,
+                    Description = data.Description
+                });
+            }
+
+            return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", new model_Activity());
+        }
+
         public IActionResult ViewProject(string id)
         {
             model_Project pro1 = new()
@@ -388,19 +448,6 @@ namespace Jobee.Controllers
             };
             return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", cer1);
 
-        }
-
-        public IActionResult ViewActivity(string id)
-        {
-            model_Activity act1 = new()
-            {
-                Name = "Act1",
-                Role = "Role1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", act1);
         }
 
         public IActionResult ViewAward(string id)
@@ -435,6 +482,27 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editEducation.cshtml", data);
         }
 
+        [HttpGet]
+        public IActionResult EditActivity(string id)
+        {
+            Activity data;
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", new model_Activity
+                {
+                    Name = data.Name,
+                    Role = data.Role,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate,
+                    Description = data.Description
+                });
+            }
+            
+            return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", data);
+        }
+
         public IActionResult EditProject(string id)
         {
             model_Project model_Project = new()
@@ -451,6 +519,8 @@ namespace Jobee.Controllers
 
         }
 
+
+
         public IActionResult EditCertificate(string id)
         {
             model_Certificate cer1 = new()
@@ -463,18 +533,7 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", cer1);
         }
 
-        public IActionResult EditActivity(string id)
-        {
-            model_Activity act1 = new()
-            {
-                Name = "Act1",
-                Role = "Role1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", act1);
-        }
+        
 
         public IActionResult EditAward(string id)
         {
@@ -489,7 +548,7 @@ namespace Jobee.Controllers
         }
 
         [HttpPost, ActionName("EditProject")]
-        public IActionResult EditProjectForm([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
+        public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
             if (ModelState.IsValid)
             {
@@ -498,7 +557,7 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", model);
         }
         [HttpPost, ActionName("EditCertificate")]
-        public IActionResult EditCertificateForm([Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
+        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
         {
             if (ModelState.IsValid)
             {
@@ -506,17 +565,9 @@ namespace Jobee.Controllers
             }
             return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", model);
         }
-        [HttpPost, ActionName("EditActivity")]
-        public IActionResult EditActivityForm([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
-        {
-            if (ModelState.IsValid)
-            {
-
-            }
-            return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", model);
-        }
+        
         [HttpPost, ActionName("EditAward")]
-        public IActionResult EditAwardForm([Bind("Name, StartDate, EndDate, Description")] model_Award model)
+        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] model_Award model)
         {
             if (ModelState.IsValid)
             {
@@ -540,7 +591,6 @@ namespace Jobee.Controllers
                     break;
                 case "Activity":
                     fetcher.Remove<Activity>(id);
-
                     break;
                 case "Award":
                     fetcher.Remove<Award>(id);
