@@ -27,13 +27,17 @@ namespace Jobee_API.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("UserProfile")]
-        public ActionResult<(TbProfile, TbCv, List<Education>)> GetUser(string username)
+        public ActionResult<(TbProfile, TbCv, List<Education>, List<Project>, List<Certificate>, List<Activity>, List<Award>)> GetUser(string username)
         {
             var account = _dbContext.TbAccounts.FirstOrDefault(i => i.Username == username);
             var profile = _dbContext.TbProfiles.FirstOrDefault(x => x.Idaccount == account.Id);
             var cv = _dbContext.TbCvs.FirstOrDefault(i => i.Idaccount == account.Id);
             var edu = _dbContext.Educations.Where(i => i.Idcv == cv.Id).ToList();
-            return (profile, cv, edu);
+            var project = _dbContext.Projects.Where(i => i.Idcv == cv.Id).ToList();
+            var certificate = _dbContext.Certificates.Where(i => i.Idcv == cv.Id).ToList();
+            var activity = _dbContext.Activities.Where(i => i.Idcv == cv.Id).ToList();
+            var award = _dbContext.Awards.Where(i => i.Idcv == cv.Id).ToList();
+            return (profile, cv, edu, project, certificate, activity, award);
         }
     }
 }

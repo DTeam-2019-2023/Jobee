@@ -31,6 +31,10 @@ namespace Jobee.Controllers
             TbProfile profile = new TbProfile();
             TbCv cv = new TbCv();
             List<Education> edu = new List<Education>();
+            List<Project> project = new List<Project>();
+            List<Certificate> cert = new List<Certificate>();
+            List<Activity> activity = new List<Activity>();
+            List<Award> award = new List<Award>();
             await Fetcher.Custom(async client =>
             {
                 var res = client.GetAsync($"https://localhost:7063/api/Guest/UserProfile?username={username}").Result;
@@ -45,10 +49,14 @@ namespace Jobee.Controllers
                         PropertyNameCaseInsensitive = true,
                         IncludeFields = true
                     };
-                  var result = JsonSerializer.Deserialize<(TbProfile, TbCv, List<Education>)>(strData, options);
+                  var result = JsonSerializer.Deserialize<(TbProfile, TbCv, List<Education>, List<Project>, List<Certificate>, List<Activity>, List<Award>)>(strData, options);
                     profile = result.Item1;
                     cv = result.Item2;  
                     edu = result.Item3;
+                    project = result.Item4;
+                    cert = result.Item5;
+                    activity = result.Item6;
+                    award = result.Item7;
                 }
             });
 
@@ -90,7 +98,27 @@ namespace Jobee.Controllers
             {
                 _model.Educations = edu;
             }
-                return View(_model);
+
+            if(project != null)
+            {
+                _model.Projects = project;
+            }
+            
+            if(cert != null)
+            {
+                _model.Certificates = cert;
+            }
+
+            if(activity != null)
+            {
+                _model.Activitys = activity;
+            }
+
+            if(award != null)
+            {
+                _model.Awards = award;
+            }
+            return View(_model);
         }
     }
 }
