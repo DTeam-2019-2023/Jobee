@@ -23,19 +23,24 @@ namespace Jobee_API.Controllers
         }
 
         // GET: api/5/ListProjects
-        [HttpGet("listProjects")]
-        public async Task<ActionResult<List<Project>>> GetProjectsByCVId()
+        [HttpGet]
+        [Route("GetAll")]
+        public ActionResult<List<Project>> GetProjectsByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var dbPro = _context.Projects.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
 
-            if (dbPro.Count == 0)
+            if (idCv != null)
             {
-                return NotFound();
+                var dbProj = _context.Projects.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
+                if (dbProj.Count == 0)
+                {
+                    return NotFound();
+                }
+                return dbProj;
             }
 
-            return dbPro;
+            return default!;
         }
 
         // GET: api/Projects
@@ -47,7 +52,8 @@ namespace Jobee_API.Controllers
         //}
 
         // GET: api/Projects/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Project>> GetProject(string id)
         {
             var project = await _context.Projects.FindAsync(id);
@@ -62,8 +68,9 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Projects/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        [Authorize(Roles ="emp")]
+        [HttpPut]
+        [Authorize(Roles = "emp")]
+        [Route("UpdateById/{id}")]
         public async Task<IActionResult> PutProject(string id, model_Project project)
         {
             var exitIdProject = await _context.Projects.FindAsync(id);
@@ -104,17 +111,19 @@ namespace Jobee_API.Controllers
         // POST: api/Projects
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles ="emp")]
+        [Authorize(Roles = "emp")]
+        [Route("Create")]
         public async Task<ActionResult<Project>> PostProject(model_Project project)
         {
             string ProjectId = Guid.NewGuid().ToString();
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            string idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault().Id;
+            var cv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            if (cv == null) return default!;
 
             Project DbProject = new Project()
             {
                 Id = ProjectId,
-                Idcv = idCv,
+                Idcv = cv.Id,
                 Name = project.Name,    
                 TeamSize = project.TeamSize,
                 Role = project.Role,
@@ -145,8 +154,9 @@ namespace Jobee_API.Controllers
         }
 
         // DELETE: api/Projects/5
-        [HttpDelete("{id}")]
-        [Authorize(Roles ="emp")]
+        [HttpDelete]
+        [Authorize(Roles = "emp")]
+        [Route("Remove/{id}")]
         public async Task<IActionResult> DeleteProject(string id)
         {
             var project = await _context.Projects.FindAsync(id);

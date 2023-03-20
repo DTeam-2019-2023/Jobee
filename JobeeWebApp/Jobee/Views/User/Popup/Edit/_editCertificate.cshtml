@@ -7,6 +7,8 @@
     }
 }
 <form method="post" class="popupContainer" id="certContainer" asp-action="EditCertificate" asp-controller="User">
+    <input type="hidden" name="id" value="@ViewBag.id" />
+
     <div class="formHeader">
         <h3 class="headerTitle">Edit Your Certificate</h3>
     </div>
@@ -18,7 +20,7 @@
                       fill="black" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
+                <div class="popupInput inputTextContainer @(validationField("Name")?"":"error")">
                     <input asp-for="Name" type="text" class="input" />
                     <span class="inputSpan">Name</span>
                     <span class="inputError" asp-validation-for="Name"></span>
@@ -31,7 +33,7 @@
                       fill="black" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
+                <div class="popupInput inputTextContainer @(validationField("Url")?"":"error")">
                     <input asp-for="Url" type="text" class="input" />
                     <span class="inputSpan">URL</span>
                     <span class="inputError" asp-validation-for="Url"></span>
@@ -53,15 +55,15 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="StartDate" type="text" class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("StartDate")?"":"error")">
+                            <input asp-for="StartDate" class="input" />
                             <span class="inputSpan">Start Date</span>
                             <span class="inputError" asp-validation-for="StartDate"></span>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="EndDate" type="text" class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("EndDate")?"":"error")">
+                            <input asp-for="EndDate" class="input" />
                             <span class="inputSpan">End Date</span>
                             <span class="inputError" asp-validation-for="EndDate"></span>
                         </div>

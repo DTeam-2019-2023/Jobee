@@ -19,11 +19,10 @@ namespace Jobee.Controllers
 {
     public interface IUserController
     {
-
         public Task<IActionResult> Index();
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
-        public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
+        public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url, Description")] Jobee_API.Models.model_Certificate model);
         public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
         public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
 
@@ -41,7 +40,7 @@ namespace Jobee.Controllers
 
         public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] Jobee_API.Models.model_Education model);
         public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
-        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url")] Jobee_API.Models.model_Certificate model);
+        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url, Description")] Jobee_API.Models.model_Certificate model);
         public IActionResult EditActivityForm(string id, [Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
         public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
         //null
@@ -138,149 +137,44 @@ namespace Jobee.Controllers
                 List<Education> edus;
                 fetcher.GetAll(out edus);
                 model_Education edu;
-
                 if (edus != null)
                 {
                     _model.Educations = edus;
-                    //foreach (var item in edus)
-                    //{
-                    //    edu = new()
-                    //    {
-                    //        Name = item.Name,
-                    //        Major = item.Major,
-                    //        StartDate = item.StartDate,
-                    //        EndDate = item.EndDate,
-                    //        GPA = item.Gpa,
-                    //        Description = item.Description
-                    //    };
-                    //}
                 }
 
                 List<Activity> acs;
                 fetcher.GetAll(out acs);
                 model_Activity ac;
-
                 if (acs != null)
                 {
                     _model.Activitys = acs;
-                    //foreach (var item in edus)
-                    //{
-                    //    edu = new()
-                    //    {
-                    //        Name = item.Name,
-                    //        Major = item.Major,
-                    //        StartDate = item.StartDate,
-                    //        EndDate = item.EndDate,
-                    //        GPA = item.Gpa,
-                    //        Description = item.Description
-                    //    };
-                    //}
+                }
+
+                List<Certificate> cers;
+                fetcher.GetAll(out cers);
+                model_Certificate cer;
+                if (cers != null)
+                {
+                    _model.Certificates= cers;
+                }
+
+                List<Project> projs;
+                fetcher.GetAll(out projs);
+                model_Project proj;
+                if (projs != null)
+                {
+                    _model.Projects = projs;
+                }
+
+                List<Award> aws;
+                fetcher.GetAll(out aws);
+                model_Award aw;
+                if (aws != null)
+                {
+                    _model.Awards = aws;
                 }
             }
 
-
-            //_model = new()
-            //{
-            //    Educations = new()
-            //    {
-            //        new()
-            //        {
-            //            Name = "Toan",
-            //            Gpa = 4.0,
-            //            Id = "edu1"
-            //        },
-            //        new()
-            //        {
-            //            Name = "Van",
-            //            Gpa = 4.0,
-            //            Id = "edu2"
-            //        }
-            //    },
-            //    profile = profile,
-            //    Activitys = new() {
-            //        new(){
-            //        Id = "Ac1",
-            //        Name = "Ac1",
-            //        EndDate = DateTime.Parse("1/1/2001"),
-            //        StartDate = DateTime.Parse("1/1/2001"),
-            //        Role = "Role1",
-            //        Description = "Description1"
-            //        },
-            //        new(){
-            //        Id = "Ac2",
-            //        Name = "Ac2",
-            //        EndDate = DateTime.Parse("1/1/2001"),
-            //        StartDate = DateTime.Parse("1/1/2001"),
-            //        Role = "Role2",
-            //        Description = "Description2"
-            //        }
-            //    },
-            //    Projects = new()
-            //    {
-            //        new()
-            //        {
-            //            Id = "Pro1",
-            //            Name = "Pro1",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Role = "Role1",
-            //            Description = "Description1",
-            //            TeamSize = 1,
-            //            Technology = "Tech1"
-            //        },
-            //        new()
-            //        {
-            //            Id = "Pro2",
-            //            Name = "Pro2",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Role = "Role2",
-            //            Description = "Description2",
-            //            TeamSize = 2,
-            //            Technology = "Tech2"
-            //        }
-            //    },
-            //    Certificates = new()
-            //    {
-            //        new()
-            //        {
-            //            Id = "Cer1",
-            //            Name = "Cer1",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Url = "Url1"
-            //        },
-            //        new()
-            //        {
-            //            Id = "Cer2",
-            //            Name = "Cer2",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Url = "Url2"
-            //        }
-            //    },
-            //    Awards = new()
-            //    {
-            //        new()
-            //        {
-            //            Id = "Awa1",
-            //            Name = "Awa1",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Description = "Description1"
-            //        },
-            //        new()
-            //        {
-            //            Id = "Awa2",
-            //            Name = "Awa2",
-            //            EndDate = DateTime.Parse("1/1/2001"),
-            //            StartDate = DateTime.Parse("1/1/2001"),
-            //            Description = "Description2"
-            //        }
-            //    },
-            //    general = cv,
-            //    modelPopup = new()
-            //};
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
             ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
             ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
@@ -326,6 +220,45 @@ namespace Jobee.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
+        {
+            if (ModelState.IsValid)
+            {
+                Project tbproj;
+                var result = fetcher.Create(out tbproj, model);
+                if (result)
+                    return RedirectToAction(nameof(Index));
+                return Conflict();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url, Description")] model_Certificate model)
+        {
+            if (ModelState.IsValid)
+            {
+                Certificate tbcer;
+                var result = fetcher.Create(out tbcer, model);
+                if (result)
+                    return RedirectToAction(nameof(Index));
+                return Conflict();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] model_Award model)
+        {
+            if (ModelState.IsValid)
+            {
+                Award tbaw;
+                var result = fetcher.Create(out tbaw, model);
+                if (result)
+                    return RedirectToAction(nameof(Index));
+                return Conflict();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost, ActionName("EditEducation")]
         [ValidateAntiForgeryToken]
         public IActionResult EditEducationForm(string id, [Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
@@ -352,34 +285,49 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", model);
         }
 
-        public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
+        [HttpPost, ActionName("EditProject")]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
         {
             if (ModelState.IsValid)
             {
-                return Content("OK");
+                Project data;
+                fetcher.UpdateById(out data, model, id);
+                return Ok(new { status = "success", data = model });
             }
-            return RedirectToAction(nameof(Index));
+            return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", model);
         }
 
-        public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
+        [HttpPost, ActionName("EditCertificate")]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url, Description")] model_Certificate model)
         {
             if (ModelState.IsValid)
             {
-                return Content("OK");
+                Certificate data;
+                fetcher.UpdateById(out data, model, id);
+                return Ok(new { status = "success", data = model });
             }
-            return RedirectToAction(nameof(Index));
+            return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", model);
         }
 
-        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] model_Award model)
+        [HttpPost, ActionName("EditAward")]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] model_Award model)
         {
             if (ModelState.IsValid)
             {
-                return Content("OK");
+                Award data;
+                fetcher.UpdateById(out data, model, id);
+                return Ok(new { status = "success", data = model });
             }
-            return RedirectToAction(nameof(Index));
+            return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", model);
         }
 
         [HttpPost]
+
         public IActionResult ViewEducation(string id)
         {
             Education data;
@@ -422,45 +370,70 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", new model_Activity());
         }
 
+        [HttpPost]
         public IActionResult ViewProject(string id)
         {
-            model_Project pro1 = new()
+            Project data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Pro1",
-                TeamSize = 1,
-                Role = "Role1",
-                Technology = "Tech1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", pro1);
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", new model_Project
+                {
+                    Name= data.Name,
+                    Description= data.Description,
+                    Role= data.Role,
+                    Technology= data.Technology,
+                    TeamSize= data.TeamSize,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", new model_Project());
         }
 
+        [HttpPost]
         public IActionResult ViewCertificate(string id)
         {
-            model_Certificate cer1 = new()
+            Certificate data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Cer1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Url = "Url1"
-            };
-            return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", cer1);
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", new model_Certificate
+                {
+                    Name= data.Name,
+                    EndDate= data.EndDate,
+                    StartDate= data.StartDate,
+                    Url= data.Url,
+                    Description= "bi thieu trong database",
+                    IsVertify = data.IsVertify
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", new model_Certificate());
 
         }
 
+        [HttpPost]
         public IActionResult ViewAward(string id)
         {
-            model_Award awa1 = new()
+            Award data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Awa1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", awa1);
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award
+                {
+                    Name= data.Name,
+                    Description= data.Description,
+                    //Role= "trong database thieu role",
+                    StartDate= data.StartDate,
+                    EndDate= data.EndDate
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award());
         }
+
         [HttpGet]
         public IActionResult EditEducation(string id)
         {
@@ -499,82 +472,73 @@ namespace Jobee.Controllers
                     Description = data.Description
                 });
             }
-            
             return PartialView("~/Views/User/Popup/Edit/_editActivity.cshtml", data);
         }
 
+        [HttpGet]
         public IActionResult EditProject(string id)
         {
-            model_Project model_Project = new()
+            Project data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Pro1",
-                TeamSize = 1,
-                Role = "Role1",
-                Technology = "Tech1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", model_Project);
-
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", new model_Project
+                {
+                    Name = data.Name,
+                    Description = data.Description,
+                    TeamSize = data.TeamSize,
+                    Role = data.Role,
+                    Technology = data.Technology,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
+            }
+            return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", data);
         }
 
-
-
+        [HttpGet]
         public IActionResult EditCertificate(string id)
         {
-            model_Certificate cer1 = new()
+            Certificate data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Cer1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Url = "Url1"
-            };
-            return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", cer1);
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", new model_Certificate
+                {
+                    Name = data.Name,
+                    EndDate = data.EndDate,
+                    StartDate = data.StartDate,
+                    Url = data.Url,
+                    Description = "bi thieu trong database",
+                    IsVertify = data.IsVertify
+                });
+            }
+            return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", data);
         }
 
-        
-
+        [HttpGet]
         public IActionResult EditAward(string id)
         {
-            model_Award awa1 = new()
+            Award data;
+            fetcher.GetById(out data, id);
+            if (data != null)
             {
-                Name = "Awa1",
-                StartDate = DateTime.Parse("1/1/2001"),
-                EndDate = DateTime.Parse("1/1/2001"),
-                Description = "Description1"
-            };
-            return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", awa1);
-        }
-
-        [HttpPost, ActionName("EditProject")]
-        public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
-        {
-            if (ModelState.IsValid)
-            {
-
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", new model_Award
+                {
+                    Name = data.Name,
+                    Description = data.Description,
+                    //Role = "trong database thieu role",
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
             }
-            return PartialView("~/Views/User/Popup/Edit/_editProject.cshtml", model);
+            return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", data);
         }
-        [HttpPost, ActionName("EditCertificate")]
-        public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url")] model_Certificate model)
-        {
-            if (ModelState.IsValid)
-            {
 
-            }
-            return PartialView("~/Views/User/Popup/Edit/_editCertificate.cshtml", model);
-        }
         
-        [HttpPost, ActionName("EditAward")]
-        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] model_Award model)
-        {
-            if (ModelState.IsValid)
-            {
-
-            }
-            return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", model);
-        }
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteContentNav(string navType, string id)
         {

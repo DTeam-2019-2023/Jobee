@@ -59,9 +59,18 @@ $("#eduBtn").on("click", function () {
     $("#overlayEdu").show();
 });
 
-$("#eduBtn").on("click", function () {
-    $("#overlayEdu").show();
+//$("#eduBtn").on("click", function () {
+//    $("#overlayEdu").show();
+//});
+
+//JS ACTIVITY
+$("#activityBtn").on("click", function () {
+    $("#overlayActivity").show();
 });
+//JS ACTIVITY
+//$("#activityBtn").on("click", function () {
+//    $("#overlayActivity").show();
+//});
 
 //JS PROJECT
 $("#projectBtn").on("click", function () {
@@ -72,10 +81,7 @@ $("#projectBtn").on("click", function () {
 $("#certBtn").on("click", function () {
     $("#overlayCert").show();
 });
-//JS ACTIVITY
-$("#activityBtn").on("click", function () {
-    $("#overlayActivity").show();
-});
+
 
 //JS AWARD
 $("#awardBtn").on("click", function () {
@@ -109,7 +115,6 @@ $(".editContentNavAction").on("click", function (e) {
         }, 4);
         $("#EditContentNav").show();
     });
-
 });
 //#endregion
 //#region Send form Edit Navigation

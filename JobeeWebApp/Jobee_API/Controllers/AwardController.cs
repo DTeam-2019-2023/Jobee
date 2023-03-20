@@ -13,29 +13,34 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AwardsController : ControllerBase
+    public class AwardController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
-        public AwardsController(Project_JobeeContext context)
+        public AwardController(Project_JobeeContext context)
         {
             _context = context;
         }
 
         // GET: api/5/Educations
-        [HttpGet("listAwards")]
-        public async Task<ActionResult<List<Award>>> GetAwardsByCVId()
+        [HttpGet]
+        [Route("GetAll")]
+        public ActionResult<List<Award>> GetAwardsByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var dbAward = _context.Awards.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
 
-            if (dbAward.Count == 0)
+            if (idCv != null)
             {
-                return NotFound();
+                var dbAw = _context.Awards.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
+                if (dbAw.Count == 0)
+                {
+                    return NotFound();
+                }
+                return dbAw;
             }
 
-            return dbAward;
+            return default!;
         }
 
         // GET: api/Awards
@@ -47,7 +52,8 @@ namespace Jobee_API.Controllers
         }
 
         // GET: api/Awards/5
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
         public async Task<ActionResult<Award>> GetAward(string id)
         {
             var award = await _context.Awards.FindAsync(id);
@@ -62,8 +68,9 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Awards/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "emp")]
+        [Route("UpdateById/{id}")]
         public async Task<IActionResult> PutAward(string id, model_Award award)
         {
             var exitIdAward = await _context.Awards.FindAsync(id);
@@ -101,16 +108,19 @@ namespace Jobee_API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles = "emp")]
+        [Route("Create")]
         public async Task<ActionResult<Award>> PostAward(model_Award award)
         {
 
             string Awardid = Guid.NewGuid().ToString();
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            string idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault().Id;
+            var cv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            if (cv == null) return default!;
+
             Award awardDB = new Award()
             {
                 Id = Awardid ,
-                Idcv = idCv,
+                Idcv = cv.Id,
                 Name = award.Name,
                 StartDate = award.StartDate,
                 EndDate = award.EndDate,
@@ -137,8 +147,9 @@ namespace Jobee_API.Controllers
         }
 
         // DELETE: api/Awards/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = "emp")]
+        [Route("Remove/{id}")]
         public async Task<IActionResult> DeleteAward(string id)
         {
             var award = await _context.Awards.FindAsync(id);

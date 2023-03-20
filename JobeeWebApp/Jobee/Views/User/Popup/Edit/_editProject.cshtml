@@ -5,7 +5,8 @@
         var state = ViewData.ModelState.GetFieldValidationState(input);
         return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
     }
-}<form method="post" class="popupContainer" id="editProjectContainer" asp-action="EditProject" asp-controller="User">
+}<form method="post" class="popupContainer" id="editProjectContainer" asp-controller="User" asp-action="EditProject">
+    <input type="hidden" name="id" value="@ViewBag.id" />
     <div class="formHeader">
         <h3 class="headerTitle">Edit Your Project</h3>
     </div>
@@ -17,8 +18,8 @@
                       fill="black" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
-                    <input asp-for="Name" type="text" name="" id="" class="input" />
+                <div class="popupInput inputTextContainer @(validationField("Name")?"":"error")">
+                    <input asp-for="Name" type="text" class="input" />
                     <span class="inputSpan">Name</span>
                     <span asp-validation-for="Name" class="inputError"></span>
                 </div>
@@ -37,8 +38,8 @@
                 </defs>
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
-                    <input asp-for="TeamSize" type="number" name="" id="" class="input" />
+                <div class="popupInput inputTextContainer @(validationField("TeamSize")?"":"error")">
+                    <input asp-for="TeamSize" type="number" class="input" />
                     <span class="inputSpan">Team Size</span>
                     <span asp-validation-for="TeamSize" class="inputError"></span>
                 </div>
@@ -60,8 +61,8 @@
                       fill="black" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
-                    <input asp-for="Role" type="number" min="0" max="4" name="" id="" class="input" />
+                <div class="popupInput inputTextContainer @(validationField("Role")?"":"error")">
+                    <input asp-for="Role" class="input" />
                     <span class="inputSpan">Role</span>
                     <span asp-validation-for="Role" class="inputError"></span>
                 </div>
@@ -74,8 +75,8 @@
                       fill="#000" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
-                    <input asp-for="Technology" type="number" min="0" max="4" name="" id="" class="input" />
+                <div class="popupInput inputTextContainer @(validationField("Technology")?"":"error")">
+                    <input asp-for="Technology" class="input" />
                     <span class="inputSpan">Technology</span>
                     <span asp-validation-for="Technology" class="inputError"></span>
                 </div>
@@ -96,15 +97,15 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="StartDate" type="text" name="" id="" class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("StartDate")?"":"error")">
+                            <input asp-for="StartDate" name="" id="" class="input" />
                             <span class="inputSpan">Start Date</span>
                             <span asp-validation-for="StartDate" class="inputError"></span>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="EndDate" type="text" name="" id="" class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("EndDate")?"":"error")">
+                            <input asp-for="EndDate" name="" id="" class="input" />
                             <span class="inputSpan">End Date</span>
                             <span asp-validation-for="EndDate" class="inputError"></span>
                         </div>
@@ -120,7 +121,7 @@
             </svg>
             <div class="col">
                 <div class="popupInput inputTextContainer">
-                    <input asp-for="Description" type="text" name="" id="" class="input" />
+                    <input asp-for="Description" type="text" class="input" />
                     <span class="inputSpan">Description</span>
                     <span asp-validation-for="Description" class="inputError"></span>
                 </div>

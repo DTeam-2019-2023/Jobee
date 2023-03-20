@@ -14,29 +14,33 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CertificatesController : ControllerBase
+    public class CertificateController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
-        public CertificatesController(Project_JobeeContext context)
+        public CertificateController(Project_JobeeContext context)
         {
             _context = context;
         }
 
         // GET: api/5/Certificate
-        [HttpGet("listCertificates")]
-        public async Task<ActionResult<List<Certificate>>> GetCertificatesByCVId()
+        [HttpGet]
+        [Route("GetAll")]
+        public ActionResult<List<Certificate>> GetCertificatesByCVId()
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
             var idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
-            var dbCer = _context.Certificates.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
 
-            if (dbCer.Count == 0)
+            if (idCv != null)
             {
-                return NotFound();
+                var dbCer = _context.Certificates.Where(u => u.Idcv.Equals(idCv.Id)).ToList();
+                if (dbCer.Count == 0)
+                {
+                    return NotFound();
+                }
+                return dbCer;
             }
-
-            return dbCer;
+            return default!;
         }
 
         // GET: api/Certificates
@@ -80,7 +84,9 @@ namespace Jobee_API.Controllers
         //}
 
             // GET: api/Certificates/5
-            [HttpGet("{id}")]
+        [HttpGet]
+        [Route("GetById/{id}")]
+
         public async Task<ActionResult<Certificate>> GetCertificate(string id)
         {
             var certificate = await _context.Certificates.FindAsync(id);
@@ -95,8 +101,9 @@ namespace Jobee_API.Controllers
 
         // PUT: api/Certificates/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "emp")]
+        [Route("UpdateById/{id}")]
         public async Task<IActionResult> PutCertificate(string id, model_Certificate certificate)
         {
             var existCer = await _context.Certificates.FindAsync(id);
@@ -136,15 +143,18 @@ namespace Jobee_API.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Authorize(Roles = "emp")]
+        [Route("Create")]
         public async Task<ActionResult<Certificate>> PostCertificate(model_Certificate certificate)
         {
             string CerId = Guid.NewGuid().ToString();
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
-            string idCv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault().Id;
+            var cv = _context.TbCvs.Where(u => u.Idaccount.Equals(iduser)).SingleOrDefault();
+            if (cv == null) return default!;
+
             Certificate cer = new Certificate()
             {
                 Id = CerId,
-                Idcv = idCv,
+                Idcv = cv.Id,
                 Name = certificate.Name,
                 StartDate = certificate.StartDate,
                 EndDate = certificate.EndDate,
@@ -173,8 +183,9 @@ namespace Jobee_API.Controllers
         }
 
         // DELETE: api/Certificates/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles = "emp,ad")]
+        [Route("Remove/{id}")]
         public async Task<IActionResult> DeleteCertificate(string id)
         {
             var certificate = await _context.Certificates.FindAsync(id);

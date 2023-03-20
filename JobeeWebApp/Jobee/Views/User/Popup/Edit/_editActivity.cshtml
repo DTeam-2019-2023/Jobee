@@ -6,7 +6,7 @@
         return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
     }
 }
-<form method="post" class="popupContainer" id="editActivityContainer" asp-controller="User" asp-action="EditActivity">
+<form method="post" class="popupContainer" id="ActivityContainer" asp-controller="User" asp-action="EditActivity">
                 <input type="hidden" name="id" value="@ViewBag.id" />
                 <div class="formHeader">
                     <h3 class="headerTitle">Edit Your Activity</h3>
@@ -21,7 +21,7 @@
                         </svg>
                         <div class="col">
                 <div class="popupInput inputTextContainer @(validationField("Name")?"":"error")">
-                                <input asp-for="Name" type="text" class="input" />
+                                <input asp-for="Name" class="input" />
                                 <span class="inputSpan">Name</span>
                                 <span class="inputError" asp-validation-for="Name"></span>
                             </div>

@@ -13,11 +13,11 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ActivitiesController : ControllerBase
+    public class ActivityController : ControllerBase
     {
         private readonly Project_JobeeContext _context;
 
-        public ActivitiesController(Project_JobeeContext context)
+        public ActivityController(Project_JobeeContext context)
         {
             _context = context;
         }
@@ -37,6 +37,7 @@ namespace Jobee_API.Controllers
                 {
                     return NotFound();
                 }
+                return dbAc;
             }
 
             return default!;
@@ -84,6 +85,24 @@ namespace Jobee_API.Controllers
             existIdAc.StartDate = activity.StartDate;
             existIdAc.EndDate = activity.EndDate;
             existIdAc.Description = activity.Description;
+
+            _context.Update(existIdAc);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ActivityExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return existIdAc;
         }

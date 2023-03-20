@@ -7,6 +7,7 @@
     }
 }
 <form method="post" class="popupContainer" id="awardContainer" asp-controller="User" asp-action="EditAward">
+    <input type="hidden" name="id" value="@ViewBag.id" />
     <div class="formHeader">
         <h3 class="headerTitle">Edit Your Award</h3>
     </div>
@@ -18,7 +19,7 @@
                       fill="black" />
             </svg>
             <div class="col">
-                <div class="popupInput inputTextContainer">
+                <div class="popupInput inputTextContainer @(validationField("Name")?"":"error")">
                     <input asp-for="Name" class="input" />
                     <span class="inputSpan">Name</span>
                     <span class="inputError" asp-validation-for="Name"></span>
@@ -40,15 +41,15 @@
             <div class="col">
                 <div class="row">
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="StartDate"class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("StartDate")?"":"error")">
+                            <input asp-for="StartDate" class="input" />
                             <span class="inputSpan">Start Date</span>
                             <span class="inputError" asp-validation-for="StartDate"></span>
                         </div>
                     </div>
                     <div class="col">
-                        <div class="dateRow popupInput inputTextContainer">
-                            <input asp-for="EndDate"class="input" />
+                        <div class="dateRow popupInput inputTextContainer @(validationField("EndDate")?"":"error")">
+                            <input asp-for="EndDate" class="input" />
                             <span class="inputSpan">End Date</span>
                             <span class="inputError" asp-validation-for="EndDate"></span>
                         </div>
@@ -64,7 +65,7 @@
             </svg>
             <div class="col">
                 <div class="popupInput inputTextContainer">
-                    <input asp-for="Description"class="input" />
+                    <input asp-for="Description" class="input" />
                     <span class="inputSpan">Description</span>
                     <span class="inputError" asp-validation-for="Description"></span>
                 </div>

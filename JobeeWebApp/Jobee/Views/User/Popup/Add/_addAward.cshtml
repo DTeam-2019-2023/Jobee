@@ -7,7 +7,7 @@
     }
 }
 <div class="overlayPopup" id="overlayAward">
-    <form method="post" class="popupContainer" id="awardContainer" asp-controller="User" asp-action="AddAware">
+    <form method="post" class="popupContainer" id="awardContainer" asp-controller="User" asp-action="AddAward">
         <div class="formHeader">
             <h3 class="headerTitle">Add Your Award</h3>
         </div>
@@ -42,14 +42,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input asp-for="StartDate" type="text"  class="input" />
+                                <input asp-for="StartDate" class="input" />
                                 <span asp-validation-for="StartDate" class="inputSpan">Start Date</span>
                                 <span class="inputError">Please, must fill in this field</span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input asp-for="EndDate" type="text"  class="input" />
+                                <input asp-for="EndDate" class="input" />
                                 <span asp-validation-for="EndDate" class="inputSpan">End Date</span>
                                 <span class="inputError">Please, must fill in this field</span>
                             </div>
@@ -74,7 +74,7 @@
         </div>
         <div class="formFooter">
             <button class="btn btn--hover btnCancel" type="button">Cancel</button>
-            <button class="btn btn--button" type="button">Add</button>
+            <button class="btn btn--button" type="submit">Add</button>
         </div>
     </form>
 </div>

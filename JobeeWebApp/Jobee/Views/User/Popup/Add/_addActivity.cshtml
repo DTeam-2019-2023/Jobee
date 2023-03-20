@@ -66,14 +66,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input type="text"  class="input" asp-for="StartDate" />
+                                <input  class="input" asp-for="StartDate" />
                                 <span class="inputSpan">Start Date</span>
                                 <span class="inputError" asp-validation-for="StartDate"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input type="text"  class="input" asp-for="EndDate" />
+                                <input class="input" asp-for="EndDate" />
                                 <span class="inputSpan">End Date</span>
                                 <span class="inputError" asp-validation-for="EndDate"></span>
                             </div>
@@ -97,8 +97,8 @@
             </div>
         </div>
         <div class="formFooter">
-            <button class="btn btn--hover btnCancel">Cancel</button>
-            <button class="btn btn--button">Add</button>
+            <button class="btn btn--hover btnCancel" type="button">Cancel</button>
+            <button class="btn btn--button" type="submit">Add</button>
         </div>
     </form>
 </div>

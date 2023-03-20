@@ -63,9 +63,9 @@
                 </svg>
                 <div class="col">
                     <div class="popupInput inputTextContainer">
-                        <input asp-for="Name" type="number" min="0" max="4"  class="input" />
+                        <input asp-for="Role" class="input" />
                         <span class="inputSpan">Role</span>
-                        <span class="inputError" asp-validation-for="Name"></span>
+                        <span class="inputError" asp-validation-for="Role"></span>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 </svg>
                 <div class="col">
                     <div class="popupInput inputTextContainer">
-                        <input asp-for="Technology" type="number" min="0" max="4"  class="input" />
+                        <input asp-for="Technology" class="input" />
                         <span class="inputSpan">Technology</span>
                         <span class="inputError" asp-validation-for="Technology"></span>
                     </div>
@@ -99,14 +99,14 @@
                     <div class="row">
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input asp-for="StartDate" type="text"  class="input" />
+                                <input asp-for="StartDate" class="input" />
                                 <span class="inputSpan">Start Date</span>
                                 <span class="inputError" asp-validation-for="StartDate"></span>
                             </div>
                         </div>
                         <div class="col">
                             <div class="dateRow popupInput inputTextContainer">
-                                <input asp-for="EndDate" type="text"  class="input" />
+                                <input asp-for="EndDate" class="input" />
                                 <span class="inputSpan">End Date</span>
                                 <span class="inputError" asp-validation-for="EndDate"></span>
                             </div>
