@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Error";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/error.css" asp-append-version="true" />
+}
+
+<div class="container">
+    <div class="errorContainer">
+        <div class="errorCode">
+            <span class="firstNum errorNum">4</span>
+            <img src="/assets/images/nothing_found.svg" alt="nothing found" class="notfoundicon" />
+            <span class="secondNum errorNum">4</span>
+        </div>
+        <div class="errorMessage">
+            <div class="errorTitle">Page Not Found</div>
+            <div class="errorDesc">
+                The page you're looking for not seem to exist
+            </div>
+        </div>
+        <div class="errorFooter">
+            <a href="/" class="btn btn--button center">Home</a>
+        </div>
+    </div>
+</div>

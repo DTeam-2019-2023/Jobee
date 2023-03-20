@@ -28,6 +28,7 @@ namespace Jobee.Controllers
         [Route("/Guest/{username}")]
         public async Task<IActionResult> IndexAsync(string username)
         {
+            bool isError = false;
             TbProfile profile = new TbProfile();
             TbCv cv = new TbCv();
             List<Education> edu = new List<Education>();
@@ -38,6 +39,11 @@ namespace Jobee.Controllers
             await Fetcher.Custom(async client =>
             {
                 var res = client.GetAsync($"https://localhost:7063/api/Guest/UserProfile?username={username}").Result;
+                if(res.StatusCode == System.Net.HttpStatusCode.NotFound) 
+                {
+                    isError = true;
+                    HttpContext.Response.StatusCode = 404;
+                }
                 if (res.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     string strData = await res.Content.ReadAsStringAsync();
@@ -60,6 +66,10 @@ namespace Jobee.Controllers
                 }
             });
 
+            if(isError)
+            {
+                return NotFound();
+            }
 
             if (profile != null)
             {
