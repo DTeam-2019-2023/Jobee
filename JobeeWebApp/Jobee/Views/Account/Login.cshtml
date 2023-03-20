@@ -1,4 +1,4 @@
-﻿@model Jobee.Controllers.AccountController.SigninModel
+﻿@model Jobee_API.Models.User
 @{
     ViewData["Title"] = "Login";
     var isValid = ViewData.ModelState.IsValid;
@@ -19,7 +19,7 @@
         <div class="inputTextContainer @(validationField("username")?"":"error")">
             <input type="text" class="input" name="username" asp-for="username" />
             <span class="inputSpan">Username</span>
-            <span class="inputError error" asp-validation-for="password"></span>
+            <span class="inputError error" asp-validation-for="username"></span>
 
         </div>
         <div class="inputTextContainer @(validationField("password")?"":"error")">
@@ -35,9 +35,5 @@
     <button class="btn btn--Submit" type="submit">Login</button>
 </form>
 @section Scripts{
-   @* @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }*@
     <script src="~/js/input.js" asp-append-version="true"></script>
-
 }
