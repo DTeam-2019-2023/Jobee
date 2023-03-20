@@ -15,6 +15,7 @@ namespace Jobee_API.Entities
         public DateTime EndDate { get; set; }
         public string Url { get; set; } = null!;
         public bool? IsVertify { get; set; }
+        public string? Description { get; set; }
 
         public virtual TbCv IdcvNavigation { get; set; } = null!;
     }

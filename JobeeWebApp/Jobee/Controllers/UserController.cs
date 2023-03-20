@@ -24,7 +24,7 @@ namespace Jobee.Controllers
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url, Description")] Jobee_API.Models.model_Certificate model);
         public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
-        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
+        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description, Role")] Jobee_API.Models.model_Award model);
 
         public IActionResult ViewEducation(string id);
         public IActionResult ViewProject(string id);
@@ -42,7 +42,7 @@ namespace Jobee.Controllers
         public IActionResult EditProjectForm(string id, [Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] Jobee_API.Models.model_Project model);
         public IActionResult EditCertificateForm(string id, [Bind("Name, StartDate, EndDate, Url, Description")] Jobee_API.Models.model_Certificate model);
         public IActionResult EditActivityForm(string id, [Bind("Name, Role, StartDate, EndDate, Description")] Jobee_API.Models.model_Activity model);
-        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] Jobee_API.Models.model_Award model);
+        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description, Role")] Jobee_API.Models.model_Award model);
         //null
         //public IActionResult UpdateAvatar();
         public IActionResult CreateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model);
@@ -246,7 +246,7 @@ namespace Jobee.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description")] model_Award model)
+        public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description, Role")] model_Award model)
         {
             if (ModelState.IsValid)
             {
@@ -315,7 +315,7 @@ namespace Jobee.Controllers
         [HttpPost, ActionName("EditAward")]
         [ValidateAntiForgeryToken]
 
-        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description")] model_Award model)
+        public IActionResult EditAwardForm(string id, [Bind("Name, StartDate, EndDate, Description, Role")] model_Award model)
         {
             if (ModelState.IsValid)
             {
@@ -406,7 +406,7 @@ namespace Jobee.Controllers
                     EndDate= data.EndDate,
                     StartDate= data.StartDate,
                     Url= data.Url,
-                    Description= "bi thieu trong database",
+                    Description= data.Description,
                     IsVertify = data.IsVertify
                 });
             }
@@ -426,8 +426,8 @@ namespace Jobee.Controllers
                 {
                     Name= data.Name,
                     Description= data.Description,
-                    //Role= "trong database thieu role",
-                    StartDate= data.StartDate,
+                    Role = data.Role,
+                    StartDate = data.StartDate,
                     EndDate= data.EndDate
                 });
             }
@@ -511,7 +511,7 @@ namespace Jobee.Controllers
                     EndDate = data.EndDate,
                     StartDate = data.StartDate,
                     Url = data.Url,
-                    Description = "bi thieu trong database",
+                    Description = data.Description,
                     IsVertify = data.IsVertify
                 });
             }
@@ -530,7 +530,7 @@ namespace Jobee.Controllers
                 {
                     Name = data.Name,
                     Description = data.Description,
-                    //Role = "trong database thieu role",
+                    Role = data.Role,
                     StartDate = data.StartDate,
                     EndDate = data.EndDate
                 });

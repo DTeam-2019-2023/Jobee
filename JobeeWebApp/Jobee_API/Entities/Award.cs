@@ -11,6 +11,7 @@ namespace Jobee_API.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string? Description { get; set; }
+        public string? Role { get; set; }
 
         public virtual TbCv IdcvNavigation { get; set; } = null!;
     }

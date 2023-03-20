@@ -159,6 +159,7 @@ namespace Jobee_API.Controllers
                 StartDate = certificate.StartDate,
                 EndDate = certificate.EndDate,
                 Url = certificate.Url,
+                Description = certificate.Description,
                 IsVertify = false
             };
             _context.Certificates.Add(cer);

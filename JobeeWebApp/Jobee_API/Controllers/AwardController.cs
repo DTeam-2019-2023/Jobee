@@ -82,6 +82,7 @@ namespace Jobee_API.Controllers
             exitIdAward.StartDate = award.StartDate;
             exitIdAward.EndDate =  award.EndDate;
             exitIdAward.Description = award.Description;
+            exitIdAward.Role = award.Role;
 
             _context.Update(exitIdAward);
 
@@ -125,6 +126,7 @@ namespace Jobee_API.Controllers
                 StartDate = award.StartDate,
                 EndDate = award.EndDate,
                 Description = award.Description,
+                Role = award.Role
             };
 
             _context.Awards.Add(awardDB);

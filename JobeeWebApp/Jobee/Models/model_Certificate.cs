@@ -10,7 +10,7 @@ namespace Jobee_API.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         public string Url { get; set; }
-        public string? Description { get; set; }
         public bool? IsVertify { get; set; } = false;
+        public string? Description { get; set; }
     }
 }
