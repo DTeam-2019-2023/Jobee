@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Jobee_API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -37,7 +38,7 @@ namespace Jobee
         
        
 
-        public static async Task<(string, string)> LoginAsync(SigninModel model, string loginUri)
+        public static async Task<(string, string)> LoginAsync(User model, string loginUri)
         {
             var client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");

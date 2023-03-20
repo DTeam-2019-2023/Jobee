@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -36,44 +37,26 @@ namespace Jobee.Controllers
             return View();
         }
 
-        public class SigninModel
-        {
-            [Required]
-            public string username { get; set; }
-            [Required]
-            public string password { get; set; }
-        }
         //[BindProperty]
         //public SigninModel signinModel { get; set; } = default!;
 
         [HttpPost, ActionName("Login")]
-        public async Task<IActionResult> LoginForm([Bind("username, password")] SigninModel signinModel)
+        public async Task<IActionResult> LoginForm([Bind("username, password")] Jobee_API.Models.User model)
         {
             if (ModelState.IsValid)
             {
-                var (token, type) = await Fetcher.LoginAsync(model: signinModel, loginUri: "https://localhost:7063/api/Users/login");
+                var (token, type) = await Fetcher.LoginAsync(model: model, loginUri: "https://localhost:7063/api/Users/login");
 
                 if (string.IsNullOrEmpty(token))
                 {
-                    ModelState.AddModelError("", "Username or pass word wrong");
+                    ModelState.AddModelError(nameof(model.username), "Username or Password wrong");
                     return View(nameof(Login));
                 }
-                //var respone = await client.PostAsJsonAsync(requestUri: LoginUserAPIUrl, signinModel);
-                //string strData = await respone.Content.ReadAsStringAsync();
-                //dynamic token = JObject.Parse(strData);
-                //var options = new JsonSerializerOptions
-                //{
-                //    PropertyNameCaseInsensitive = true
-                //};
 
-                //if (respone == null)
-                //{
-                //    return View(nameof(Login));
-                //}
                 Response.Cookies.Append("jwt", token);
                 var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, signinModel.username),
+            new Claim(ClaimTypes.Name, model.username),
             new Claim(ClaimTypes.Role, type),
         };
 
@@ -117,12 +100,15 @@ namespace Jobee.Controllers
         public class SignupModel
         {
             [Required]
+            [RegularExpression("^[a-zA-Z0-9_-]{3,15}$", ErrorMessage = "Please enter username between 3 and 15 characters with no special character")]
             public string username { get; set; }
             [Required]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
             [DataType(dataType: DataType.Password)]
             public string password { get; set; }
             [Required]
-            [Compare("password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare(nameof(this.password), ErrorMessage = "The password and confirmation password do not match.")]
+            [DisplayName("Confirm Password")]
             public string rePassword { get; set; }
             [Required]
             [DataType(DataType.EmailAddress)]

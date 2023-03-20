@@ -173,21 +173,24 @@
                 </div>
                 <div class="contentNavBody">
                     <ul class="contentItemList">
-                        <li class="contentItem">
-                            <div class="itemFirst">
-                                <img src="/images/FIle.svg" alt="running icon" class="titleIcon" />
-                                <span class="titleName">Title Name</span>
+                        @foreach(var item in Model.Projects)
+                        {                            
+                            <li class="contentItem">
+                                <div class="itemFirst">
+                                    <img src="/images/FIle.svg" alt="file icon" class="titleIcon" />
+                                    <span class="titleName">@item.Name</span>
 
-                            </div>
+                                </div>
 
-                            <div class="itemThird">
+                                <div class="itemThird">
 
-                                <abbr title="View">
-                                    <img src="/images/Expand.svg" alt="expand icon"
-                                         class="actionIcon" id="expandProject" />
-                                </abbr>
-                            </div>
-                        </li>
+                                    <abbr title="View">
+                                        <img src="/images/Expand.svg" alt="expand icon"
+                                             class="actionIcon" id="expandProject" />
+                                    </abbr>
+                                </div>
+                            </li>
+                        }
                         <!-- <li class="contentItem"></li> -->
                     </ul>
                 </div>
@@ -201,22 +204,25 @@
                 </div>
                 <div class="contentNavBody">
                     <ul class="contentItemList">
-                        <li class="contentItem">
-                            <div class="itemFirst">
-                                <img src="/images/Certificate.svg" alt="running icon" class="titleIcon" />
-                                <span class="titleName">Title Name</span>
-                                <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
-                                     class="verifyIcon--verified" />
-                            </div>
+                        @foreach(var item in Model.Certificates)
+                        {                            
+                            <li class="contentItem">
+                                <div class="itemFirst">
+                                    <img src="/images/Certificate.svg" alt="cert icon" class="titleIcon" />
+                                    <span class="titleName">@item.Name</span>
+                                    <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
+                                         class="verifyIcon--verified" />
+                                </div>
 
-                            <div class="itemThird">
+                                <div class="itemThird">
 
-                                <abbr title="View">
-                                    <img src="/images/Expand.svg" alt="expand icon"
-                                         class="actionIcon" id="expandCertificate" />
-                                </abbr>
-                            </div>
-                        </li>
+                                    <abbr title="View">
+                                        <img src="/images/Expand.svg" alt="expand icon"
+                                             class="actionIcon" id="expandCertificate" />
+                                    </abbr>
+                                </div>
+                            </li>
+                        }
                         <!-- <li class="contentItem"></li> -->
                     </ul>
                 </div>
@@ -230,26 +236,29 @@
                 </div>
                 <div class="contentNavBody">
                     <ul class="contentItemList">
-                        <li class="contentItem">
-                            <div class="itemFirst">
-                                <img src="/images/Runing.svg" alt="running icon" class="titleIcon" />
-                                <span class="titleName">Title Name</span>
+                        @foreach(var item in Model.Activitys)
+                        {                            
+                            <li class="contentItem">
+                                <div class="itemFirst">
+                                    <img src="/images/Runing.svg" alt="running icon" class="titleIcon" />
+                                    <span class="titleName">@item.Name</span>
 
-                            </div>
-                            <div class="itemSecond">
-                                <span class="itemSubContent">
-                                    [start day] - [end day]
+                                </div>
+                                <div class="itemSecond">
+                                    <span class="itemSubContent">
+                                        @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
 
-                                </span>
-                            </div>
-                            <div class="itemThird">
+                                    </span>
+                                </div>
+                                <div class="itemThird">
 
-                                <abbr title="View">
-                                    <img src="/images/Expand.svg" alt="expand icon"
-                                         class="actionIcon" id="expandActivity" />
-                                </abbr>
-                            </div>
-                        </li>
+                                    <abbr title="View">
+                                        <img src="/images/Expand.svg" alt="expand icon"
+                                             class="actionIcon" id="expandActivity" />
+                                    </abbr>
+                                </div>
+                            </li>
+                        }
                         <!-- <li class="contentItem"></li> -->
                     </ul>
                 </div>
@@ -263,25 +272,28 @@
                 </div>
                 <div class="contentNavBody">
                     <ul class="contentItemList">
-                        <li class="contentItem">
-                            <div class="itemFirst">
-                                <img src="/images/laurel wreath.svg" alt="running icon" class="titleIcon" />
-                                <span class="titleName">Title Name</span>
+                        @foreach(var item in Model.Awards)
+                        {                            
+                            <li class="contentItem">
+                                <div class="itemFirst">
+                                    <img src="/images/laurel wreath.svg" alt="award icon" class="titleIcon" />
+                                    <span class="titleName">@item.Name</span>
 
-                            </div>
-                            <div class="itemSecond">
-                                <span class="itemSubContent">
-                                    [start day] - [end day]
-                                </span>
-                            </div>
-                            <div class="itemThird">
+                                </div>
+                                <div class="itemSecond">
+                                    <span class="itemSubContent">
+                                        @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
+                                    </span>
+                                </div>
+                                <div class="itemThird">
 
-                                <abbr title="View">
-                                    <img src="/images/Expand.svg" alt="expand icon"
-                                         class="actionIcon" id="expandAward" />
-                                </abbr>
-                            </div>
-                        </li>
+                                    <abbr title="View">
+                                        <img src="/images/Expand.svg" alt="expand icon"
+                                             class="actionIcon" id="expandAward" />
+                                    </abbr>
+                                </div>
+                            </li>
+                        }
                         <!-- <li class="contentItem"></li> -->
                     </ul>
                 </div>
