@@ -17,6 +17,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using static Jobee.Controllers.AccountController;
 using static System.Net.WebRequestMethods;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Jobee.Controllers
 {
@@ -212,6 +213,40 @@ namespace Jobee.Controllers
             return View(nameof(ChangePassword));
 
         }
+
+        //public class ChangeEmailModel
+        //{
+        //    [Required]
+        //    [DataType(DataType.EmailAddress)]
+        //    [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = "The Email field is not a valid e-mail address.")]
+        //    public string email { get; set; }
+        //}
+
+        //[HttpPost("/Account/ChangeEmail")]
+        //public IActionResult ChangeEmail([Bind("email")] ChangeEmailModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Fetcher fetcher = new Fetcher(new Fetcher.ConfigFetcher()
+        //        {
+        //            context = HttpContext,
+        //            root = "https://localhost:7063/api"
+        //        });
+
+        //        Profile result;
+        //        Profile value = new Profile
+        //        {
+        //            Email = model.email
+        //        };
+        //        fetcher.Update(out result, value);
+        //        if (result != null)
+        //            return RedirectToAction(nameof(Login));
+
+        //    }
+        //    return View(nameof(ChangeEmail));
+
+        //}
+
         public class CreateNewPasswordModel
         {
             [Required]
@@ -273,17 +308,49 @@ namespace Jobee.Controllers
             [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = "The Email field is not a valid e-mail address.")]
             public string email { get; set; }
         }
-        public IActionResult EntryNewEmail()
-        {
-            return View();
-        }
-        [HttpPost("/Account/EntryNewEmail")]
-        public IActionResult EntryNewEmail([Bind("email")] EntryNewEmailModel entryNewEmailModel)
+        public IActionResult EntryNewEmail([Bind("email")] EntryNewEmailModel model)
         {
             if (ModelState.IsValid)
-                return Content($"EntryNewEmail: {entryNewEmailModel.email}");
+            {
+                Fetcher fetcher = new Fetcher(new Fetcher.ConfigFetcher()
+                {
+                    context = HttpContext,
+                    root = "https://localhost:7063/api"
+                });
+
+
+                Fetcher.Custom(async client => {
+                    var token = HttpContext.Request.Cookies["jwt"];
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    var res = await client.PutAsJsonAsync(requestUri: "https://localhost:7063/api/User/ChangeEmail", new Profile { Email = model.email});
+                    if (res.IsSuccessStatusCode)
+                    {
+                        
+                    }
+                });
+
+                Profile result;
+                Profile value = new Profile
+                {
+                    Email = model.email
+                };
+                fetcher.Update(out result, value);
+                if (result != null)
+                    return RedirectToAction(nameof(Login));
+
+            }
             return View(nameof(EntryNewEmail));
         }
+
+
+        //[HttpPost("/Account/EntryNewEmail")]
+        //public IActionResult EntryNewEmail([Bind("email")] EntryNewEmailModel entryNewEmailModel)
+        //{
+        //    if (ModelState.IsValid)
+        //        return Content($"EntryNewEmail: {entryNewEmailModel.email}");
+        //    return View(nameof(EntryNewEmail));
+        //}
 
         public class VerifyConfirmModel
         {
