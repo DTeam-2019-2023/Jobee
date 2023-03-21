@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jobee_API.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -40,6 +41,31 @@ namespace Jobee_API.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TbTypeAccount>(entity =>
+            {
+                entity.ToTable("tbTypeAccount");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(64)
+                    .HasColumnName("ID");
+
+                entity.HasData(
+                    new TbTypeAccount
+                    {
+                        Id = "ad",
+                        Name = "admin",
+                        Description = "quan tri vien"
+                    }
+                    );
+                entity.HasData(
+                    new TbTypeAccount
+                    {
+                        Id = "emp",
+                        Name = "employee",
+                        Description = "ung vien"
+                    }
+                    );
+            });
             modelBuilder.Entity<Activity>(entity =>
             {
                 entity.ToTable("Activity");
@@ -176,6 +202,14 @@ namespace Jobee_API.Entities
                     .HasForeignKey(d => d.IdtypeAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tbAccount_tbTypeAccount");
+                entity.HasData(
+                    new TbAccount { 
+                        Id="admin", 
+                        IdtypeAccount="ad", 
+                        Username="admin", 
+                        Passwork= HashPassword.hashPassword("admin")
+                    }
+                    );
             });
 
             modelBuilder.Entity<TbAdmin>(entity =>
@@ -285,14 +319,7 @@ namespace Jobee_API.Entities
                     .HasConstraintName("FK_tbProfile_tbAccount");
             });
 
-            modelBuilder.Entity<TbTypeAccount>(entity =>
-            {
-                entity.ToTable("tbTypeAccount");
-
-                entity.Property(e => e.Id)
-                    .HasMaxLength(64)
-                    .HasColumnName("ID");
-            });
+            
 
             OnModelCreatingPartial(modelBuilder);
         }

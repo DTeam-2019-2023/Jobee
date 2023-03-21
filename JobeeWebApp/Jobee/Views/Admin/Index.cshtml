@@ -12,271 +12,270 @@
     <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
 }
 
-<div class="container adminContainer">
-    <div class="leftContainer">
-        <div class="manageList">
-            <a href="#manageUser" class="manageItem active">
-                <!-- <img
-                    src="/images/User Group.svg"
-                    alt="icon user group"
-                    class="manageIcon"
-                  /> -->
-                <span class="managerName">Manager User</span>
-            </a>
-            <a href="#verifyRequest" class="manageItem">
-                <!-- <img
-                    src="/images/verify check.svg"
-                    alt="icon verify"
-                    class="manageIcon"
-                  /> -->
-                <span class="managerName">Verify Request</span>
-            </a>
+    <div class="container adminContainer">
+        <div class="leftContainer">
+            <div class="manageList">
+                <a href="#manageUser" class="manageItem active">
+                    <!-- <img
+                        src="/images/User Group.svg"
+                        alt="icon user group"
+                        class="manageIcon"
+                      /> -->
+                    <span class="managerName">Manager User</span>
+                </a>
+                <a href="#verifyRequest" class="manageItem">
+                    <!-- <img
+                        src="/images/verify check.svg"
+                        alt="icon verify"
+                        class="manageIcon"
+                      /> -->
+                    <span class="managerName">Verify Request</span>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="rightContainer">
-        <!-- MANAGER USER -->
-        <div class="manageUserContainer show" id="manageUser">
-            <div class="listTitle">
-                <h3>Manager User</h3>
-            </div>
-            <div class="listAction">
-                <!-- INPUT SEARCH -->
-                <form method="get" class="searchGroupContainer">
-                    <div class="searchGroup">
-                        <input type="text" class="searchGroupInput" placeholder="Searching ..." />
-                        <button type="submit" class="searchButton">Search</button>
-                    </div>
-                </form>
-                <button class="btn btn--Create" id="btnCreate">Create</button>
-            </div>
-            <table width="100%">
-                <col style="width: 20%" />
-                <col style="width: 20%" />
-                <col style="width: 20%" />
-                <col style="width: 10%" />
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Type Account</th>
-                    <th>Action</th>
-                </tr>
+        <div class="rightContainer">
+            <!-- MANAGER USER -->
+            <div class="manageUserContainer show" id="manageUser">
+                <div class="listTitle">
+                    <h3>Manager User</h3>
+                </div>
+                <div class="listAction">
+                    <!-- INPUT SEARCH -->
+                <form asp-controller="Admin" asp-action="Index" class="searchGroupContainer">
+                        <div class="searchGroup">
+                            <input type="text" class="searchGroupInput" placeholder="Searching ..." name="SearchText" />
+                            <button type="submit" class="searchButton">Search</button>
+                        </div>
+                    </form>
+                    <button class="btn btn--Create" id="btnCreate">Create</button>
+                </div>
+                <table width="100%">
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 20%" />
+                    <col style="width: 10%" />
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Type Account</th>
+                        <th>Action</th>
+                    </tr>
                 @if (ViewBag.Users != null)
-                    @foreach (TbAccount item in ViewBag.Users)
-                    {
-                        <tr>
-                            <td><span class="text--ellipsis">@item.Id</span></td>
-                            <td>@item.Username</td>
-                            <td class="typeAccount">
-                                <div class="typeAd typeName">
-                                    @if (item.IdtypeAccount == "emp")
-                                    {
-                                        @:User
-                                    }
-                                    else
-                                    {
-                                        @:Admin
-                                    }
-                                </div>
-                            </td>
-                            <td class="iconList">
-                                <a href="/user/cv/id" target="_blank">
-                                    <abbr title="View">
-                                        <img src="/images/View.svg" alt="view icon" class="actionIcon" />
-                                    </abbr>
-                                </a>
-                            </td>
-                        </tr>
-                    }
-            </table>
-            <div class="paging">
-                <ul class="pagingList">
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>...</li>
-                    <li>100</li>
-                    <li>101</li>
-                    <li>next</li>
-                </ul>
-            </div>
-        </div>
-        <!-- VERIFY REQUEST -->
-        <div class="verifyRequestContainer" id="verifyRequest">
-            <div class="listTitle">
-                <h3>Verify Request</h3>
-            </div>
-            <table width="100%">
-                <!-- <col style="width: 20%" />
-                  <col style="width: 20%" />
-                  <col style="width: 20%" />
-                  <col style="width: 10%" /> -->
-                <tr>
-                    <th>Full Name</th>
-                    <th>Certificate</th>
-                    <th>Expired Date</th>
-                    <th>Description</th>
-                    <th>URL</th>
-                    <th>Action</th>
-                </tr>
-                @if (ViewBag.Verified != null)
-                    @foreach (VerifyContent item in ViewBag.Verified)
-                    {
-                        <tr id="@item.Id" class="listItemVerify">
-                            <td>@item.FullName</td>
-                            <td>@item.Name</td>
-                            <td>
-                                <span class="startDate">@item.StartDate</span> -
-                                <span class="endDate">@item.EndDate</span>
-                            </td>
-                            <td>@item.Description</td>
-                            <td>
-                                <div class="urlFieldContainer">
-                                    <div class="urlField">
-                                        <input type="text" class="urlFieldInput" placeholder="@item.Url" readonly />
-                                        <span class="extendIconContainer">
-                                            <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="iconList">
-                                <abbr title="Accept">
-                                    <img src="/images/verify check.svg" alt="trash icon" class="actionIcon acceptAction"
-                                 target="idcertificate" />
+                @foreach(TbAccount item in ViewBag.Users)
+                {
+                    <tr>
+                        <td><span class="text--ellipsis">@item.Id</span></td>
+                        <td>@item.Username</td>
+                        <td class="typeAccount">
+                            <div class="typeAd typeName">
+                                @if(item.IdtypeAccount == "emp")
+                                {
+                                    @:User
+                                } else
+                                {
+                                    @:Admin
+                                }
+                            </div>
+                        </td>
+                        <td class="iconList">
+                            <a href="/user/cv/id" target="_blank">
+                                <abbr title="View">
+                                    <img src="/images/View.svg" alt="view icon" class="actionIcon" />
                                 </abbr>
-                              @*  <abbr title="Reject">
-                                    <img src="/images/iconClose.svg" alt="info icon" class="actionIcon rejectAction"
-                                 target="idcertificate" />
-                                </abbr>*@
-                            </td>
-                        </tr>
-                    }
-            </table>
-            <div class="paging">
-                <ul class="pagingList">
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>...</li>
-                    <li>100</li>
-                    <li>101</li>
-                    <li>next</li>
-                </ul>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </table>
+                <div class="paging">
+                    <ul class="pagingList">
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>...</li>
+                        <li>100</li>
+                        <li>101</li>
+                        <li>next</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- VERIFY REQUEST -->
+            <div class="verifyRequestContainer" id="verifyRequest">
+                <div class="listTitle">
+                    <h3>Verify Request</h3>
+                </div>
+                <table width="100%">
+                    <!-- <col style="width: 20%" />
+                      <col style="width: 20%" />
+                      <col style="width: 20%" />
+                      <col style="width: 10%" /> -->
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Certificate</th>
+                        <th>Expired Date</th>
+                        <th>Description</th>
+                        <th>URL</th>
+                        <th>Action</th>
+                    </tr>
+                @if(ViewBag.Verified!=null)
+                @foreach(VerifyContent item in ViewBag.Verified)
+                {
+                     <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.Name</td>
+                        <td>
+                            <span class="startDate">@item.StartDate</span> -
+                            <span class="endDate">@item.EndDate</span>
+                        </td>
+                        <td>@item.Description</td>
+                        <td>
+                            <div class="urlFieldContainer">
+                                <div class="urlField">
+                                    <input type="text" class="urlFieldInput" placeholder="@item.Url" readonly />
+                                    <span class="extendIconContainer">
+                                        <img src="/images/Extend.svg" alt="extend icon" id="extendIcon" />
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="iconList">
+                            <abbr title="Accept">
+                                <img src="/images/verify check.svg" alt="trash icon" class="actionIcon acceptAction"
+                                     target="idcertificate" />
+                            </abbr>
+                            <abbr title="Reject">
+                                <img src="/images/iconClose.svg" alt="info icon" class="actionIcon rejectAction"
+                                     target="idcertificate" />
+                            </abbr>
+                        </td>
+                    </tr>                    
+                }
+                </table>
+                <div class="paging">
+                    <ul class="pagingList">
+                        <li class="active">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>...</li>
+                        <li>100</li>
+                        <li>101</li>
+                        <li>next</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Admin create -->
-<div class="overlayPopup" id="overlayCreateAdmin">
-    <form method="post" class="popupContainer" id="updateProfileContainer">
-        <div class="formHeader">
-            <h3 class="headerTitle">Create Admin</h3>
-        </div>
-        <div class="formBody">
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">User Name</span>
-                        <span class="inputError">Input error message</span>
+    <!-- Admin create -->
+    <div class="overlayPopup" id="overlayCreateAdmin">
+        <form method="post" class="popupContainer" id="updateProfileContainer">
+            <div class="formHeader">
+                <h3 class="headerTitle">Create Admin</h3>
+            </div>
+            <div class="formBody">
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">User Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="password" name="" id="" class="input" />
+                            <span class="inputSpan">Password</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="password" name="" id="" class="input" />
+                            <span class="inputSpan">Confirm your Password</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Last Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">First Name</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Date of Birth</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputSelectContainer">
+                            <select name="InputSelectList" id="">
+                                <option value="" disabled selected hidden>Gender</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="inputSelectContainer">
+                            <select>
+                                <option value="" disabled selected hidden>Address</option>
+                                <option value="1">An Giang</option>
+                                <option value="2">Can Tho</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="number" name="" id="" class="input" />
+                            <span class="inputSpan">Phone Number</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Email</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="inputTextContainer">
+                            <input type="text" name="" id="" class="input" />
+                            <span class="inputSpan">Details Address</span>
+                            <span class="inputError">Input error message</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="password" name="" id="" class="input" />
-                        <span class="inputSpan">Password</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="password" name="" id="" class="input" />
-                        <span class="inputSpan">Confirm your Password</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
+            <div class="formFooter">
+                <button class="btn btn--hover btnCancel" type="button">Cancel</button>
+                <button class="btn btn--button" type="submit">Update</button>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">Last Name</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">First Name</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">Date of Birth</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inputSelectContainer">
-                        <select name="InputSelectList" id="">
-                            <option value="" disabled selected hidden>Gender</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="inputSelectContainer">
-                        <select>
-                            <option value="" disabled selected hidden>Address</option>
-                            <option value="1">An Giang</option>
-                            <option value="2">Can Tho</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="number" name="" id="" class="input" />
-                        <span class="inputSpan">Phone Number</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">Email</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="inputTextContainer">
-                        <input type="text" name="" id="" class="input" />
-                        <span class="inputSpan">Details Address</span>
-                        <span class="inputError">Input error message</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="formFooter">
-            <button class="btn btn--hover btnCancel" type="button">Cancel</button>
-            <button class="btn btn--button" type="submit">Update</button>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 
 <!-- POPUP CONFIRM REJECT -->
 <div class="overlayNotifyContainer" id="deleteNotify">

@@ -33,6 +33,8 @@ namespace Jobee_API.Controllers
         }
 
         [HttpPost]
+        [Route("signup")]
+        [AllowAnonymous]
         public async Task<IActionResult> signupAccountAdmin([FromBody] User user)
         {
             string userid = Guid.NewGuid().ToString();

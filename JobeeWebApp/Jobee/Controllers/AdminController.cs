@@ -32,10 +32,16 @@ namespace Jobee.Controllers
             public string Url { get; set; }
 
         }
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> IndexAsync(string SearchText ="")
         {
             List<TbAccount> accounts;
             fetcher.GetAll(out accounts);
+
+            if(SearchText != "" && SearchText != null)
+            {
+                accounts = accounts.Where(p => p.Username.Contains(SearchText)).ToList();
+            }
+
             List<VerifyContent> listVerifies = new List<VerifyContent>();
 
             await Fetcher.Custom(async client =>

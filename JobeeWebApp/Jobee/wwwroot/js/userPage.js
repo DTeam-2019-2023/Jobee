@@ -37,6 +37,7 @@ $(".closeIcon").on("click", function () {
 
 $(".btn.btn--Success").on("click", function () {
     $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+    location.reload();
 });
 //#endregion
 
