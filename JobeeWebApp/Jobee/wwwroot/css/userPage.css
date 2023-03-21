@@ -498,9 +498,9 @@ body {
   cursor: pointer;
   transition: 0.25s ease-in;
 }
-.contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon:hover, .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified:hover {
+/*.contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon:hover, .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified:hover {
   filter: brightness(0) saturate(100%) invert(67%) sepia(38%) saturate(6875%) hue-rotate(123deg) brightness(101%) contrast(98%);
-}
+}*/
 .contentNavContainer .contentNavBody .contentItem .itemFirst .verifyIcon--verified {
   filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
 }
