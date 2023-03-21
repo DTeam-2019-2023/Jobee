@@ -28,7 +28,7 @@ namespace Jobee.Controllers
             public string Url { get; set; }
 
         }
-        public async Task<IActionResult> IndexAsync(string SearchText ="")
+        public async Task<IActionResult> Index(string SearchText ="")
         {
             List<TbAccount> accounts;
             fetcher.GetAll(out accounts);

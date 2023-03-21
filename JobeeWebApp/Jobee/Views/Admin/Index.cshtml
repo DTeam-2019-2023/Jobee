@@ -1,7 +1,14 @@
 ﻿@using Jobee_API.Entities;
 @using static Jobee.Controllers.AdminController;
+@model Jobee.Controllers.AccountController.SignupAdminModel
+
 @{
-    ViewData["Title"] = "Admin page";
+    ViewData["Title"] = "SignupAdmin";
+    bool validationField(string input)
+    {
+        var state = ViewData.ModelState.GetFieldValidationState(input);
+        return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
+    }
 }
 @section Styles{
     <style>
@@ -169,7 +176,7 @@
     </div>
     <!-- Admin create -->
     <div class="overlayPopup" id="overlayCreateAdmin">
-        <form method="post" class="popupContainer" id="updateProfileContainer">
+    <form method="post" class="popupContainer" id="updateProfileContainer" asp-controller="Account" asp-action="SignupAdmin">
             <div class="formHeader">
                 <h3 class="headerTitle">Create Admin</h3>
             </div>
@@ -177,67 +184,67 @@
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="text" class="input" asp-for="Username" />
                             <span class="inputSpan">User Name</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="Username"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="password" name="" id="" class="input" />
+                            <input type="password" class="input" asp-for="Password" />
                             <span class="inputSpan">Password</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="Password"></span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="password" name="" id="" class="input" />
+                            <input type="password" class="input" asp-for="rePassword" />
                             <span class="inputSpan">Confirm your Password</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="rePassword"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="text" class="input" asp-for="Lastname" />
                             <span class="inputSpan">Last Name</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="Lastname"></span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="text" class="input" asp-for="Firstname" />
                             <span class="inputSpan">First Name</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="Firstname"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="date" class="input" asp-for="dob" />
                             <span class="inputSpan">Date of Birth</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="dob"></span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="inputSelectContainer">
-                            <select name="InputSelectList" id="">
+                            <select name="InputSelectList" asp-for="Gender">
                                 <option value="" disabled selected hidden>Gender</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
+                                <option value="true">Male</option>
+                                <option value="false">Female</option>
                             </select>
                         </div>
                     </div>
                     <div class="col">
                         <div class="inputSelectContainer">
-                            <select>
+                            <select asp-for="Address">
                                 <option value="" disabled selected hidden>Address</option>
-                                <option value="1">An Giang</option>
-                                <option value="2">Can Tho</option>
+                                <option value="An Giang">An Giang</option>
+                                <option value="Can Tho">Can Tho</option>
                             </select>
                         </div>
                     </div>
@@ -245,34 +252,34 @@
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="number" name="" id="" class="input" />
+                            <input class="input" asp-for="PhoneNumber" />
                             <span class="inputSpan">Phone Number</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="PhoneNumber"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="text" class="input" asp-for="email" />
                             <span class="inputSpan">Email</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="email"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="inputTextContainer">
-                            <input type="text" name="" id="" class="input" />
+                            <input type="text" class="input" asp-for="DetailAddress" />
                             <span class="inputSpan">Details Address</span>
-                            <span class="inputError">Input error message</span>
+                            <span class="inputError" asp-validation-for="DetailAddress"></span>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="formFooter">
                 <button class="btn btn--hover btnCancel" type="button">Cancel</button>
-                <button class="btn btn--button" type="submit">Update</button>
+                <button class="btn btn--button btnUpdate" type="submit">Update</button>
             </div>
         </form>
     </div>

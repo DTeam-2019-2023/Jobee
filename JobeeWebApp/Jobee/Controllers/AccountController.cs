@@ -94,8 +94,14 @@ namespace Jobee.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-
-                return RedirectToAction(nameof(Index), nameof(User));
+                if (type.Equals("ad"))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index), nameof(User));
+                }
             }
             return View(nameof(Login));
         }
@@ -119,6 +125,8 @@ namespace Jobee.Controllers
             public string email { get; set; }
 
         }
+
+        
         //[BindProperty]
         //public SignupModel signupModel { get; set; } = default!;
         public IActionResult Signup()
@@ -137,6 +145,48 @@ namespace Jobee.Controllers
             return View(nameof(Signup));
 
         }
+
+        public class SignupAdminModel
+        {
+            public string Username { get; set; }
+            [Required]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
+            [DataType(dataType: DataType.Password)]
+            public string Password { get; set; }
+            [Required]
+            [Compare(nameof(this.Password), ErrorMessage = "The password and confirmation password do not match.")]
+            [DisplayName("Confirm Password")]
+            public string rePassword { get; set; }
+            public string Firstname { get; set; }
+            public string Lastname { get; set; }
+            public DateTime dob { get; set; }
+            public bool Gender { get; set; }
+            public string Address { get; set; }
+            public string PhoneNumber { get; set; }
+            public string email { get; set; }
+            public string DetailAddress { get; set; }
+
+        }
+
+        public IActionResult SignupAdmin()
+        {
+            return View();
+        }
+        [HttpPost("/Account/SignupAdmin")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignupAdminForm([Bind("Username, Password, rePassword, Firstname,Lastname, dob, Gender, Address, PhoneNumber, email, DetailAddress ")] SignupAdminModel signupModel)
+        {
+            //bước này ok hết
+            if (ModelState.IsValid)
+            {
+                if (await Fetcher.SignupAdminAsync(signupModel, "https://localhost:7063/api/Admin/signup"))
+                    return RedirectToAction("Index", "Admin");
+            }
+            return RedirectToAction("Index", "Admin");
+
+
+        }
+
         public class ForgetPasswordModel
         {
             [Required]
