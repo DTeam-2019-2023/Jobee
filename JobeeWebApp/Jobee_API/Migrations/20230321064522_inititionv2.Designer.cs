@@ -4,6 +4,7 @@ using Jobee_API.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jobee_API.Migrations
 {
     [DbContext(typeof(Project_JobeeContext))]
-    partial class Project_JobeeContextModelSnapshot : ModelSnapshot
+    [Migration("20230321064522_inititionv2")]
+    partial class inititionv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -247,15 +249,6 @@ namespace Jobee_API.Migrations
                     b.HasIndex("IdtypeAccount");
 
                     b.ToTable("tbAccount", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "admin",
-                            IdtypeAccount = "ad",
-                            Passwork = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
-                            Username = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.TbAdmin", b =>

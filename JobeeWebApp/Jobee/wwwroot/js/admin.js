@@ -37,21 +37,40 @@ $(".btn--No").on("click", function () {
   $(".overlayNotifyContainer").hide().trigger("hide");
 });
 //accept
-$(".acceptAction").on("click", function () {
-  verify($(this).attr("target"), true);
-});
+$('.acceptAction').on('click', function () {
+    var parent = $(this).closest('.listItemVerify');
+    var id = $(parent).attr('id');
+    $("#verifyNotify").trigger("confirmVerify", { id });
+})
 
-function verify(id, isVerify) {
-  const input = $("<input type='hidden' name='id'>");
-  input.val(id);
-  if (isVerify) {
-    $("#verifyNotify").find("form").append(input);
+$("#verifyNotify").on("confirmVerify", function (e, data) {
+    const idVerify = $(`<input type="hidden" name="id">`);
+
+    idVerify.val(data.id);
+
+    $("#verifyNotify>form").append(idVerify);
+
+    console.log($("#verifyNotify>form"));
     $("#verifyNotify").show();
-  } else {
-    $("#deleteNotify").find("form").append(input);
-    $("#deleteNotify").show();
-  }
-}
+}).on("submit", "form", function (e) {
+    e.preventDefault();
+    var data = $(this).serialize();
+    var url = $(this).attr("action");
+    $.post(url, data, function (data) {
+        if (data.status == "success") {
+            //success
+            //$(`#${data.id}`).remove();
+            $("#verifyNotify").hide().trigger("hide");
+            $("#successNotify").show();
+        } else {
+            //fail
+            $("#verifyNotify").hide().trigger("hide");
+            $("#failNotify").show();
+        }
+    }).fail(function () {
+        alert("error");
+    })
+});
 
 $("#deleteNotify").on("confirmDelete", function (e, id) {
   const input = $("<input type='hidden' name='id'>");

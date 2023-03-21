@@ -158,8 +158,8 @@
                                     <div class="itemFirst">
                                         <img src="/images/Certificate.svg" alt="running icon" class="titleIcon" />
                                         <span class="titleName">@item.Name</span>
-                                        <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
-                                             class="verifyIcon" />
+                                         <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
+                                     class="@(item.IsVertify == true ?"verifyIcon--verified": "verifyIcon")" />
                                     </div>
 
                                     <div class="itemThird" iditem="@item.Id">
@@ -344,6 +344,44 @@
             </div>
         </div>
     </div>
+
+    @*POPUP VERIFY REQUEST*@
+    <div class="overlayNotifyContainer" id="verifyNotify">
+            <form method="post" asp-controller="User" asp-action="SendRequest"
+            class="notifyContainer">
+                <div class="header" id="verifyHeader">
+                    <div class="headerClose">
+                        <svg class="closeIcon" width="18" height="18" viewBox="0 0 18 18" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M9 0C4.03832 0 0 4.03832 0 9C0 13.9617 4.03832 18 9 18C13.9617 18 18 13.9617 18 9C18 4.03832 13.9617 0 9 0ZM9 1.5C13.151 1.5 16.5 4.84898 16.5 9C16.5 13.151 13.151 16.5 9 16.5C4.84898 16.5 1.5 13.151 1.5 9C1.5 4.84898 4.84898 1.5 9 1.5ZM6.53027 5.46973L5.46973 6.53027L7.93945 9L5.46973 11.4697L6.53027 12.5303L9 10.0605L11.4697 12.5303L12.5303 11.4697L10.0605 9L12.5303 6.53027L11.4697 5.46973L9 7.93945L6.53027 5.46973Z"
+                                fill="white" />
+                        </svg>
+                    </div>
+                    <div class="headerContent">
+                        <svg width="100" height="100" viewBox="0 0 16 16" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_178_2149)">
+                                <path
+                                    d="M15.8533 8.52885L14.9182 7.05529L15.4711 5.40144C15.548 5.17548 15.4543 4.92789 15.2476 4.80769L13.7355 3.9375L13.4567 2.21394C13.4182 1.97837 13.2187 1.80289 12.9831 1.79327L11.2379 1.72596L10.1899 0.326926C10.048 0.137022 9.78843 0.0745219 9.57689 0.175483L7.99997 0.925483L6.42304 0.175483C6.2091 0.0745219 5.95189 0.137022 5.80766 0.326926L4.76199 1.72596L3.01679 1.79327C2.78122 1.80289 2.5817 1.97837 2.54324 2.21394L2.26439 3.9351L0.752371 4.80769C0.545641 4.92548 0.451891 5.17308 0.52641 5.39904L1.0817 7.05529L0.146602 8.52885C0.0191982 8.73077 0.0528521 8.99279 0.223525 9.15866L1.48314 10.3678L1.34372 12.1058C1.32449 12.3438 1.47353 12.5601 1.70189 12.6274L3.37978 13.1106L4.06247 14.7163C4.15622 14.9351 4.38939 15.0625 4.62256 15.012L6.3317 14.6611L7.68266 15.7668C7.77401 15.8413 7.88699 15.8798 7.99997 15.8798C8.11295 15.8798 8.22353 15.8413 8.31728 15.7668L9.66824 14.6611L11.3774 15.012C11.6105 15.0625 11.8461 14.9375 11.9375 14.7163L12.6202 13.1106L14.298 12.6274C14.5264 12.5625 14.6754 12.3438 14.6562 12.1058L14.5168 10.3678L15.7764 9.15866C15.9471 8.99279 15.9807 8.73077 15.8533 8.52885ZM11.6178 6.1226L8.11535 11.3702C7.98314 11.5649 7.77641 11.6971 7.57449 11.6971C7.37016 11.6971 7.1442 11.5817 6.99756 11.4375L4.42785 8.82452C4.25237 8.64664 4.25237 8.35818 4.42785 8.17789L5.06247 7.53366C5.23795 7.35577 5.5216 7.35577 5.69708 7.53366L7.37016 9.23318L10.1298 5.09856C10.2668 4.88943 10.548 4.83654 10.7524 4.97837L11.4976 5.49039C11.7019 5.62981 11.7548 5.91587 11.6178 6.1226Z"
+                                    fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_178_2149">
+                                    <rect width="16" height="16" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <h3 class="contentTitle">VERIFY</h3>
+                        <p class="contentDescription">Are you sure to verify this certificate?</p>
+                    </div>
+                </div>
+                <div class="buttonContent">
+                    <button class="btn btn--verifyBtn">Verify</button>
+                    <button class="btn btn--No">Cancel</button>
+                </div>
+            </form>
+        </div>
 
     @{
         await Html.RenderPartialAsync("_UserModelPartial");

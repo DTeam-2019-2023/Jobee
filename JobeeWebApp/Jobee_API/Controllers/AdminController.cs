@@ -10,7 +10,6 @@ namespace Jobee_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "ad")]
     public class AdminController : ControllerBase
     {
         private readonly Project_JobeeContext _dbContext;
@@ -34,6 +33,8 @@ namespace Jobee_API.Controllers
         }
 
         [HttpPost]
+        [Route("signup")]
+        [AllowAnonymous]
         public async Task<IActionResult> signupAccountAdmin([FromBody] User user)
         {
             string userid = Guid.NewGuid().ToString();
@@ -57,9 +58,9 @@ namespace Jobee_API.Controllers
         }
 
         [HttpPut]
-        [Route("VerifyCertificate/{id}")]
+        [Route("VerifyCertificate")]
         [Authorize(Roles = "ad")]
-        public async Task<IActionResult> VerifyCertificate(string id)
+        public async Task<ActionResult<Certificate>> VerifyCertificate([FromBody] string id)
         {
             var existIdCer = await _dbContext.Certificates.FindAsync(id);
             if (existIdCer == null)
@@ -76,22 +77,11 @@ namespace Jobee_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CertificateExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return Conflict();
             }
-            return Ok(existIdCer);
+            return existIdCer;
         }
 
-        private bool CertificateExists(string id)
-        {
-            return _dbContext.Certificates.Any(e => e.Id == id);
-        }
 
         [HttpGet]
         [Route("GetVerifies")]
@@ -101,14 +91,16 @@ namespace Jobee_API.Controllers
             var result = (from certs in _dbContext.Certificates
                           join cvs in _dbContext.TbCvs on certs.Idcv equals cvs.Id
                           join acc in _dbContext.TbProfiles on cvs.Idaccount equals acc.Idaccount
+                          where certs.IsVertify == false
                           select new
                           {
+                              Id = certs.Id,
                               FullName = acc.FirstName + " " + acc.LastName,
                               Name = certs.Name,
                               StartDate = certs.StartDate,
                               EndDate = certs.EndDate,
                               Description = certs.Description,
-                              Url = certs.Url
+                              Url = certs.Url,
                           }).ToList<object>();
             return result;
         }

@@ -37,6 +37,7 @@ $(".closeIcon").on("click", function () {
 
 $(".btn.btn--Success").on("click", function () {
     $(".overlayNotifyContainer,.overlayPopup").hide().trigger("hide");
+    location.reload();
 });
 //#endregion
 
@@ -205,8 +206,41 @@ $("#updateProfile").on("click", function (e) {
 //#endregion
 
 //#region Verify
-$(".verifyIcon").on("click", function () {
-    $("#verifyNotify").show();
-});
+//$(".verifyIcon").on("click", function () {
+//    //$("#verifyNotify").show();
+//    var parent = $(this).closest('.contentItem');
+//    var id = $(parent).attr('id');
+//    $("#verifyNotify").trigger("confirmVerify", { id });
+
+//});
+
+//$("#verifyNotify").on("confirmVerify", function (e, data) {
+//    const idVerify = $(`<input type="hidden" name="id">`);
+
+//    idVerify.val(data.id);
+
+//    $("#verifyNotify>form").append(idVerify);
+
+//    console.log($("#deleteNotify>form"));
+//    $("#verifyNotify").show();
+//}).on("submit", "form", function (e) {
+//    e.preventDefault();
+//    var data = $(this).serialize();
+//    var url = $(this).attr("action");
+//    $.post(url, data, function (data) {
+//        if (data.status == "success") {
+//            //success
+//            $(`#${data.id}`).remove();
+//            $("#deleteNotify").hide().trigger("hide");
+//            $("#successNotify").show();
+//        } else {
+//            //fail
+//            $("#deleteNotify").hide().trigger("hide");
+//            $("#failNotify").show();
+//        }
+//    }).fail(function () {
+//        alert("error");
+//    })
+//});
 //#endregion
 
