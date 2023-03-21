@@ -136,5 +136,19 @@ namespace Jobee_API.Controllers
 
             return Task.FromResult(res);
         }
+
+        [HttpPut]
+        [Route("/api/User/Update")]
+        [Authorize(Roles = "emp,ad")]
+        public async Task<ActionResult<User>> ChangePasswordAction([FromBody] User model)
+        {
+            string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+            var u = _dbContext.TbAccounts.Single(a => a.Id.Equals(iduser));
+                u.Passwork = model.password;
+            u.Passwork =  Tools.HashPassword.hashPassword(u.Passwork);
+            _dbContext.SaveChanges();
+            return model;
+        }
     }
 }
