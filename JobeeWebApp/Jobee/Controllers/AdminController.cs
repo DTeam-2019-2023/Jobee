@@ -6,6 +6,10 @@ using Newtonsoft.Json.Linq;
 
 namespace Jobee.Controllers
 {
+    public interface IAdminController{
+    
+    }
+
     public class AdminController : Controller
     {
         private Fetcher fetcher;
@@ -28,7 +32,7 @@ namespace Jobee.Controllers
             public string Url { get; set; }
 
         }
-        public async Task<IActionResult> IndexAsync(string SearchText ="")
+        public async Task<IActionResult> IndexAsync(string SearchText = default!)
         {
             List<TbAccount> accounts;
             fetcher.GetAll(out accounts);
