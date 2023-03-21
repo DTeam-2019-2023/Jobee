@@ -41,9 +41,9 @@
                 </div>
                 <div class="listAction">
                     <!-- INPUT SEARCH -->
-                    <form method="get" class="searchGroupContainer">
+                    <form asp-controller="Admin" asp-action="Index">
                         <div class="searchGroup">
-                            <input type="text" class="searchGroupInput" placeholder="Searching ..." />
+                            <input type="text" class="searchGroupInput" placeholder="Searching ..." name="SearchText" />
                             <button type="submit" class="searchButton">Search</button>
                         </div>
                     </form>
@@ -60,6 +60,7 @@
                         <th>Type Account</th>
                         <th>Action</th>
                     </tr>
+                @if (ViewBag.Users != null)
                 @foreach(TbAccount item in ViewBag.Users)
                 {
                     <tr>

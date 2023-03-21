@@ -14,6 +14,8 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Reflection;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace Jobee.Controllers
 {
@@ -80,6 +82,10 @@ namespace Jobee.Controllers
             public List<Award> Awards { get; set; } = default!;
             public _ModelManagerment modelPopup { get; set; } = new();
         }
+
+
+
+
         List<string> DesiredWorkLocations = new List<string>() { "An Giang", "Bà Rịa-Vũng Tàu", "Bạc Liêu", "Bắc Kạn", "Bắc Giang", "Bắc Ninh", "Bến Tre", "Bình Dương", "Bình Định", "Bình Phước", "Bình Thuận", "Cà Mau", "Cao Bằng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Tĩnh", "Hải Dương", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái", "Phú Quốc", "Đà Nẵng", "Hải Phòng", "Hà Nội", "Thành phố Hồ Chí Minh", "Cần Thơ" };
         List<string> Degrees = new List<string>() { "High school diploma", "Associate's degree", "Bachelor's degree", "Master's degree", "Doctorate degree" };
         List<string> CurrentJobs = new List<string>() { "Collaborator", "Specialist - Staff", "Expert", "Team Leader - Supervisor", "Middle Manager", "Senior Manager" };
@@ -155,7 +161,7 @@ namespace Jobee.Controllers
                 model_Certificate cer;
                 if (cers != null)
                 {
-                    _model.Certificates= cers;
+                    _model.Certificates = cers;
                 }
 
                 List<Project> projs;
@@ -380,11 +386,11 @@ namespace Jobee.Controllers
                 ViewData["id"] = data.Id;
                 return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", new model_Project
                 {
-                    Name= data.Name,
-                    Description= data.Description,
-                    Role= data.Role,
-                    Technology= data.Technology,
-                    TeamSize= data.TeamSize,
+                    Name = data.Name,
+                    Description = data.Description,
+                    Role = data.Role,
+                    Technology = data.Technology,
+                    TeamSize = data.TeamSize,
                     StartDate = data.StartDate,
                     EndDate = data.EndDate
                 });
@@ -402,11 +408,11 @@ namespace Jobee.Controllers
                 ViewData["id"] = data.Id;
                 return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", new model_Certificate
                 {
-                    Name= data.Name,
-                    EndDate= data.EndDate,
-                    StartDate= data.StartDate,
-                    Url= data.Url,
-                    Description= data.Description,
+                    Name = data.Name,
+                    EndDate = data.EndDate,
+                    StartDate = data.StartDate,
+                    Url = data.Url,
+                    Description = data.Description,
                     IsVertify = data.IsVertify
                 });
             }
@@ -424,11 +430,11 @@ namespace Jobee.Controllers
                 ViewData["id"] = data.Id;
                 return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award
                 {
-                    Name= data.Name,
-                    Description= data.Description,
+                    Name = data.Name,
+                    Description = data.Description,
                     Role = data.Role,
                     StartDate = data.StartDate,
-                    EndDate= data.EndDate
+                    EndDate = data.EndDate
                 });
             }
             return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award());
@@ -538,7 +544,7 @@ namespace Jobee.Controllers
             return PartialView("~/Views/User/Popup/Edit/_editAward.cshtml", data);
         }
 
-        
+
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteContentNav(string navType, string id)
         {
@@ -600,6 +606,25 @@ namespace Jobee.Controllers
                 return RedirectToAction(nameof(Index));
             return Conflict();
         }
+
+        public class UserChangePassword
+        {
+            [Required]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
+            [DataType(dataType: DataType.Password)]
+            public string oddPassword { get; set; }
+
+            [Required]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
+            [DataType(dataType: DataType.Password)]
+            public string newPassword { get; set; }
+            [Required]
+            [Compare(nameof(this.rePassword), ErrorMessage = "The password and confirmation password do not match.")]
+            [DisplayName("Confirm Password")]
+            public string rePassword { get; set; }
+        }
+       
+
     }
 
 }
