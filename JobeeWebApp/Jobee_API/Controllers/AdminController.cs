@@ -34,26 +34,42 @@ namespace Jobee_API.Controllers
 
         [HttpPost]
         [Route("signup")]
-        [AllowAnonymous]
-        public async Task<IActionResult> signupAccountAdmin([FromBody] User user)
+        public async Task<IActionResult> signupAccountAdmin([FromBody] Admin admin)
         {
             string userid = Guid.NewGuid().ToString();
-            var dbUser = _dbContext.TbAccounts.Where(u => u.Username.Equals(user.username) && u.IdtypeAccount.Equals("ad")).SingleOrDefault();
-            if (dbUser != null)
+            string proid = Guid.NewGuid().ToString();
+            var dbAdmin_account = _dbContext.TbAccounts.Where(u => u.Username.Equals(admin.Username) && u.IdtypeAccount.Equals("ad")).SingleOrDefault();
+            if (dbAdmin_account != null)
             {
                 return BadRequest("Username already exist");
             }
-            user.password = HashPassword.hashPassword(user.password);
             TbAccount account = new TbAccount()
             {
                 Id = userid,
                 IdtypeAccount = "ad",
-                Username = user.username,
-                Passwork = user.password
+                Username = admin.Username,
+                Passwork = HashPassword.hashPassword(admin.Password)
             };
-
             _dbContext.TbAccounts.Add(account);
             _dbContext.SaveChanges();
+
+            TbProfile profile = new TbProfile()
+            {
+                Id = proid,
+                Idaccount = userid,
+                LastName = admin.Lastname,
+                FirstName = admin.Firstname,
+                Gender = admin.Gender,
+                DoB = admin.dob,
+                PhoneNumber = admin.PhoneNumber,
+                Address = admin.Address,
+                SocialNetwork = admin.SocialNetwork,
+                DetailAddress = admin.DetailAddress,
+                Email = admin.email
+            };
+            _dbContext.TbProfiles.Add(profile);
+            _dbContext.SaveChanges();
+
             return Ok(account);
         }
 

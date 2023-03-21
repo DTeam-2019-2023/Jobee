@@ -71,6 +71,16 @@ namespace Jobee
             var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
             return (int) respone.StatusCode;
         }
+        public static async Task<bool> SignupAdminAsync(SignupAdminModel model, string signupUri)
+        {
+            var client = new HttpClient();
+            var contentType = new MediaTypeWithQualityHeaderValue("application/json");
+            client.DefaultRequestHeaders.Accept.Add(contentType);
+
+            //đang lỗi ở đây
+            var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
+            return respone.IsSuccessStatusCode;
+        }
         public async Task<bool> LogoutAsync()
         {
             var result = await client.PostAsync(requestUri: $"{ApiUrl["root"]}/Users/logout", null);

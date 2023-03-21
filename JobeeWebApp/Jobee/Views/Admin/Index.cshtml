@@ -1,7 +1,14 @@
 ﻿@using Jobee_API.Entities;
 @using static Jobee.Controllers.AdminController;
+@model Jobee.Controllers.AccountController.SignupAdminModel
+
 @{
-    ViewData["Title"] = "Admin page";
+    ViewData["Title"] = "SignupAdmin";
+    bool validationField(string input)
+    {
+        var state = ViewData.ModelState.GetFieldValidationState(input);
+        return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
+    }
 }
 @section Styles{
     <style>
