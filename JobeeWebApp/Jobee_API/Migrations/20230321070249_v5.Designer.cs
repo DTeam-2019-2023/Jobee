@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Jobee_API.Migrations
 {
     [DbContext(typeof(Project_JobeeContext))]
-    [Migration("20230321064522_inititionv2")]
-    partial class inititionv2
+    [Migration("20230321070249_v5")]
+    partial class v5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -249,6 +249,15 @@ namespace Jobee_API.Migrations
                     b.HasIndex("IdtypeAccount");
 
                     b.ToTable("tbAccount", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin",
+                            IdtypeAccount = "ad",
+                            Passwork = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
+                            Username = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.TbAdmin", b =>
@@ -452,6 +461,20 @@ namespace Jobee_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tbTypeAccount", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad",
+                            Description = "quan tri vien",
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = "emp",
+                            Description = "ung vien",
+                            Name = "employee"
+                        });
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.Activity", b =>

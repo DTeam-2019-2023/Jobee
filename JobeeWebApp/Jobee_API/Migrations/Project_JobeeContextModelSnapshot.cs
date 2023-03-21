@@ -459,6 +459,20 @@ namespace Jobee_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tbTypeAccount", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad",
+                            Description = "quan tri vien",
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            Id = "emp",
+                            Description = "ung vien",
+                            Name = "employee"
+                        });
                 });
 
             modelBuilder.Entity("Jobee_API.Entities.Activity", b =>

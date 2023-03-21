@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Jobee_API.Migrations
 {
-    public partial class V1 : Migration
+    public partial class v5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -145,7 +145,8 @@ namespace Jobee_API.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "date", nullable: false),
                     EndDate = table.Column<DateTime>(type: "date", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,12 +265,17 @@ namespace Jobee_API.Migrations
             migrationBuilder.InsertData(
                 table: "tbTypeAccount",
                 columns: new[] { "ID", "Description", "Name" },
-                values: new object[] { "ad", "role for admin manager", "Admin" });
+                values: new object[] { "ad", "quan tri vien", "admin" });
 
             migrationBuilder.InsertData(
                 table: "tbTypeAccount",
                 columns: new[] { "ID", "Description", "Name" },
-                values: new object[] { "emp", "role for employee", "Employee" });
+                values: new object[] { "emp", "ung vien", "employee" });
+
+            migrationBuilder.InsertData(
+                table: "tbAccount",
+                columns: new[] { "ID", "IDTypeAccount", "Passwork", "Username" },
+                values: new object[] { "admin", "ad", "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activity_IDCV",

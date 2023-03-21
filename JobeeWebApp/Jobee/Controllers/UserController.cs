@@ -333,7 +333,6 @@ namespace Jobee.Controllers
         }
 
         [HttpPost]
-
         public IActionResult ViewEducation(string id)
         {
             Education data;
