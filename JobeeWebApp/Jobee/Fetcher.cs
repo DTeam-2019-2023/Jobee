@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Data;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
@@ -60,14 +62,14 @@ namespace Jobee
             return default!;
         }
 
-        public static async Task<bool> SignupAsync(SignupModel model, string signupUri)
+        public static async Task<int> SignupAsync(SignupModel model, string signupUri)
         {
             var client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
             client.DefaultRequestHeaders.Accept.Add(contentType);
 
             var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
-            return respone.IsSuccessStatusCode;
+            return (int) respone.StatusCode;
         }
         public async Task<bool> LogoutAsync()
         {
@@ -111,10 +113,10 @@ namespace Jobee
         }
         //[HttpPut]
         //[Route("Update")]
-        public bool Update<T, U>(out T result, U Data) where T : class where U : notnull
+        public int Update<T, U>(out T result, U Data) where T : class where U : notnull
         {
-            result = UpdateAsync<T, U>(Data).Result;
-            return true;
+            (var status ,result) = UpdateAsync<T, U>(Data).Result;
+            return (int) status;
         }
         //[HttpPut]
         //[Route("UpdateById/{id}")]
@@ -191,7 +193,7 @@ namespace Jobee
             }
             return default!;
         }
-        private async Task<T> UpdateAsync<T, U>(U Data)
+        private async Task<(HttpStatusCode,T)> UpdateAsync<T, U>(U Data)
         {
             UriBuilder builder = new UriBuilder(ApiUrl["root"]);
             builder.Path += $"/{typeof(T).Name}/{nameof(Update)}";
@@ -207,9 +209,9 @@ namespace Jobee
                     PropertyNameCaseInsensitive = true
                 };
                 var values = JsonSerializer.Deserialize<T>(strData, options);
-                return values!;
+                return (res.StatusCode, values!);
             }
-            return default!;
+            return (res.StatusCode, default!);
         }
         private async Task<T> UpdateByIdAsync<T, U>(U Data, string id)
             where T : class

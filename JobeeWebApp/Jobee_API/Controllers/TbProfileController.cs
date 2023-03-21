@@ -78,7 +78,7 @@ namespace Jobee_API.Controllers
                     DoB = tbProfile.DoB,
                     PhoneNumber = tbProfile.PhoneNumber,
                     Address = tbProfile.Address,
-                    SocialNetwork = tbProfile.SocialNetwork,
+                    SocialNetwork = tbProfile.SocialNetwork?? string.Empty,
                     DetailAddress = tbProfile.DetailAddress,
                     Email = tbProfile.Email
                 };
@@ -93,7 +93,7 @@ namespace Jobee_API.Controllers
             existIdProfile.PhoneNumber = tbProfile.PhoneNumber;
             existIdProfile.DoB = tbProfile.DoB;
             existIdProfile.Gender = tbProfile.Gender;
-            existIdProfile.SocialNetwork = tbProfile.SocialNetwork;
+            existIdProfile.SocialNetwork = tbProfile.SocialNetwork ?? string.Empty;
             existIdProfile.DetailAddress = tbProfile.DetailAddress;
             existIdProfile.Email = tbProfile.Email;
             _context.Update(existIdProfile);

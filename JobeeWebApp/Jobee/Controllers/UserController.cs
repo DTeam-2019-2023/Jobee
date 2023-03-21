@@ -140,7 +140,7 @@ namespace Jobee.Controllers
                     WorkingForm = tbCV.WorkingForm,
                     CarrerObjiect = tbCV.CarrerObject,
                     SoftSkill = tbCV.SoftSkill,
-                    Avatar = "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg"
+                    Avatar = "/images/Avatar/default_avt.jfif"
                 };
                 List<Education> edus;
                 fetcher.GetAll(out edus);
@@ -585,7 +585,7 @@ namespace Jobee.Controllers
         {
             TbCv cv;
             var result = fetcher.Update(out cv, model);
-            if (result)
+            if (result == (int)HttpStatusCode.OK)
                 return RedirectToAction(nameof(Index));
             return Conflict();
         }
@@ -601,11 +601,20 @@ namespace Jobee.Controllers
 
         public IActionResult UpdateProfile([Bind(new[] { "LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email" })] Profile model)
         {
+            if (ModelState.IsValid)
+            {
             TbProfile profile;
             var result = fetcher.Update(out profile, model);
-            if (result)
+            if (result == (int)HttpStatusCode.OK)
                 return RedirectToAction(nameof(Index));
-            return Conflict();
+            }
+            ModelState.AddModelError("UpdateProfile", "not valid");
+            ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
+            ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
+            ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
+            ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
+            ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
+            return View(nameof(Index),_model);
         }
 
         public class UserChangePassword

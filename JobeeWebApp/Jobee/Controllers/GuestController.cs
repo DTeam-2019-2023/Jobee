@@ -106,6 +106,10 @@ namespace Jobee.Controllers
                     DetailAddress = profile.DetailAddress,
                 };
             }
+            else
+            {
+                return View();
+            }
 
             if (cv != null)
             {

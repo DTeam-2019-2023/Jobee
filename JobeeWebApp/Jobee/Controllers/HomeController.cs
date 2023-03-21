@@ -1,6 +1,7 @@
 ﻿using Jobee.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Jobee.Controllers
 {
@@ -15,6 +16,8 @@ namespace Jobee.Controllers
 
         public IActionResult Index()
         {
+            if(User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", User.IsInRole("emp")?"User": "Admin");
             return View();
         }
 

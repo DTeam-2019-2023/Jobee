@@ -9,6 +9,7 @@ using Microsoft.Extensions.FileSystemGlobbing;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
@@ -38,6 +39,10 @@ namespace Jobee.Controllers
         }
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated && !string.IsNullOrEmpty(HttpContext.Request.Cookies["jwt"]))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -96,7 +101,7 @@ namespace Jobee.Controllers
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
 
-                return RedirectToAction(nameof(Index), nameof(User));
+                return RedirectToAction(nameof(Index), "Home");
             }
             return View(nameof(Login));
         }
@@ -124,6 +129,8 @@ namespace Jobee.Controllers
         //public SignupModel signupModel { get; set; } = default!;
         public IActionResult Signup()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
             return View();
         }
         [HttpPost("/Account/Signup")]
@@ -132,8 +139,14 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await Fetcher.SignupAsync(signupModel, "https://localhost:7063/api/Users/signup"))
-                    return View(nameof(Login));
+                var status = await Fetcher.SignupAsync(signupModel, "https://localhost:7063/api/Users/signup");
+
+                if (status == (int)HttpStatusCode.Conflict)
+                {
+                    ModelState.AddModelError(nameof(signupModel.username), "Username have been exist");
+                    return View(nameof(Signup));
+                }
+                return View(nameof(Login));
             }
             return View(nameof(Signup));
 
@@ -176,9 +189,11 @@ namespace Jobee.Controllers
 
             [Required]
             [DataType(dataType: DataType.Password)]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
             public string oldPassword { get; set; }
             [Required]
             [DataType(dataType: DataType.Password)]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
             public string newPassword { get; set; }
             [Required]
             [Compare("newPassword", ErrorMessage = "The password and confirmation password do not match.")]
@@ -199,17 +214,18 @@ namespace Jobee.Controllers
                     root = "https://localhost:7063/api"
                 });
                
-                    User result;
+                    User output;
                     User value = new User
                     {
                         username = User.Identity.Name,
                         password = model.newPassword
                     };
-                    fetcher.Update(out result, value);
-                    if (result != null)
+                    var result = fetcher.Update(out output, new { username = value.username, password = value.password, oldpassword = model.oldPassword});
+                    if (result == (int)HttpStatusCode.OK)
                         return RedirectToAction(nameof(Login));
-        
-            }    
+                if (result == (int)HttpStatusCode.BadRequest)
+                    ModelState.AddModelError(nameof(model.oldPassword), "Old password wrong");
+            }
             return View(nameof(ChangePassword));
 
         }
@@ -251,9 +267,10 @@ namespace Jobee.Controllers
         {
             [Required]
             [DataType(dataType: DataType.Password)]
+            [RegularExpression("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$", ErrorMessage = "The password must contain at least 8 characters and have at least 1 digit and 1 letter")]
             public string newPassword { get; set; }
             [Required]
-            [Compare("newPassword", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare(nameof(newPassword), ErrorMessage = "The password and confirmation password do not match.")]
             public string reNewPassword { get; set; }
         }
         [HttpGet]
@@ -297,7 +314,7 @@ namespace Jobee.Controllers
                         string strData = await res.Content.ReadAsStringAsync();
                     }
                 });
-                return Content($"CreateNewPassword: {createNewPasswordModel.newPassword}");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
             return View(nameof(CreateNewPassword));
         }
@@ -308,37 +325,29 @@ namespace Jobee.Controllers
             [RegularExpression(@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", ErrorMessage = "The Email field is not a valid e-mail address.")]
             public string email { get; set; }
         }
-        public IActionResult EntryNewEmail([Bind("email")] EntryNewEmailModel model)
+        public IActionResult EntryNewEmail()
+        {
+            return View();
+        }
+
+        [HttpPost,ActionName(nameof(EntryNewEmail))]
+        public IActionResult EntryNewEmailForm([Bind("email")] EntryNewEmailModel model)
         {
             if (ModelState.IsValid)
             {
-                Fetcher fetcher = new Fetcher(new Fetcher.ConfigFetcher()
-                {
-                    context = HttpContext,
-                    root = "https://localhost:7063/api"
-                });
-
+                bool isSuccess = false;
 
                 Fetcher.Custom(async client => {
                     var token = HttpContext.Request.Cookies["jwt"];
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                    var res = await client.PutAsJsonAsync(requestUri: "https://localhost:7063/api/User/ChangeEmail", new Profile { Email = model.email});
-                    if (res.IsSuccessStatusCode)
-                    {
-                        
-                    }
+                    var res =  client.PutAsJsonAsync(requestUri: "https://localhost:7063/api/Users/ChangeEmail", model.email).Result;
+                    //var res = await client.PutAsJsonAsync(requestUri: "https://webhook.site/baddabf1-4787-4d13-8676-af52e8827e98", new { Email = model.email });
+
+                    isSuccess = res.IsSuccessStatusCode;
                 });
-
-                Profile result;
-                Profile value = new Profile
-                {
-                    Email = model.email
-                };
-                fetcher.Update(out result, value);
-                if (result != null)
+                if(isSuccess)
                     return RedirectToAction(nameof(Login));
-
             }
             return View(nameof(EntryNewEmail));
         }

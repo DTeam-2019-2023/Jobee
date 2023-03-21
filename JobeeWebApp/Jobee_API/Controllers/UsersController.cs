@@ -54,7 +54,7 @@ namespace Jobee_API.Controllers
             var dbUser = _dbContext.TbAccounts.Where(u => u.Username.Equals(user.username)).SingleOrDefault();
             if (dbUser != null)
             {
-                return BadRequest("Username already exist");
+                return Conflict("Username already exist");
             }
             user.password = HashPassword.hashPassword(user.password);
             TbAccount account = new TbAccount()
@@ -137,31 +137,39 @@ namespace Jobee_API.Controllers
             return Task.FromResult(res);
         }
 
+        public class ChangePasswordModel: User
+        {
+            public string oldpassword { get; set; }
+        }
+
         [HttpPut]
         [Route("/api/User/Update")]
         [Authorize(Roles = "emp,ad")]
-        public async Task<ActionResult<User>> ChangePasswordAction([FromBody] User model)
+        public async Task<ActionResult<User>> ChangePasswordAction([FromBody] ChangePasswordModel model)
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
 
             var u = _dbContext.TbAccounts.Single(a => a.Id.Equals(iduser));
+            if(Tools.HashPassword.hashPassword(model.oldpassword).Equals(u.Passwork))
+            {
                 u.Passwork = model.password;
             u.Passwork =  Tools.HashPassword.hashPassword(u.Passwork);
             _dbContext.SaveChanges();
             return model;
+            }
+            return BadRequest("Pasword does not match");
         }
 
-        [HttpPut]
-        [Route("/api/User/ChangeEmail")]
-        //[Authorize(Roles = "emp,ad")]
-        public async Task<ActionResult<Profile>> ChangeEmailAction([FromBody] Profile model)
+        [Authorize]
+        [Route("ChangeEmail"), HttpPut]
+        public async Task<ActionResult<TbProfile>> ChangeEmailProfile([FromBody] string email)
         {
             string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
 
-            var u = _dbContext.TbProfiles.Single(a => a.Id.Equals(iduser));
-            u.Email = model.Email;
+            var u = _dbContext.TbProfiles.FirstOrDefault(a => a.Idaccount.Equals(iduser));
+            u.Email = email;
             _dbContext.SaveChanges();
-            return model;
+            return u;
         }
     }
 }

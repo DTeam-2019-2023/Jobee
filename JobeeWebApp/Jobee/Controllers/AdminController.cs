@@ -6,13 +6,14 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Runtime.ConstrainedExecution;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jobee.Controllers
 {
     public interface IAdminController{
     
     }
-
+    [Authorize(Roles = "ad")]
     public class AdminController : Controller
     {
         private Fetcher fetcher;

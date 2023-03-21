@@ -112,7 +112,8 @@ namespace Jobee_API.Controllers
 
             //send mail
             string current_url = "localhost:7079/Account/CreateNewPassword?email=" + email + "&key=";
-            var new_link = RandomString(255);
+
+            var new_link = _dbContext.TbForgotPwds.FirstOrDefault(f=>f.Uid == result.Id)?.Link??RandomString(255);
             var new_forgot_user = new TbForgotPwd()
             {
                 Link = new_link,

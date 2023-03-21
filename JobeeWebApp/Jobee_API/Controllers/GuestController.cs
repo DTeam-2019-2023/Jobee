@@ -33,7 +33,7 @@ namespace Jobee_API.Controllers
             if (account != null)
             {
                 var profile = _dbContext.TbProfiles.FirstOrDefault(x => x.Idaccount == account.Id);
-                var cv = _dbContext.TbCvs.FirstOrDefault(i => i.Idaccount == account.Id);
+                var cv = _dbContext.TbCvs.FirstOrDefault(i => i.Idaccount == account.Id)??new TbCv();
                 var edu = _dbContext.Educations.Where(i => i.Idcv == cv.Id).ToList();
                 var project = _dbContext.Projects.Where(i => i.Idcv == cv.Id).ToList();
                 var certificate = _dbContext.Certificates.Where(i => i.Idcv == cv.Id).ToList();

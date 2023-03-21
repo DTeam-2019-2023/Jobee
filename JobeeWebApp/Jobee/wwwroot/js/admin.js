@@ -59,7 +59,7 @@ $("#verifyNotify").on("confirmVerify", function (e, data) {
     $.post(url, data, function (data) {
         if (data.status == "success") {
             //success
-            //$(`#${data.id}`).remove();
+            $(`#${data.id}`).parent().remove();
             $("#verifyNotify").hide().trigger("hide");
             $("#successNotify").show();
         } else {

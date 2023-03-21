@@ -8,314 +8,346 @@
     <link rel="stylesheet" href="~/css/guestView.css" asp-append-version="true" />
 }
 
-<div class="cv-container">
-    <section class="panel" id="profile">
-        <div class="header">
-            <span>
-                <h1>Online Profile</h1>
-            </span>
-
+@if (Model == null)
+{
+    <div style="
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5%;
+">
+        <nav>
+            <h1 style="
+    font-weight: bold;
+">
+                CV Not ready!
+            </h1>
+        </nav>
+        <nav>
+           <h2>Do you want to experience it, or fix it?</h2>
+        </nav>
+        <div>
+            <a class="btn btn--simpButton center" role="button" asp-controller="Account" asp-action="Signup">Sign Up</a>
+            <a class="btn btn--button" role="button" asp-controller="Account" asp-action="Login">Login</a>
         </div>
-        <div class="content">
-            <div class="avartar">
-                <img src="@Model.general.Avatar" alt="avatar" srcset="">
+    </div>
+}
+else
+{
+    <div class="cv-container">
+        <section class="panel" id="profile">
+            <div class="header">
                 <span>
-                    <img src="/images/icons8_camera.svg" alt="" srcset="">
+                    <h1>Online Profile</h1>
+                </span>
+
+            </div>
+            <div class="content">
+                <div class="avartar">
+                    <img src="@Model.general.Avatar" alt="avatar" srcset="">
+
+                </div>
+                <div class="info">
+                    @if (Model.profile != null)
+                    {
+                        <nav><strong>Full Name:</strong> @Model.profile?.FirstName @Model.profile.LastName</nav>
+                        <nav><strong>Birthday:</strong> @Model.profile?.DoB.ToShortDateString() <strong>Gender:</strong> @(Model.profile.Gender && true ? "Male" : "Female")</nav>
+                        <nav><strong>Phone Number:</strong> @Model.profile?.PhoneNumber</nav>
+                        <nav><strong>Address:</strong> @Model.profile?.Address</nav>
+                        @if (!string.IsNullOrEmpty(Model.profile?.SocialNetwork))
+                        {
+                            <nav><strong>Contact:</strong> @Model.profile?.SocialNetwork</nav>
+                        }
+                    }
+                </div>
+            </div>
+        </section>
+        <section class="panel" id="General">
+            <div class="header">
+                <span>
+                    <h1>General</h1>
                 </span>
             </div>
-            <div class="info">
-                @if (Model.profile != null)
+            <div class="content">
+                <!-- INPUT TEXT FIELD -->
+                @if (Model.general != null)
                 {
-                <nav><strong>Full Name:</strong> @Model.profile?.FirstName @Model.profile.LastName</nav>
-                <nav><strong>Birthday:</strong> @Model.profile?.DoB.ToShortDateString() <strong>Gender:</strong> @(Model.profile.Gender&&true ? "Male" : "Female")</nav>
-                <nav><strong>Phone Number:</strong> @Model.profile?.PhoneNumber</nav>
-                <nav><strong>Address:</strong> @Model.profile?.Address</nav>
-                <nav><strong>Contact:</strong> @Model.profile?.SocialNetwork</nav>
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="data">
+                                @Model.general?.ApplyPosition
+                                <span class="lable">Apply Position</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- INPUT SELECT FIELD -->
+                            <div class="data">
+                                @Model.general?.CurrentJob
+                                <span class="lable">Current Job</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="data">
+                                @Model.general?.DesirySalary
+                                <span class="lable">Desired Salary</span>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- INPUT SELECT FIELD -->
+                            <div class="data">
+                                @Model.general?.Degree
+                                <span class="lable">Degree</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <!-- INPUT SELECT FIELD -->
+                            <div class="data">
+                                @Model.general?.WorkExperience
+                                <span class="lable">Work experience</span>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- INPUT SELECT FIELD -->
+                            <div class="data">
+                                @Model.general?.DesiredWorkLocation
+                                <span class="lable">Desired Work Locations</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <!-- INPUT SELECT FIELD -->
+                            <div class="data">
+                                @Model.general?.WorkingForm
+                                <span class="lable">Working From</span>
+
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- TEXTAREA -->
+                            <div class="data">
+                                @Model.general?.CarrerObjiect
+                                <span class="lable">Carrer Objective</span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="data">
+                                @Model.general?.SoftSkill
+                                <span class="lable">Soft Skills</span>
+
+                            </div>
+                        </div>
+                    </div>
                 }
-            </div>
-        </div>
-    </section>
-    <section class="panel" id="General">
-        <div class="header">
-            <span>
-                <h1>General</h1>
-            </span>
-        </div>
-        <div class="content">
-            <!-- INPUT TEXT FIELD -->
-            @if(Model.general != null)
-            {
-            <div class="row">
-                <div class="col">
+        </section>
+        <section class="panel" id="content-activity">
+            <section id="education">
+                <!-- CONTENT NAVIGATION -->
+                <div class="contentNavContainer">
+                    <div class="contenNavHeader">
+                        <span class="navHeaderTitle">Education</span>
+                    </div>
+                    <div class="contentNavBody">
+                        <ul class="contentItemList">
+                            @if (Model.Educations != null)
+                            {
+                                @foreach (var item in Model.Educations)
+                                {
+                                    <li class="contentItem">
+                                        <div class="itemFirst">
+                                            <img src="/images/Student hat.svg" alt="running icon" class="titleIcon" />
+                                            <span class="titleName">@item.Name</span>
 
-                    <div class="data">
-                        @Model.general?.ApplyPosition
-                        <span class="lable">Apply Position</span>
+                                        </div>
+                                        <div class="itemSecond">
+                                            <span class="itemSubContent">
+                                                GPA: @item.Gpa
+
+                                            </span>
+                                        </div>
+                                        <div class="itemThird" iditem="@item.Id">
+
+                                            <abbr title="View">
+                                                <a asp-controller="Guest" asp-action="ViewEducation" class="viewContentNavAction">
+                                                    <img src="/images/Expand.svg" alt="expand icon"
+                                                         class="actionIcon" />
+                                                </a>
+                                            </abbr>
+                                        </div>
+                                    </li>
+                                }
+                            }
+                            <!-- <li class="contentItem"></li> -->
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <!-- INPUT SELECT FIELD -->
-                    <div class="data">
-                        @Model.general?.CurrentJob
-                        <span class="lable">Current Job</span>
+            </section>
+            <section id="project">
+                <!-- CONTENT NAVIGATION -->
+                <div class="contentNavContainer">
+                    <div class="contenNavHeader">
+                        <span class="navHeaderTitle">Project</span>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="data">
-                        @Model.general?.DesirySalary
-                        <span class="lable">Desired Salary</span>
-
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- INPUT SELECT FIELD -->
-                    <div class="data">
-                        @Model.general?.Degree
-                        <span class="lable">Degree</span>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col">
-                    <!-- INPUT SELECT FIELD -->
-                    <div class="data">
-                       @Model.general?.WorkExperience
-                        <span class="lable">Work experience</span>
-
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- INPUT SELECT FIELD -->
-                    <div class="data">
-                        @Model.general?.DesiredWorkLocation
-                        <span class="lable">Desired Work Locations</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col">
-                    <!-- INPUT SELECT FIELD -->
-                    <div class="data">
-                        @Model.general?.WorkingForm
-                        <span class="lable">Working From</span>
-
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- TEXTAREA -->
-                    <div class="data">
-                        @Model.general?.CarrerObjiect
-                        <span class="lable">Carrer Objective</span>
-
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="data">
-                        @Model.general?.SoftSkill
-                        <span class="lable">Soft Skills</span>
-
-                    </div>
-                </div>
-            </div>
-            }
-    </section>
-    <section class="panel" id="content-activity">
-        <section id="education">
-            <!-- CONTENT NAVIGATION -->
-            <div class="contentNavContainer">
-                <div class="contenNavHeader">
-                    <span class="navHeaderTitle">Education</span>
-                </div>
-                <div class="contentNavBody">
-                    <ul class="contentItemList">
-                        @if (Model.Educations != null)
-                        {
-                            @foreach (var item in Model.Educations)
+                    <div class="contentNavBody">
+                        <ul class="contentItemList">
+                            @foreach (var item in Model.Projects)
                             {
                                 <li class="contentItem">
                                     <div class="itemFirst">
-                                        <img src="/images/Student hat.svg" alt="running icon" class="titleIcon" />
+                                        <img src="/images/FIle.svg" alt="file icon" class="titleIcon" />
                                         <span class="titleName">@item.Name</span>
 
                                     </div>
-                                    <div class="itemSecond">
-                                        <span class="itemSubContent">
-                                            GPA: @item.Gpa
 
-                                        </span>
-                                    </div>
-                                    <div class="itemThird" iditem="@item.Id">
+                                    <div class="itemThird">
 
                                         <abbr title="View">
-                                            <a asp-controller="Guest" asp-action="ViewEducation"  class="viewContentNavAction">
+                                            <a asp-controller="Guest" asp-action="ViewProject" class="viewContentNavAction">
                                                 <img src="/images/Expand.svg" alt="expand icon"
-                                                class="actionIcon"/>
+                                                     class="actionIcon" id="expandProject" />
                                             </a>
                                         </abbr>
                                     </div>
                                 </li>
                             }
-                        }
-                        <!-- <li class="contentItem"></li> -->
-                    </ul>
+                            <!-- <li class="contentItem"></li> -->
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </section>
+            <section id="certificate">
+                <!-- CONTENT NAVIGATION -->
+                <div class="contentNavContainer">
+                    <div class="contenNavHeader">
+                        <span class="navHeaderTitle">Certificate</span>
+                    </div>
+                    <div class="contentNavBody">
+                        <ul class="contentItemList">
+                            @foreach (var item in Model.Certificates)
+                            {
+                                <li class="contentItem">
+                                    <div class="itemFirst">
+                                        <img src="/images/Certificate.svg" alt="cert icon" class="titleIcon" />
+                                        <span class="titleName">@item.Name</span>
+                                        <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
+                                             class="verifyIcon--verified" />
+                                    </div>
+
+                                    <div class="itemThird">
+
+                                        <abbr title="View">
+                                            <a asp-controller="Guest" asp-action="ViewCertificate" class="viewContentNavAction">
+                                                <img src="/images/Expand.svg" alt="expand icon"
+                                                     class="actionIcon" id="expandCertificate" />
+                                            </a>
+                                        </abbr>
+                                    </div>
+                                </li>
+                            }
+                            <!-- <li class="contentItem"></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="activity">
+                <!-- CONTENT NAVIGATION -->
+                <div class="contentNavContainer">
+                    <div class="contenNavHeader">
+                        <span class="navHeaderTitle">Activity</span>
+                    </div>
+                    <div class="contentNavBody">
+                        <ul class="contentItemList">
+                            @foreach (var item in Model.Activitys)
+                            {
+                                <li class="contentItem">
+                                    <div class="itemFirst">
+                                        <img src="/images/Runing.svg" alt="running icon" class="titleIcon" />
+                                        <span class="titleName">@item.Name</span>
+
+                                    </div>
+                                    <div class="itemSecond">
+                                        <span class="itemSubContent">
+                                            @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
+
+                                        </span>
+                                    </div>
+                                    <div class="itemThird">
+
+                                        <abbr title="View">
+                                            <a asp-controller="Guest" asp-action="ViewActivity" class="viewContentNavAction">
+                                                <img src="/images/Expand.svg" alt="expand icon"
+                                                     class="actionIcon" id="expandActivity" />
+                                            </a>
+                                        </abbr>
+                                    </div>
+                                </li>
+                            }
+                            <!-- <li class="contentItem"></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section id="award">
+                <!-- CONTENT NAVIGATION -->
+                <div class="contentNavContainer">
+                    <div class="contenNavHeader">
+                        <span class="navHeaderTitle">Award</span>
+                    </div>
+                    <div class="contentNavBody">
+                        <ul class="contentItemList">
+                            @foreach (var item in Model.Awards)
+                            {
+                                <li class="contentItem">
+                                    <div class="itemFirst">
+                                        <img src="/images/laurel wreath.svg" alt="award icon" class="titleIcon" />
+                                        <span class="titleName">@item.Name</span>
+
+                                    </div>
+                                    <div class="itemSecond">
+                                        <span class="itemSubContent">
+                                            @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
+                                        </span>
+                                    </div>
+                                    <div class="itemThird">
+
+                                        <abbr title="View">
+                                            <a asp-controller="Guest" asp-action="ViewAward" class="viewContentNavAction">
+                                                <img src="/images/Expand.svg" alt="expand icon"
+                                                     class="actionIcon" id="expandAward" />
+                                            </a>
+                                        </abbr>
+                                    </div>
+                                </li>
+                            }
+                            <!-- <li class="contentItem"></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </section>
-        <section id="project">
-            <!-- CONTENT NAVIGATION -->
-            <div class="contentNavContainer">
-                <div class="contenNavHeader">
-                    <span class="navHeaderTitle">Project</span>
-                </div>
-                <div class="contentNavBody">
-                    <ul class="contentItemList">
-                        @foreach(var item in Model.Projects)
-                        {                            
-                            <li class="contentItem">
-                                <div class="itemFirst">
-                                    <img src="/images/FIle.svg" alt="file icon" class="titleIcon" />
-                                    <span class="titleName">@item.Name</span>
-
-                                </div>
-
-                                <div class="itemThird">
-
-                                    <abbr title="View">
-                                         <a asp-controller="Guest" asp-action="ViewProject"  class="viewContentNavAction">
-                                        <img src="/images/Expand.svg" alt="expand icon"
-                                             class="actionIcon" id="expandProject" />
-                                             </a>
-                                    </abbr>
-                                </div>
-                            </li>
-                        }
-                        <!-- <li class="contentItem"></li> -->
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="certificate">
-            <!-- CONTENT NAVIGATION -->
-            <div class="contentNavContainer">
-                <div class="contenNavHeader">
-                    <span class="navHeaderTitle">Certificate</span>
-                </div>
-                <div class="contentNavBody">
-                    <ul class="contentItemList">
-                        @foreach(var item in Model.Certificates)
-                        {                            
-                            <li class="contentItem">
-                                <div class="itemFirst">
-                                    <img src="/images/Certificate.svg" alt="cert icon" class="titleIcon" />
-                                    <span class="titleName">@item.Name</span>
-                                    <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
-                                         class="verifyIcon--verified" />
-                                </div>
-
-                                <div class="itemThird">
-
-                                    <abbr title="View">
-                                         <a asp-controller="Guest" asp-action="ViewCertificate"  class="viewContentNavAction">
-                                        <img src="/images/Expand.svg" alt="expand icon"
-                                             class="actionIcon" id="expandCertificate" />
-                                             </a>
-                                    </abbr>
-                                </div>
-                            </li>
-                        }
-                        <!-- <li class="contentItem"></li> -->
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="activity">
-            <!-- CONTENT NAVIGATION -->
-            <div class="contentNavContainer">
-                <div class="contenNavHeader">
-                    <span class="navHeaderTitle">Activity</span>
-                </div>
-                <div class="contentNavBody">
-                    <ul class="contentItemList">
-                        @foreach(var item in Model.Activitys)
-                        {                            
-                            <li class="contentItem">
-                                <div class="itemFirst">
-                                    <img src="/images/Runing.svg" alt="running icon" class="titleIcon" />
-                                    <span class="titleName">@item.Name</span>
-
-                                </div>
-                                <div class="itemSecond">
-                                    <span class="itemSubContent">
-                                        @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
-
-                                    </span>
-                                </div>
-                                <div class="itemThird">
-
-                                    <abbr title="View">
-                                         <a asp-controller="Guest" asp-action="ViewActivity"  class="viewContentNavAction">
-                                        <img src="/images/Expand.svg" alt="expand icon"
-                                             class="actionIcon" id="expandActivity" />
-                                             </a>
-                                    </abbr>
-                                </div>
-                            </li>
-                        }
-                        <!-- <li class="contentItem"></li> -->
-                    </ul>
-                </div>
-            </div>
-        </section>
-        <section id="award">
-            <!-- CONTENT NAVIGATION -->
-            <div class="contentNavContainer">
-                <div class="contenNavHeader">
-                    <span class="navHeaderTitle">Award</span>
-                </div>
-                <div class="contentNavBody">
-                    <ul class="contentItemList">
-                        @foreach(var item in Model.Awards)
-                        {                            
-                            <li class="contentItem">
-                                <div class="itemFirst">
-                                    <img src="/images/laurel wreath.svg" alt="award icon" class="titleIcon" />
-                                    <span class="titleName">@item.Name</span>
-
-                                </div>
-                                <div class="itemSecond">
-                                    <span class="itemSubContent">
-                                        @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
-                                    </span>
-                                </div>
-                                <div class="itemThird">
-
-                                    <abbr title="View">
-                                         <a asp-controller="Guest" asp-action="ViewAward"  class="viewContentNavAction">
-                                        <img src="/images/Expand.svg" alt="expand icon"
-                                             class="actionIcon" id="expandAward" />
-                                             </a>
-                                    </abbr>
-                                </div>
-                            </li>
-                        }
-                        <!-- <li class="contentItem"></li> -->
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </section>
-</div>
+    </div>
 
     <div class="overlayContentPopup" id="ViewContentNav"></div>
+}
+
 
 
 @section Scripts{
