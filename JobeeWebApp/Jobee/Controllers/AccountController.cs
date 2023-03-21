@@ -1,14 +1,17 @@
 ﻿using Jobee_API.Entities;
+using Jobee_API.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileSystemGlobbing;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Runtime.InteropServices.JavaScript;
 using System.Security.Claims;
 using System.Text.Json;
@@ -185,10 +188,27 @@ namespace Jobee.Controllers
             return View();
         }
         [HttpPost("/Account/ChangePassword")]
-        public IActionResult ChangePassword([Bind("oldPassword, newPassword, reNewPassword")] ChangePasswordModel changePasswordModel)
+        public IActionResult ChangePassword([Bind("oldPassword, newPassword, reNewPassword")] ChangePasswordModel model)
         {
             if (ModelState.IsValid)
-                return Content($"changePasswordModel: {changePasswordModel.oldPassword}, newPassword: {changePasswordModel.newPassword}");
+            {
+                Fetcher fetcher = new Fetcher(new Fetcher.ConfigFetcher()
+                {
+                    context = HttpContext,
+                    root = "https://localhost:7063/api"
+                });
+               
+                    User result;
+                    User value = new User
+                    {
+                        username = User.Identity.Name,
+                        password = model.newPassword
+                    };
+                    fetcher.Update(out result, value);
+                    if (result != null)
+                        return RedirectToAction(nameof(Login));
+        
+            }    
             return View(nameof(ChangePassword));
 
         }
