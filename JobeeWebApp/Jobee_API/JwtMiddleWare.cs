@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 
 namespace Jobee_API
@@ -15,7 +16,7 @@ namespace Jobee_API
         private readonly JwtTokenManager _tokenManager;
         ILogger<UsersController> _logger;
         private IDistributedCache _cache;
-        //public static  JwtAction GetUserPrincipal;
+        public static JwtTokenManager _jwt;
         public JwtMiddleWare(RequestDelegate next, ILogger<UsersController> logger, IDistributedCache cache)
         {
             _next = next;
@@ -35,6 +36,9 @@ namespace Jobee_API
                     context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                     return;
                 }
+                //var identity = (ClaimsIdentity)context.User.Identity;
+                //var claim = JwtTokenManager.Instance.GetPrincipalFromToken(token).FindFirst(ClaimTypes.Role);
+                //identity.AddClaim(claim);
             }
             //_logger.LogInformation("Authorization {0}", token);
             //if (token != null)
