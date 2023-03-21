@@ -150,5 +150,18 @@ namespace Jobee_API.Controllers
             _dbContext.SaveChanges();
             return model;
         }
+
+        [HttpPut]
+        [Route("/api/User/ChangeEmail")]
+        //[Authorize(Roles = "emp,ad")]
+        public async Task<ActionResult<Profile>> ChangeEmailAction([FromBody] Profile model)
+        {
+            string iduser = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id")?.Value;
+
+            var u = _dbContext.TbProfiles.Single(a => a.Id.Equals(iduser));
+            u.Email = model.Email;
+            _dbContext.SaveChanges();
+            return model;
+        }
     }
 }

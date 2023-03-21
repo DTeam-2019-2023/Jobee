@@ -55,6 +55,8 @@ namespace Jobee.Controllers
 
         public IActionResult DeleteContentNav(string navType, string id);
 
+        public IActionResult SendRequest(string id);
+
     }
     [Authorize(Roles = "emp")]
     public class UserController : Controller, IUserController
@@ -625,6 +627,12 @@ namespace Jobee.Controllers
         }
        
 
+
+        [HttpPost, ActionName("SendRequest")]
+        public IActionResult SendRequest(string id)
+        { 
+            return View();
+        }
     }
 
 }
