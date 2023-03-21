@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Jobee_API.Tools;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -176,6 +177,14 @@ namespace Jobee_API.Entities
                     .HasForeignKey(d => d.IdtypeAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tbAccount_tbTypeAccount");
+                entity.HasData(
+                    new TbAccount { 
+                        Id="admin", 
+                        IdtypeAccount="ad", 
+                        Username="admin", 
+                        Passwork= HashPassword.hashPassword("admin")
+                    }
+                    );
             });
 
             modelBuilder.Entity<TbAdmin>(entity =>
