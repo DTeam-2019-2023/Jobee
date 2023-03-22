@@ -217,7 +217,7 @@ else
 
                                     </div>
 
-                                    <div class="itemThird">
+                                    <div class="itemThird" iditem="@item.Id">
 
                                         <abbr title="View">
                                             <a asp-controller="Guest" asp-action="ViewProject" class="viewContentNavAction">
@@ -248,10 +248,10 @@ else
                                         <img src="/images/Certificate.svg" alt="cert icon" class="titleIcon" />
                                         <span class="titleName">@item.Name</span>
                                         <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
-                                             class="verifyIcon--verified" />
+                                     class="@(item.IsVertify == true ?"verifyIcon--verified": "verifyIcon")" />
                                     </div>
 
-                                    <div class="itemThird">
+                                    <div class="itemThird" iditem="@item.Id">
 
                                         <abbr title="View">
                                             <a asp-controller="Guest" asp-action="ViewCertificate" class="viewContentNavAction">
@@ -289,7 +289,7 @@ else
 
                                         </span>
                                     </div>
-                                    <div class="itemThird">
+                                    <div class="itemThird" iditem="@item.Id">
 
                                         <abbr title="View">
                                             <a asp-controller="Guest" asp-action="ViewActivity" class="viewContentNavAction">
@@ -326,7 +326,7 @@ else
                                             @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
                                         </span>
                                     </div>
-                                    <div class="itemThird">
+                                    <div class="itemThird" iditem="@item.Id">
 
                                         <abbr title="View">
                                             <a asp-controller="Guest" asp-action="ViewAward" class="viewContentNavAction">

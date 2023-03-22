@@ -198,28 +198,96 @@ namespace Jobee.Controllers
 
         }
 
-        public IActionResult ViewProject(string id)
+        [HttpPost]
+        [Route("/Guest/ViewProject")]
+        [IgnoreAntiforgeryToken]
+        public ActionResult ViewProject(string id)
         {
             Project data;
-            throw new NotImplementedException();
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", new model_Project
+                {
+                    Name = data.Name,
+                    Description = data.Description,
+                    Role = data.Role,
+                    Technology = data.Technology,
+                    TeamSize = data.TeamSize,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewProject.cshtml", new model_Project());
         }
 
-        public IActionResult ViewCertificate(string id)
+        [HttpPost]
+        [Route("/Guest/ViewCertificate")]
+        [IgnoreAntiforgeryToken]
+        public ActionResult ViewCertificate(string id)
         {
             Certificate data;
-            throw new NotImplementedException();
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", new model_Certificate
+                {
+                    Name = data.Name,
+                    EndDate = data.EndDate,
+                    StartDate = data.StartDate,
+                    Url = data.Url,
+                    Description = data.Description,
+                    IsVertify = data.IsVertify
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewCertificate.cshtml", new model_Certificate());
         }
 
-        public IActionResult ViewActivity(string id)
+        [HttpPost]
+        [Route("/Guest/ViewActivity")]
+        [IgnoreAntiforgeryToken]
+        public ActionResult ViewActivity(string id)
         {
             Activity data;
-            throw new NotImplementedException();
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", new model_Activity
+                {
+                    Name = data.Name,
+                    Role = data.Role,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate,
+                    Description = data.Description
+                });
+            }
+
+            return PartialView("~/Views/User/Popup/View/_viewActivity.cshtml", new model_Activity());
         }
 
-        public IActionResult ViewAward(string id)
+        [HttpPost]
+        [Route("/Guest/ViewAward")]
+        [IgnoreAntiforgeryToken]
+        public ActionResult ViewAward(string id)
         {
             Award data;
-            throw new NotImplementedException();
+            fetcher.GetById(out data, id);
+            if (data != null)
+            {
+                ViewData["id"] = data.Id;
+                return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award
+                {
+                    Name = data.Name,
+                    Description = data.Description,
+                    Role = data.Role,
+                    StartDate = data.StartDate,
+                    EndDate = data.EndDate
+                });
+            }
+            return PartialView("~/Views/User/Popup/View/_viewAward.cshtml", new model_Award());
         }
         
     }
