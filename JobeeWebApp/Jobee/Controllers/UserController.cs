@@ -203,7 +203,17 @@ namespace Jobee.Controllers
             }
             return result;
         }
-
+        private void serializedUserModelCV()
+        {
+            string serializedEmployeeFromSession = HttpContext.Session.GetString(nameof(_model))!;
+            if (!string.IsNullOrEmpty(serializedEmployeeFromSession))
+                _model = JsonConvert.DeserializeObject<UserCVModel>(serializedEmployeeFromSession)!;
+            ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
+            ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
+            ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
+            ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
+            ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
+        }
         public IActionResult AddEducation([Bind("Name, Major, StartDate, EndDate, GPA, Description")] model_Education model)
         {
             if (ModelState.IsValid)
@@ -212,9 +222,10 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbedu, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addEducation", "invalid");
+            return View(nameof(Index), _model);
         }
 
         public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
@@ -225,7 +236,6 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbac, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
             return RedirectToAction(nameof(Index));
         }

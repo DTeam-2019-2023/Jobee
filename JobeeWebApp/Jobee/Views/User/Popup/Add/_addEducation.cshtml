@@ -6,7 +6,8 @@
         return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
     }
 }
-<div class="overlayPopup" id="overlayEdu">
+<div class="overlayPopup" id="overlayEdu" @(
+     ViewData.ModelState.GetFieldValidationState("addEducation") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid ? "style=display:block;" : "")>
     <form method="post" class="popupContainer" id="eduContainer" asp-controller="User" asp-action="AddEducation">
         <div class="formHeader">
             <h3 class="headerTitle">Add Your Education Result</h3>
@@ -19,10 +20,10 @@
                           fill="black" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
+                    <div class="popupInput inputTextContainer @(validationField("Name")?"":"error") ">
                         <input type="text" class="input" asp-for="Name" />
                         <span class="inputSpan">Name</span>
-                        <span class="inputError" asp-validation-for="Name">Please, must fill in this field</span>
+                        <span class="inputError" asp-validation-for="Name"></span>
                     </div>
                 </div>
             </div>
@@ -32,7 +33,7 @@
                           fill="black" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
+                    <div class="popupInput inputTextContainer @(validationField("Major")?"":"error")">
                         <input type="text" class="input" asp-for="Major" />
                         <span class="inputSpan">Major</span>
                         <span class="inputError" asp-validation-for="Major"></span>
@@ -51,8 +52,8 @@
                           fill="#444B54" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
-                        <input type="number" class="input" asp-for="GPA" />
+                    <div class="popupInput inputTextContainer @(validationField("GPA")?"":"error")">
+                        <input class="input" asp-for="GPA" />
                         <span class="inputSpan">GPA</span>
                         <span class="inputError" asp-validation-for="GPA"></span>
                     </div>
@@ -74,14 +75,14 @@
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <div class="dateRow popupInput inputTextContainer">
+                            <div class="dateRow popupInput inputTextContainer @(validationField("StartDate")?"":"error")">
                                 <input class="input" asp-for="StartDate" />
                                 <span class="inputSpan focus">Start Date</span>
                                 <span class="inputError" asp-validation-for="StartDate"></span>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="dateRow popupInput inputTextContainer">
+                            <div class="dateRow popupInput inputTextContainer @(validationField("EndDate")?"":"error")">
                                 <input class="input" asp-for="EndDate" />
                                 <span class="inputSpan focus">End Date</span>
                                 <span class="inputError" asp-validation-for="EndDate"></span>
@@ -97,8 +98,8 @@
                           fill="black" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
-                        <input type="text" class="input" asp-for="Description" />
+                    <div class="popupInput inputTextContainer @(validationField("Description")?"":"error")">
+                        <input class="input" asp-for="Description" />
                         <span class="inputSpan">Description</span>
                         <span class="inputError" asp-validation-for="Description"></span>
                     </div>

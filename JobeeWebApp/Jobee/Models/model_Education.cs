@@ -10,7 +10,7 @@ namespace Jobee_API.Models
         public DateTime StartDate { get; set; }
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
-        [Range(0, 4)]
+        [Range(0.0, 4.0)]
         public double GPA { get; set; }
         public string Description { get; set; }
     }
