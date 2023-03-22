@@ -274,9 +274,10 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbaw, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addAward", "invalid");
+            return View(nameof(Index), _model);
         }
 
         [HttpPost, ActionName("EditEducation")]
