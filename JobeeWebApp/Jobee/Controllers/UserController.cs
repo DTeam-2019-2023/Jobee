@@ -273,9 +273,10 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbcer, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addCertificate", "invalid");
+            return View(nameof(Index), _model);
         }
 
         public IActionResult AddAward([Bind("Name, StartDate, EndDate, Description, Role")] model_Award model)
@@ -286,9 +287,10 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbaw, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addAward", "invalid");
+            return View(nameof(Index), _model);
         }
 
         [HttpPost, ActionName("EditEducation")]
