@@ -6,7 +6,8 @@
         return state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Valid || state == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Unvalidated;
     }
 }
-<div class="overlayPopup" id="overlayAward">
+<div class="overlayPopup" id="overlayAward" @(
+     ViewData.ModelState.GetFieldValidationState("addAward") == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid ? "style=display:block;" : "")>
     <form method="post" class="popupContainer" id="awardContainer" asp-controller="User" asp-action="AddAward">
         <div class="formHeader">
             <h3 class="headerTitle">Add Your Award</h3>
@@ -19,8 +20,8 @@
                           fill="black" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
-                        <input asp-for="Name" type="text"  class="input" />
+                    <div class="popupInput inputTextContainer @(validationField("Name")?"":"error")">
+                        <input asp-for="Name" class="input" />
                         <span asp-validation-for="Name" class="inputSpan">Name</span>
                         <span class="inputError">Please, must fill in this field</span>
                     </div>
@@ -41,14 +42,14 @@
                 <div class="col">
                     <div class="row">
                         <div class="col">
-                            <div class="dateRow popupInput inputTextContainer">
+                            <div class="dateRow popupInput inputTextContainer @(validationField("StartDate")?"":"error")">
                                 <input asp-for="StartDate" class="input" />
                                 <span asp-validation-for="StartDate" class="inputSpan">Start Date</span>
                                 <span class="inputError">Please, must fill in this field</span>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="dateRow popupInput inputTextContainer">
+                            <div class="dateRow popupInput inputTextContainer @(validationField("EndDate")?"":"error")">
                                 <input asp-for="EndDate" class="input" />
                                 <span asp-validation-for="EndDate" class="inputSpan">End Date</span>
                                 <span class="inputError">Please, must fill in this field</span>
@@ -64,8 +65,8 @@
                           fill="black" />
                 </svg>
                 <div class="col">
-                    <div class="popupInput inputTextContainer">
-                        <input asp-for="Description" type="text"  class="input" />
+                    <div class="popupInput inputTextContainer @(validationField("Description")?"":"error")">
+                        <input asp-for="Description" class="input" />
                         <span asp-validation-for="Description" class="inputSpan">Description</span>
                         <span class="inputError">Please, must fill in this field</span>
                     </div>
