@@ -124,7 +124,7 @@ namespace Jobee.Controllers
                     WorkingForm = cv.WorkingForm,
                     CarrerObjiect = cv.CarrerObject,
                     SoftSkill = cv.SoftSkill,
-                    Avatar = "/images/Members/1w2ta6TdDwqezXFEeQYVJw.jpg"
+                    Avatar = string.IsNullOrEmpty(cv.Avatar)?"/images/Avatar/default_avt.jfif": cv.Avatar
                 };
             }
 

@@ -27,7 +27,7 @@
             </h1>
         </nav>
         <nav>
-           <h2>Do you want to experience it, or fix it?</h2>
+            <h2>Do you want to experience it, or fix it?</h2>
         </nav>
         <div>
             <a class="btn btn--simpButton center" role="button" asp-controller="Account" asp-action="Signup">Sign Up</a>
@@ -47,8 +47,7 @@ else
             </div>
             <div class="content">
                 <div class="avartar">
-                    <img src="@Model.general.Avatar" alt="avatar" srcset="">
-
+                    <img src="@(Model.general?.Avatar??"/images/Avatar/default_avt.jfif")" alt="avatar" srcset="">
                 </div>
                 <div class="info">
                     @if (Model.profile != null)
@@ -248,7 +247,7 @@ else
                                         <img src="/images/Certificate.svg" alt="cert icon" class="titleIcon" />
                                         <span class="titleName">@item.Name</span>
                                         <img src="/images/Grey Verify Icon.svg" alt="verify check icon"
-                                     class="@(item.IsVertify == true ?"verifyIcon--verified": "verifyIcon")" />
+                                             class="@(item.IsVertify == true ?"verifyIcon--verified": "verifyIcon")" />
                                     </div>
 
                                     <div class="itemThird" iditem="@item.Id">
