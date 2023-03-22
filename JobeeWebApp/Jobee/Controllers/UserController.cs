@@ -590,6 +590,11 @@ namespace Jobee.Controllers
                 if (result == (int)HttpStatusCode.OK)
                     return RedirectToAction(nameof(Index));
             }
+            ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
+            ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
+            ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
+            ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
+            ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
             return View(nameof(Index), _model);
 
         }

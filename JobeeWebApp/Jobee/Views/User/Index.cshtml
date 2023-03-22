@@ -21,7 +21,7 @@
         <div class="content">
             <input type="file" id="avt-update" asp-for="general.Avatar">
             <div class="avartar">
-                <img src="@(Model.general?.Avatar??"/images/Avatar/default_avt.jfif")" alt="avatar" srcset="">
+                <img src="@(string.IsNullOrEmpty(Model.general?.Avatar)?"/images/Avatar/default_avt.jfif":Model.general?.Avatar)" alt="avatar" srcset="">
                 <span>
                     <img src="/images/icons8_camera.svg" alt="" srcset="">
                 </span>
