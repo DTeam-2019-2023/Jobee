@@ -248,9 +248,10 @@ namespace Jobee.Controllers
                 var result = fetcher.Create(out tbproj, model);
                 if (result)
                     return RedirectToAction(nameof(Index));
-                return Conflict();
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addProject", "invalid");
+            return View(nameof(Index), _model);
         }
 
         public IActionResult AddCertificate([Bind("Name, StartDate, EndDate, Url, Description")] model_Certificate model)
