@@ -583,11 +583,15 @@ namespace Jobee.Controllers
 
         public IActionResult UpdateGeneral([Bind("ApplyPosition, CurrentJob, DesirySalary,  Degree, WorkExperience, DesiredWorkLocation, WorkingForm, CarrerObjiect, SoftSkill, Avatar")] CV model)
         {
-            TbCv cv;
-            var result = fetcher.Update(out cv, model);
-            if (result == (int)HttpStatusCode.OK)
-                return RedirectToAction(nameof(Index));
-            return Conflict();
+            if (ModelState.IsValid)
+            {
+                TbCv cv;
+                var result = fetcher.Update(out cv, model);
+                if (result == (int)HttpStatusCode.OK)
+                    return RedirectToAction(nameof(Index));
+            }
+            return View(nameof(Index), _model);
+
         }
 
         public IActionResult CreateProfile([Bind("LastName, FirstName, Gender, DoB, PhoneNumber, Address, SocialNetwork, DetailAddress, Email")] Profile model)
@@ -603,10 +607,10 @@ namespace Jobee.Controllers
         {
             if (ModelState.IsValid)
             {
-            TbProfile profile;
-            var result = fetcher.Update(out profile, model);
-            if (result == (int)HttpStatusCode.OK)
-                return RedirectToAction(nameof(Index));
+                TbProfile profile;
+                var result = fetcher.Update(out profile, model);
+                if (result == (int)HttpStatusCode.OK)
+                    return RedirectToAction(nameof(Index));
             }
             ModelState.AddModelError("UpdateProfile", "not valid");
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
@@ -614,7 +618,7 @@ namespace Jobee.Controllers
             ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
             ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
             ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
-            return View(nameof(Index),_model);
+            return View(nameof(Index), _model);
         }
 
         public class UserChangePassword
@@ -633,12 +637,12 @@ namespace Jobee.Controllers
             [DisplayName("Confirm Password")]
             public string rePassword { get; set; }
         }
-       
+
 
 
         [HttpPost, ActionName("SendRequest")]
         public IActionResult SendRequest(string id)
-        { 
+        {
             return View();
         }
     }

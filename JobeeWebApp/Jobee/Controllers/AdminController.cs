@@ -9,6 +9,8 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Jobee.Controllers
 {
@@ -37,10 +39,19 @@ namespace Jobee.Controllers
             public string Url { get; set; }
 
         }
+
+        public class AdminModel
+        {
+            public List<VerifyContent> verifyContents { get; set; } = new();
+            public List<TbAccount> accounts { get; set; } = new();
+        }
+        
+        public AdminModel _model { get; set; } = new();
         public async Task<IActionResult> IndexAsync(string SearchText = default!)
         {
             List<TbAccount> accounts;
             fetcher.GetAll(out accounts);
+            _model.accounts = accounts;
 
             if (SearchText != "" && SearchText != null)
             {
@@ -69,9 +80,11 @@ namespace Jobee.Controllers
                 }
             });
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, "#");
-            ViewData["Verified"] = listVerifies;
             ViewData["Users"] = accounts;
-
+            _model.accounts = accounts;
+            ViewData["Verified"] = listVerifies;
+            _model.verifyContents = listVerifies;
+            HttpContext.Session.SetString(nameof(_model), JsonConvert.SerializeObject(_model));
             return View();
         }
         private List<SelectListItem> getListItem(string Title, List<string> data, string? selected)
@@ -144,7 +157,13 @@ namespace Jobee.Controllers
                 }
             }
             ModelState.AddModelError("CreateAdmin", "not valid");
+            string serializedEmployeeFromSession = HttpContext.Session.GetString(nameof(_model))!;
+            if(!string.IsNullOrEmpty(serializedEmployeeFromSession))
+            _model = JsonConvert.DeserializeObject<AdminModel>(serializedEmployeeFromSession)!;
+           
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, "#");
+            ViewData["Verified"] = _model.verifyContents;
+            ViewData["Users"] = _model.accounts;
             return View(nameof(Index));
         }
     }
