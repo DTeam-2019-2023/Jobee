@@ -622,6 +622,9 @@ namespace Jobee.Controllers
                 if (result == (int)HttpStatusCode.OK)
                     return RedirectToAction(nameof(Index));
             }
+            string serializedEmployeeFromSession = HttpContext.Session.GetString(nameof(_model))!;
+            if (!string.IsNullOrEmpty(serializedEmployeeFromSession))
+                _model = JsonConvert.DeserializeObject<UserCVModel>(serializedEmployeeFromSession)!;
             ModelState.AddModelError("UpdateProfile", "not valid");
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
             ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);

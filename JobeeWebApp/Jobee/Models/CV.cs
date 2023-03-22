@@ -11,7 +11,7 @@
         public string DesiredWorkLocation { get; set; }
         public string WorkingForm { get; set; }
         public string CarrerObjiect { get; set; }
-        public string SoftSkill { get; set; }
+        public string? SoftSkill { get; set; }
         public string Avatar { get; set; }
 
         public CV()
