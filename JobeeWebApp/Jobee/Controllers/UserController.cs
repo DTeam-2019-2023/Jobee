@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Reflection;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using static Jobee.Controllers.AdminController;
 
 namespace Jobee.Controllers
 {
@@ -188,6 +189,7 @@ namespace Jobee.Controllers
             ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
             ViewData["WorkExperiences"] = getListItem("Work Experience", WorkExperiences, _model.general?.WorkExperience);
             ViewData["WorkingForms"] = getListItem("Working Form", WorkingForms, _model.general?.WorkingForm);
+            HttpContext.Session.SetString(nameof(_model), JsonConvert.SerializeObject(_model));
             return View(_model);
         }
         private List<SelectListItem> getListItem(string Title, List<string> data, string? selected)
@@ -590,6 +592,9 @@ namespace Jobee.Controllers
                 if (result == (int)HttpStatusCode.OK)
                     return RedirectToAction(nameof(Index));
             }
+            string serializedEmployeeFromSession = HttpContext.Session.GetString(nameof(_model))!;
+            if (!string.IsNullOrEmpty(serializedEmployeeFromSession))
+                _model = JsonConvert.DeserializeObject<UserCVModel>(serializedEmployeeFromSession)!;
             ViewData["DesiredWorkLocations"] = getListItem("Desired Work Location", DesiredWorkLocations, _model.general?.DesiredWorkLocation);
             ViewData["Degrees"] = getListItem("Degree", Degrees, _model.general?.Degree);
             ViewData["CurrentJobs"] = getListItem("Current Job", CurrentJobs, _model.general?.CurrentJob);
