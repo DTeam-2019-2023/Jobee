@@ -34,7 +34,7 @@ namespace Jobee_API.Controllers
 
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> signupAccountAdmin([FromBody] Admin admin)
+        public async Task<IActionResult> signupAccountAdmin([Bind("Username, Password, rePassword, Firstname, Lastname, dob, Gender, Address, PhoneNumber, email, DetailAddress")] Admin admin)
         {
             string userid = Guid.NewGuid().ToString();
             string proid = Guid.NewGuid().ToString();
@@ -63,9 +63,9 @@ namespace Jobee_API.Controllers
                 DoB = admin.dob,
                 PhoneNumber = admin.PhoneNumber,
                 Address = admin.Address,
-                SocialNetwork = admin.SocialNetwork,
                 DetailAddress = admin.DetailAddress,
-                Email = admin.email
+                Email = admin.email,
+                SocialNetwork = string.Empty
             };
             _dbContext.TbProfiles.Add(profile);
             _dbContext.SaveChanges();

@@ -71,7 +71,7 @@ namespace Jobee
             var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
             return (int) respone.StatusCode;
         }
-        public static async Task<bool> SignupAdminAsync(SignupAdminModel model, string signupUri)
+        public static async Task<int> SignupAdminAsync(SignupAdminModel model, string signupUri)
         {
             var client = new HttpClient();
             var contentType = new MediaTypeWithQualityHeaderValue("application/json");
@@ -79,7 +79,7 @@ namespace Jobee
 
             //đang lỗi ở đây
             var respone = await client.PostAsJsonAsync(requestUri: signupUri, model);
-            return respone.IsSuccessStatusCode;
+            return (int)respone.StatusCode;
         }
         public async Task<bool> LogoutAsync()
         {

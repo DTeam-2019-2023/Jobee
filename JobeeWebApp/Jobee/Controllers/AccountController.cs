@@ -126,7 +126,7 @@ namespace Jobee.Controllers
 
         }
 
-        
+
         //[BindProperty]
         //public SignupModel signupModel { get; set; } = default!;
         public IActionResult Signup()
@@ -167,33 +167,32 @@ namespace Jobee.Controllers
             public string rePassword { get; set; }
             public string Firstname { get; set; }
             public string Lastname { get; set; }
+            [DataType(DataType.Date)]
             public DateTime dob { get; set; }
             public bool Gender { get; set; }
             public string Address { get; set; }
             public string PhoneNumber { get; set; }
             public string email { get; set; }
             public string DetailAddress { get; set; }
-
         }
 
         public IActionResult SignupAdmin()
         {
             return View();
         }
-        [HttpPost("/Account/SignupAdmin")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SignupAdminForm([Bind("Username, Password, rePassword, Firstname,Lastname, dob, Gender, Address, PhoneNumber, email, DetailAddress ")] SignupAdminModel signupModel)
-        {
-            //bước này ok hết
-            if (ModelState.IsValid)
-            {
-                if (await Fetcher.SignupAdminAsync(signupModel, "https://localhost:7063/api/Admin/signup"))
-                    return RedirectToAction("Index", "Admin");
-            }
-            return RedirectToAction("Index", "Admin");
+        //[HttpPost("/Account/SignupAdmin")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> SignupAdminForm([Bind("Username, Password, rePassword, Firstname,Lastname, dob, Gender, Address, PhoneNumber, email, DetailAddress ")] SignupAdminModel signupModel)
+        //{
+        //    //bước này ok hết
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (await Fetcher.SignupAdminAsync(signupModel, "https://localhost:7063/api/Admin/signup"))
+        //            return RedirectToAction("Index", "Admin");
+        //    }
+        //    return RedirectToAction("Index", "Admin");
 
-
-        }
+        //}
 
         public class ForgetPasswordModel
         {
@@ -257,16 +256,16 @@ namespace Jobee.Controllers
                     context = HttpContext,
                     root = "https://localhost:7063/api"
                 });
-               
-                    User output;
-                    User value = new User
-                    {
-                        username = User.Identity.Name,
-                        password = model.newPassword
-                    };
-                    var result = fetcher.Update(out output, new { username = value.username, password = value.password, oldpassword = model.oldPassword});
-                    if (result == (int)HttpStatusCode.OK)
-                        return RedirectToAction(nameof(Login));
+
+                User output;
+                User value = new User
+                {
+                    username = User.Identity.Name,
+                    password = model.newPassword
+                };
+                var result = fetcher.Update(out output, new { username = value.username, password = value.password, oldpassword = model.oldPassword });
+                if (result == (int)HttpStatusCode.OK)
+                    return RedirectToAction(nameof(Login));
                 if (result == (int)HttpStatusCode.BadRequest)
                     ModelState.AddModelError(nameof(model.oldPassword), "Old password wrong");
             }
@@ -374,23 +373,24 @@ namespace Jobee.Controllers
             return View();
         }
 
-        [HttpPost,ActionName(nameof(EntryNewEmail))]
+        [HttpPost, ActionName(nameof(EntryNewEmail))]
         public IActionResult EntryNewEmailForm([Bind("email")] EntryNewEmailModel model)
         {
             if (ModelState.IsValid)
             {
                 bool isSuccess = false;
 
-                Fetcher.Custom(async client => {
+                Fetcher.Custom(async client =>
+                {
                     var token = HttpContext.Request.Cookies["jwt"];
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                    var res =  client.PutAsJsonAsync(requestUri: "https://localhost:7063/api/Users/ChangeEmail", model.email).Result;
+                    var res = client.PutAsJsonAsync(requestUri: "https://localhost:7063/api/Users/ChangeEmail", model.email).Result;
                     //var res = await client.PutAsJsonAsync(requestUri: "https://webhook.site/baddabf1-4787-4d13-8676-af52e8827e98", new { Email = model.email });
 
                     isSuccess = res.IsSuccessStatusCode;
                 });
-                if(isSuccess)
+                if (isSuccess)
                     return RedirectToAction(nameof(Login));
             }
             return View(nameof(EntryNewEmail));
