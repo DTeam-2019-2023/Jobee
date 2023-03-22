@@ -230,6 +230,15 @@ namespace Jobee.Controllers
 
         public IActionResult AddActivity([Bind("Name, Role, StartDate, EndDate, Description")] model_Activity model)
         {
+            //if (ModelState.IsValid)
+            //{
+            //    Activity tbac;
+            //    var result = fetcher.Create(out tbac, model);
+            //    if (result)
+            //        return RedirectToAction(nameof(Index));
+            //}
+            //return RedirectToAction(nameof(Index));
+
             if (ModelState.IsValid)
             {
                 Activity tbac;
@@ -237,7 +246,9 @@ namespace Jobee.Controllers
                 if (result)
                     return RedirectToAction(nameof(Index));
             }
-            return RedirectToAction(nameof(Index));
+            serializedUserModelCV();
+            ModelState.AddModelError("addActivity", "invalid");
+            return View(nameof(Index), _model);
         }
 
         public IActionResult AddProject([Bind("Name, TeamSize, Role, Technology, StartDate, EndDate, Description")] model_Project model)
